@@ -81,7 +81,7 @@ The hard part is not the tools but *"how do I use this for my course?"* — so w
 <div class="prof-col">
 <h4><i class="fa-solid fa-graduation-cap"></i> 학력</h4>
 <ul>
-<li>경기대학교 일반대학원 직업학과 박사과정 수료 (2024)</li>
+<li>경기대학교 일반대학원 직업학과 박사과정 수료 (2019)</li>
 <li>가천대학교 경영대학원 고용·직업상담학 석사 (2014)</li>
 <li>국제문화대학원대학교 교육학 석사 — 학습코칭 (2012)</li>
 <li>부산외국어대학교 컴퓨터공학 공학사 (1994)</li>
@@ -126,7 +126,7 @@ The hard part is not the tools but *"how do I use this for my course?"* — so w
 
 ### Education & Certifications
 
-- **Education**: Ph.D coursework, Vocational Studies (Kyonggi, 2024) · M.A. (Gachon) · M.A. Education · B.E. (Busan Univ. of Foreign Studies)
+- **Education**: Ph.D coursework, Vocational Studies (Kyonggi, 2019) · M.A. (Gachon) · M.A. Education · B.E. (Busan Univ. of Foreign Studies)
 - **Certifications**: Korean Language Instructor Lv.2 · Social Worker Lv.2 · Lifelong Education Instructor Lv.2 · Vocational Training Instructor Lv.3 · Work-Net Vocational Psychology Expert · SUNY Korea Futures Master
 
 <div class="ins-philosophy"><div class="ins-philosophy-eyebrow">PUBLICATION</div><div class="ins-philosophy-quote">"The Future of Thinking" (Knowledge Nomad, 2016)</div><div class="ins-philosophy-body">Predicts changes in future society and the evolution of careers, presenting the thinking skills and competencies needed for the new era.</div></div>`,
