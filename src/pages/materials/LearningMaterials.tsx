@@ -1,12 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import CodeBlock from '../../components/CodeBlock';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import { MATERIAL_CATEGORIES, MATERIALS } from '../../data/materials';
 import type { ReactElement } from 'react';
+
+const mdComponents = {
+  code({ inline, className, children, ...props }: any) {
+    const match = /language-(\w+)/.exec(className || '');
+    if (!inline && match) return <CodeBlock code={String(children).replace(/\n$/, '')} language={match[1]} />;
+    if (!inline && !match && String(children).includes('\n')) return <CodeBlock code={String(children).replace(/\n$/, '')} language="" />;
+    return <code className="inline-code" {...props}>{children}</code>;
+  },
+};
 
 export default function LearningMaterials(): ReactElement {
   const { category: routeCategory } = useParams<{ category: string }>();
@@ -142,7 +152,7 @@ export default function LearningMaterials(): ReactElement {
                   <h2>{isKo ? selectedItem.nameKo : selectedItem.nameEn}</h2>
                   <span className="material-type">{selectedItem.type}</span>
                   <div className="markdown-body">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={mdComponents as any}>
                       {isKo ? selectedItem.contentKo : selectedItem.contentEn}
                     </ReactMarkdown>
                   </div>

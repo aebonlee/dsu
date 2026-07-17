@@ -9,8 +9,18 @@ import { getProgramById, PROGRAMS } from '../../data/courses';
 import { MATERIALS } from '../../data/materials';
 import { getHandsOn } from '../../data/handsOn';
 import PromptBlock from '../../components/PromptBlock';
+import CodeBlock from '../../components/CodeBlock';
 import { renderInline } from '../../utils/inlineMd';
 import type { ReactElement } from 'react';
+
+const mdComponents = {
+  code({ inline, className, children, ...props }: any) {
+    const match = /language-(\w+)/.exec(className || '');
+    if (!inline && match) return <CodeBlock code={String(children).replace(/\n$/, '')} language={match[1]} />;
+    if (!inline && !match && String(children).includes('\n')) return <CodeBlock code={String(children).replace(/\n$/, '')} language="" />;
+    return <code className="inline-code" {...props}>{children}</code>;
+  },
+};
 
 export default function CourseCategory(): ReactElement {
   const { category } = useParams<{ category: string }>();
@@ -257,7 +267,7 @@ export default function CourseCategory(): ReactElement {
               </div>
               <h2 className="material-inline-title">{language === 'ko' ? selectedMat.nameKo : selectedMat.nameEn}</h2>
               <div className="markdown-body">
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={mdComponents as any}>
                   {language === 'ko' ? selectedMat.contentKo : selectedMat.contentEn}
                 </ReactMarkdown>
               </div>
