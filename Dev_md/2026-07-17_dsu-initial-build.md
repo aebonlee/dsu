@@ -63,3 +63,10 @@
 - [ ] DNS: dsu.dreamitbiz.com CNAME → aebonlee.github.io 확인 (기존 서브도메인 패턴과 동일)
 - [ ] GitHub Pages build_type이 legacy면 gh-pages 브랜치 + 커스텀 도메인으로 설정 확인
 - [ ] VOD 영상 링크(타 강사 녹화영상) 수령 시 vod 과정에 임베드 예정
+
+## 6. 배포 후 빈 페이지 사건 (해결)
+
+- 증상: dsu.dreamitbiz.com 접속 시 빈 페이지.
+- 원인: Pages 소스를 main(legacy)→gh-pages로 전환했지만, **전환 전 main 빌드가 계속 서빙**됨. HTML이 `/src/main.tsx`(소스)를 참조해 JS 로드 실패.
+- 조치: `gh api -X POST repos/aebonlee/dsu/pages/builds`로 재빌드 트리거 → `/assets/index-*.js` 정상 서빙 확인.
+- 교훈: **Pages 소스 브랜치를 전환한 뒤에는 반드시 builds POST(또는 gh-pages 재푸시)로 재빌드를 트리거하고, 서빙 HTML이 dist본인지(`/assets/` 참조) 확인할 것.**
