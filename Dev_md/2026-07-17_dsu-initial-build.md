@@ -180,3 +180,5 @@
 - 학습자료 마크다운 코드상자에 CodeBlock(복사 버튼) 연결 (CourseCategory·LearningMaterials)
 - 상단 메뉴 컬러 롤백: 검정 폰트 통일(대표 피드백 — 페이지별 컬러 테마는 유지)
 - CodeBlock 복사 버튼 문구 Copy→복사, Copied!→복사됨! 통일
+
+- DB 점검: dsu-schema 10개 테이블 생성 확인(REST 200). subscription-schema.sql이 mju_ 접두사 그대로였던 변환 누락 발견 → dsu_로 수정 커밋(재실행 필요). dsu_courses는 코드 미사용으로 불필요
