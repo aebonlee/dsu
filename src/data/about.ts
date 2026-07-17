@@ -61,7 +61,7 @@ The hard part is not the tools but *"how do I use this for my course?"* — so w
 <div class="prof-title">직업미래연구소 소장 · 동아방송예술대학교 겸임교수</div>
 <p class="prof-intro">미래사회와 직업세계를 연구하며, 청년·성인·베이비부머 퇴직자까지 모든 세대의 커리어 경력설계와 전직지원을 돕고 있습니다. IT 분야 20년 경력을 바탕으로 교육정보화와 커리어 컨설팅을 융합한 실전형 전문가입니다.</p>
 <p class="prof-intro">워크넷 직업심리전문가로 활동하며, 미래예측기법을 활용한 진로지도·AI 리터러시 교육·창업 컨설팅까지 연구와 현장을 잇는 교육을 실천하고 있습니다.</p>
-<a class="prof-link" href="https://jdy.dreamitbiz.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전문 역량·프로그램 자세히 보기 — 직업미래연구소 jdy.dreamitbiz.com</a>
+<a class="prof-link" href="http://miraejob.co.kr/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전문 역량·프로그램 자세히 보기 — 직업미래연구소 miraejob.co.kr</a>
 </div>
 </div>
 
