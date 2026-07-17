@@ -1043,3 +1043,92 @@
   color: var(--text-primary);
 }
 .lab-result i { color: var(--accent-dark); margin-right: 7px; }
+
+
+/* ── 실습 프롬프트 복사 버튼 ── */
+.prompt-block {
+  position: relative;
+}
+.prompt-block .practice-prompt { margin: 0; }
+.prompt-copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: var(--transition-base);
+  backdrop-filter: blur(4px);
+}
+.prompt-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+.prompt-copy-btn.copied {
+  background: #2f855a;
+  border-color: #2f855a;
+  color: #fff;
+}
+
+
+/* ── 인라인 형광펜·볼드 + 세션 배지 ── */
+mark.hl-pen {
+  background: linear-gradient(180deg, transparent 42%, rgba(255, 224, 70, 0.75) 42%);
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+[data-theme="dark"] mark.hl-pen {
+  background: linear-gradient(180deg, transparent 42%, rgba(255, 200, 40, 0.35) 42%);
+}
+.session-topic strong { color: var(--primary-blue); font-weight: 700; }
+[data-theme="dark"] .session-topic strong { color: var(--primary-blue-light); }
+.session-topic.output {
+  background: var(--accent-soft);
+  border: 1px dashed var(--accent);
+  font-weight: 600;
+}
+
+.session-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.session-title-row .session-title { margin-bottom: 0; }
+.session-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.session-diff {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+.session-diff.diff-입문 { background: #E8F5E9; color: #2E7D32; }
+.session-diff.diff-기초 { background: #E3F2FD; color: #1565C0; }
+.session-diff.diff-보통 { background: #FFF3E0; color: #E65100; }
+.session-diff.diff-도전 { background: #FCE4EC; color: #C2185B; }
+[data-theme="dark"] .session-diff.diff-입문 { background: rgba(46,125,50,.25); color: #A5D6A7; }
+[data-theme="dark"] .session-diff.diff-기초 { background: rgba(21,101,192,.25); color: #90CAF9; }
+[data-theme="dark"] .session-diff.diff-보통 { background: rgba(230,81,0,.25); color: #FFCC80; }
+[data-theme="dark"] .session-diff.diff-도전 { background: rgba(194,24,91,.25); color: #F48FB1; }
+.session-imp {
+  font-size: 13px;
+  color: #F59E0B;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}

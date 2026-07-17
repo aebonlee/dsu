@@ -8,6 +8,8 @@ import SEOHead from '../../components/SEOHead';
 import { getProgramById, PROGRAMS } from '../../data/courses';
 import { MATERIALS } from '../../data/materials';
 import { getHandsOn } from '../../data/handsOn';
+import PromptBlock from '../../components/PromptBlock';
+import { renderInline } from '../../utils/inlineMd';
 import type { ReactElement } from 'react';
 
 export default function CourseCategory(): ReactElement {
@@ -204,7 +206,7 @@ export default function CourseCategory(): ReactElement {
                       <span><i className="fa-solid fa-signal" /> {lab.level}</span>
                       <span><i className="fa-regular fa-clock" /> {lab.minutes}</span>
                     </div>
-                    <p className="lab-scenario">{lab.scenario}</p>
+                    <p className="lab-scenario">{renderInline(lab.scenario)}</p>
                   </div>
                   <ol className="lab-steps">
                     {lab.steps.map((s, si) => (
@@ -212,9 +214,9 @@ export default function CourseCategory(): ReactElement {
                         <span className="lab-step-num" style={{ background: program.color }}>{si + 1}</span>
                         <div className="lab-step-body">
                           <div className="lab-step-title">{s.title}</div>
-                          <p className="lab-step-detail">{s.detail}</p>
-                          {s.prompt && <pre className="practice-prompt"><code>{s.prompt}</code></pre>}
-                          {s.check && <div className="lab-step-check"><i className="fa-solid fa-circle-check" /> {s.check}</div>}
+                          <p className="lab-step-detail">{renderInline(s.detail)}</p>
+                          {s.prompt && <PromptBlock prompt={s.prompt} />}
+                          {s.check && <div className="lab-step-check"><i className="fa-solid fa-circle-check" /> {renderInline(s.check)}</div>}
                         </div>
                       </li>
                     ))}
@@ -258,12 +260,24 @@ export default function CourseCategory(): ReactElement {
                       <span className="session-clock">{session.time}</span>
                     </div>
                     <div className="session-body">
-                      <h3 className="session-title">{session.title}</h3>
-                      <p className="session-goal"><i className="fa-solid fa-bullseye" /> {session.goal}</p>
+                      <div className="session-title-row">
+                        <h3 className="session-title">{session.title}</h3>
+                        <span className="session-badges">
+                          {session.difficulty && (
+                            <span className={`session-diff diff-${session.difficulty}`}>{session.difficulty}</span>
+                          )}
+                          {session.importance && (
+                            <span className="session-imp" title={`중요도 ${session.importance}/3`}>
+                              {'★'.repeat(session.importance)}{'☆'.repeat(3 - session.importance)}
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                      <p className="session-goal"><i className="fa-solid fa-bullseye" /> {renderInline(session.goal)}</p>
 
                       <div className="session-topics">
                         {session.topics.map((topic) => (
-                          <span key={topic} className="session-topic">{topic}</span>
+                          <span key={topic} className={`session-topic${topic.startsWith('📦') ? ' output' : ''}`}>{renderInline(topic)}</span>
                         ))}
                       </div>
 
@@ -277,7 +291,7 @@ export default function CourseCategory(): ReactElement {
                               <span className="practice-num" style={{ background: program.color }}>{pi + 1}</span>
                               {pc.scenario}
                             </div>
-                            <pre className="practice-prompt"><code>{pc.prompt}</code></pre>
+                            <PromptBlock prompt={pc.prompt} />
                           </div>
                         ))}
                       </div>
