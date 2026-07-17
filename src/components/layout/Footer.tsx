@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import site from '../../config/site';
-import type { ReactElement, ChangeEvent } from 'react';
+import type { ReactElement } from 'react';
 
 const Footer = (): ReactElement => {
   const { t } = useLanguage();
@@ -34,24 +34,11 @@ const Footer = (): ReactElement => {
           <div className="footer-contact">
             <h4>{t('footer.contact')}</h4>
             <p><strong>{site.company.name}</strong> · 대표 {site.company.ceo}</p>
-            <p>{site.company.email}</p>
-            <p>{site.company.phone}</p>
+            <p><i className="fa-solid fa-envelope" /> {site.company.email}</p>
+            <p><i className="fa-solid fa-phone" /> {site.company.phone}</p>
+            <p><i className="fa-solid fa-comment" /> 카카오톡 ID: {site.company.kakao}</p>
+            <p><i className="fa-regular fa-clock" /> {site.company.businessHours}</p>
 
-            <div className="footer-family">
-              <select
-                defaultValue=""
-                onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                  if (e.target.value) window.open(e.target.value, '_blank');
-                  e.target.value = '';
-                }}
-              >
-                <option value="" disabled>Family Site</option>
-                <option value={site.parentSite.url}>{site.parentSite.name} (본사이트)</option>
-                {site.familySites.map((s, i) => (
-                  <option key={i} value={s.url}>{s.name}</option>
-                ))}
-              </select>
-            </div>
           </div>
         </div>
         <div className="footer-bottom">

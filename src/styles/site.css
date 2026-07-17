@@ -1050,16 +1050,13 @@ html[data-color="vibe"] {
   position: relative;
   min-height: 440px;
   height: 100%;
-  background: var(--hero-bg);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 22px;
-  padding: 48px 32px;
-  overflow: hidden;
+  gap: 26px;
+  padding: 24px 0;
+  overflow: visible;
 }
 .hero-visual-net {
   position: absolute;
@@ -1071,20 +1068,21 @@ html[data-color="vibe"] {
 .hero-visual-logo {
   position: relative;
   z-index: 1;
-  width: 84%;
-  max-width: 380px;
-  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.35));
+  width: 62%;
+  max-width: 320px;
+  filter: drop-shadow(0 6px 20px rgba(0, 84, 166, 0.18));
 }
 .hero-visual-caption {
   position: relative;
   z-index: 1;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--text-secondary);
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 3px;
   white-space: nowrap;
 }
-.hero-visual-caption .x { color: #64B5F6; margin: 0 4px; }
+.hero-visual-caption .x { color: var(--accent); margin: 0 4px; }
+[data-theme="dark"] .hero-visual-caption { color: rgba(255,255,255,0.7); }
 .net-node { animation: netPulse 3.2s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
 .net-node.n2 { animation-delay: .4s; } .net-node.n3 { animation-delay: .8s; }
 .net-node.n4 { animation-delay: 1.2s; } .net-node.n5 { animation-delay: .2s; }

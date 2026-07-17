@@ -52,7 +52,8 @@ The hard part is not the tools but *"how do I use this for my course?"* — so w
     {
       title: '정동엽 강사',
       titleEn: 'Instructor: Dongyeop Jeong',
-      content: `<div class="instructor-hero">
+      content: `<div class="jdy-theme">
+<div class="instructor-hero">
 <div class="instructor-hero-label">직업미래연구소 · MIRAEJOB</div>
 <img src="/images/jdy.jpg" alt="정동엽 박사 프로필" class="instructor-hero-photo" />
 <div class="instructor-hero-name">정동엽</div>
@@ -102,7 +103,8 @@ IT 분야 20년 경력 보유자로 교학사·삼보컴퓨터 등에서 학사�
 
 <div class="ins-philosophy"><div class="ins-philosophy-eyebrow">PUBLICATION · 저서</div><div class="ins-philosophy-quote">『생각의 미래』 (지식노마드, 2016)</div><div class="ins-philosophy-body">미래 사회의 변화와 직업의 진화를 예측하며, 새로운 시대에 필요한 사고력과 역량을 제시합니다. 이 외 『강서구 사회적 경제』(고등) 집필 참여.</div></div>
 
-<p class="ins-contact"><strong>직업미래연구소</strong> — <a href="https://jdy.dreamitbiz.com" target="_blank" rel="noopener noreferrer">jdy.dreamitbiz.com</a></p>`,
+<p class="ins-contact"><strong>직업미래연구소</strong> — <a href="https://jdy.dreamitbiz.com" target="_blank" rel="noopener noreferrer">jdy.dreamitbiz.com</a></p>
+</div>`,
       contentEn: `<div class="instructor-hero">
 <div class="instructor-hero-label">Dr. Dongyeop Jeong Profile</div>
 <img src="/images/jdy.jpg" alt="Dr. Dongyeop Jeong Profile" class="instructor-hero-photo" />

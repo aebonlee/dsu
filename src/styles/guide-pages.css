@@ -1040,3 +1040,85 @@
 
 
     .ins-period { flex-basis: 70px; }
+
+
+/* ── jdy(직업미래연구소) 디자인 테마 — 정동엽 강사 섹션 ──
+   레퍼런스: jdy.dreamitbiz.com (다크 네이비 히어로 + 시안 포인트) */
+.jdy-theme .instructor-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 70%, #1a56db 100%);
+    border: none;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.jdy-theme .instructor-hero::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,182,212,0.25), transparent 70%);
+}
+.jdy-theme .instructor-hero-label {
+    background: rgba(6, 182, 212, 0.15);
+    color: #22d3ee;
+    border: 1px solid rgba(34, 211, 238, 0.35);
+}
+.jdy-theme .instructor-hero-name { color: #f8fafc; }
+.jdy-theme .instructor-hero-title { color: #22d3ee; }
+.jdy-theme .instructor-hero-quote {
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid #06b6d4;
+}
+.jdy-theme .instructor-stat-number { color: #22d3ee; }
+.jdy-theme .instructor-stat-label { color: #94a3b8; }
+.jdy-theme .instructor-hero-photo { border: 3px solid rgba(34, 211, 238, 0.5); }
+
+.jdy-theme h3 {
+    position: relative;
+    padding-left: 14px;
+}
+.jdy-theme h3::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px;
+    width: 4px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #1a56db, #06b6d4);
+}
+
+.jdy-theme .ins-card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.jdy-theme .ins-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(15, 23, 42, 0.35); }
+.jdy-theme .ins-card i { color: #22d3ee; }
+.jdy-theme .ins-card-title { color: #f8fafc; }
+.jdy-theme .ins-card-desc { color: #94a3b8; }
+
+.jdy-theme .ins-career-row { border-bottom: 1px solid var(--border-light); }
+.jdy-theme .ins-period {
+    background: #e8f7fb;
+    color: #0e7490;
+    border-radius: 999px;
+    text-align: center;
+    font-weight: 800;
+    padding: 3px 0;
+}
+.jdy-theme .ins-career-row:nth-child(n+5) .ins-period {
+    background: var(--bg-medium-gray);
+    color: var(--text-light);
+}
+.jdy-theme .ins-role { color: var(--text-primary); }
+
+.jdy-theme .ins-philosophy {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    border-radius: 16px;
+}
+.jdy-theme .ins-philosophy-eyebrow { color: #22d3ee; }
+
+[data-theme="dark"] .jdy-theme .ins-career-row { border-bottom-color: #2A3450; }
+[data-theme="dark"] .jdy-theme .ins-period { background: rgba(6,182,212,0.18); color: #22d3ee; }
