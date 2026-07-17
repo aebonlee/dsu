@@ -1123,6 +1123,7 @@
     color: var(--text-light);
 }
 .pc-badge.now { background: var(--accent-soft); color: var(--primary-blue); }
+.pc-role { font-weight: 700; color: var(--primary-blue); }
 
 .prof-two-col {
     display: grid;

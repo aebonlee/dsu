@@ -68,13 +68,13 @@ The hard part is not the tools but *"how do I use this for my course?"* — so w
 <h3>주요 경력</h3>
 
 <ul class="prof-career">
-<li><span class="pc-badge now">現</span>동아방송예술대학교 겸임교수 : 창의융합교양학부 — 문화예술콘텐츠 창업실무, NCS직업기초 (2026)</li>
-<li><span class="pc-badge now">現</span>직업미래연구소 소장 : 미래사회·직업세계 연구, 커리어 경력설계·전직지원 전문기관 운영</li>
-<li><span class="pc-badge now">現</span>아시아미래인재연구소 실장 · 아시아퓨처스그룹협동조합 사무국장 : 미래인재 육성, 미래학 기반 협동조합 운영</li>
-<li><span class="pc-badge now">現</span>워크넷 직업심리전문가 : 청소년 분야 온라인 상담원</li>
-<li><span class="pc-badge">前</span>한국뉴욕주립대학교 Futures Master & Futures Coach : 미래학 기반 전략컨설팅·코칭</li>
-<li><span class="pc-badge">前</span>서울시 산업진흥원 : 신직업 자문위원(4차산업) · IT 플랫폼 컨설턴트 · 창업닥터·창업전문위원</li>
-<li><span class="pc-badge">前</span>IT 분야 20년 (교학사·삼보컴퓨터 등) : 학사정보시스템·이러닝시스템 구축 설계, 교육정보화 기술영업</li>
+<li><span class="pc-badge now">現</span><span class="pc-role">동아방송예술대학교 겸임교수</span> : 창의융합교양학부 — 문화예술콘텐츠 창업실무, NCS직업기초 (2026)</li>
+<li><span class="pc-badge now">現</span><span class="pc-role">직업미래연구소 소장</span> : 미래사회·직업세계 연구, 커리어 경력설계·전직지원 전문기관 운영</li>
+<li><span class="pc-badge now">現</span><span class="pc-role">아시아미래인재연구소 실장 · 아시아퓨처스그룹협동조합 사무국장</span> : 미래인재 육성, 미래학 기반 협동조합 운영</li>
+<li><span class="pc-badge now">現</span><span class="pc-role">워크넷 직업심리전문가</span> : 청소년 분야 온라인 상담원</li>
+<li><span class="pc-badge">前</span><span class="pc-role">한국뉴욕주립대학교 Futures Master & Futures Coach</span> : 미래학 기반 전략컨설팅·코칭</li>
+<li><span class="pc-badge">前</span><span class="pc-role">서울시 산업진흥원</span> : 신직업 자문위원(4차산업) · IT 플랫폼 컨설턴트 · 창업닥터·창업전문위원</li>
+<li><span class="pc-badge">前</span><span class="pc-role">IT 분야 20년 (교학사·삼보컴퓨터 등)</span> : 학사정보시스템·이러닝시스템 구축 설계, 교육정보화 기술영업</li>
 </ul>
 
 <div class="prof-two-col">
