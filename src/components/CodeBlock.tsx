@@ -129,7 +129,7 @@ export default function CodeBlock({ code, language = '' }: { code: string; langu
         <span className="code-block-lang">{language}</span>
         <button className={`code-copy-btn ${copied ? 'copied' : ''}`} onClick={handleCopy}>
           <i className={`fa-solid ${copied ? 'fa-check' : 'fa-copy'}`} />
-          {copied ? 'Copied!' : 'Copy'}
+          {copied ? '복사됨!' : '복사'}
         </button>
       </div>
       <div className="code-block-content">

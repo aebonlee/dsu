@@ -179,3 +179,4 @@
 
 - 학습자료 마크다운 코드상자에 CodeBlock(복사 버튼) 연결 (CourseCategory·LearningMaterials)
 - 상단 메뉴 컬러 롤백: 검정 폰트 통일(대표 피드백 — 페이지별 컬러 테마는 유지)
+- CodeBlock 복사 버튼 문구 Copy→복사, Copied!→복사됨! 통일
