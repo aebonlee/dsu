@@ -34,6 +34,24 @@ export default function CourseCategory(): ReactElement {
   }
 
   const totalSessions = program.curriculum.reduce((s, d) => s + d.sessions.length, 0);
+
+  // 페이지(과정) 컬러를 CSS 변수로 주입 — 버튼·아이콘·활성 표시·띠줄까지 페이지 컬러로 통일
+  const SHADE: Record<string, string> = {
+    '#0054A6': '#003B75',
+    '#1E88E5': '#1565C0',
+    '#009B77': '#00775B',
+    '#8E2F6F': '#6E2456',
+  };
+  const dark = SHADE[program.color] || program.color;
+  const themeVars = {
+    '--primary-blue': program.color,
+    '--primary-blue-dark': dark,
+    '--accent': program.color,
+    '--accent-dark': dark,
+    '--accent-light': `${program.color}CC`,
+    '--accent-soft': `${program.color}1F`,
+    '--primary-light': `${program.color}12`,
+  } as React.CSSProperties;
   const materials = MATERIALS.filter((m) => m.categoryId === program.id);
   const labs = getHandsOn(program.id);
   const selectedMat = selectedMatId ? materials.find((m) => m.id === selectedMatId) : null;
@@ -42,7 +60,7 @@ export default function CourseCategory(): ReactElement {
   const showCurriculum = () => { setSelectedMatId(null); setShowLab(false); window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
   return (
-    <>
+    <div style={themeVars}>
       <SEOHead
         title={language === 'ko' ? program.nameKo : program.nameEn}
         path={`/courses/${category}`}
@@ -319,6 +337,6 @@ export default function CourseCategory(): ReactElement {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
