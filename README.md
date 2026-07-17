@@ -5,5 +5,15 @@ Claude 중심 생성형 AI 교수 활용 12시간 — 공통 VOD 4모듈(8H, 사
 
 - 사이트: https://dsu.dreamitbiz.com
 - 스택: React 19 · Vite 7 · TypeScript · Supabase (dsu_ 접두사)
-- 배포: gh-pages 수동 배포 (`npm run deploy`), 커스텀 도메인 → vite base '/'
+- 배포: gh-pages 수동 배포 (`npm run deploy`), 커스텀 도메인 → vite base '/', Pages 소스=gh-pages 브랜치
 - 베이스: mju(명지대 교수자 연수) 프로젝트
+
+## 구성
+- **About** — 개발 취지 + 정동엽 강사 소개
+- **공통 VOD** (4모듈·17차시) — LLM 원리 / 프롬프트 엔지니어링 / 학습자료 제작 / 평가·품질관리 & AI 윤리
+- **Day1~3** (각 4교시) — 수업 목표 구조화 / 서술·비판형 평가 설계 / 교수 프로토콜 & 바이브코딩 (+패들릿 버튼)
+- **프롬프트 학습·평가** — 가이드 4종 + SCORE 자동채점 + 250점 종합실습
+- 실습 프롬프트 102개: 전부 [역할]·[맥락]·[요청]·[형식]·[예시]·[조건] 정석 구조 + 복사 버튼
+
+## 개발일지
+`Dev_md/2026-07-17_dsu-initial-build.md` — 구축·사고·보완 전 과정 기록
