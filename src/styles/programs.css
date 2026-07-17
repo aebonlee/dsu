@@ -82,11 +82,9 @@
 
 /* Hero side panel — 단색 명지대 다크 블루 박스(라이트/다크 동일) */
 .hero-ed-side {
-  background: #1A2A5E;
-  color: #fff;
-  padding: 30px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  /* 무배경 — 히어로 우측은 로고 비주얼만 (mju 다크 카드 스타일 제거) */
+  background: none;
+  padding: 0;
 }
 .hero-ed-metrics {
   display: grid;
