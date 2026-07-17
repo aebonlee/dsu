@@ -52,58 +52,56 @@ The hard part is not the tools but *"how do I use this for my course?"* — so w
     {
       title: '정동엽 강사',
       titleEn: 'Instructor: Dongyeop Jeong',
-      content: `<div class="jdy-theme">
-<div class="instructor-hero">
-<div class="instructor-hero-label">직업미래연구소 · MIRAEJOB</div>
-<img src="/images/jdy.jpg" alt="정동엽 박사 프로필" class="instructor-hero-photo" />
-<div class="instructor-hero-name">정동엽</div>
-<div class="instructor-hero-title">직업학박사 · 직업미래연구소 소장 · 동아방송예술대학교 겸임교수</div>
-<div class="instructor-hero-quote">"미래사회와 직업세계, 당신의 커리어를 전략적으로 설계합니다." — 직업학 연구와 IT 20년 현장 경험을 결합하여, 청년부터 베이비부머까지 모든 세대의 커리어를 함께 준비합니다.</div>
-<div class="instructor-hero-stats">
-<div class="instructor-stat"><div class="instructor-stat-number">20<span style="font-size:16px">년+</span></div><div class="instructor-stat-label">IT 경력</div></div>
-<div class="instructor-stat"><div class="instructor-stat-number">4</div><div class="instructor-stat-label">학위</div></div>
-<div class="instructor-stat"><div class="instructor-stat-number">10<span style="font-size:16px">+</span></div><div class="instructor-stat-label">전문 자격</div></div>
-<div class="instructor-stat"><div class="instructor-stat-number">15<span style="font-size:16px">+</span></div><div class="instructor-stat-label">출강 기관</div></div>
+      content: `<div class="prof">
+
+<div class="prof-card">
+<img src="/images/jdy.jpg" alt="정동엽 박사" class="prof-photo" />
+<div class="prof-info">
+<div class="prof-name">정동엽 <span class="prof-degree">직업학박사</span></div>
+<div class="prof-title">직업미래연구소 소장 · 동아방송예술대학교 겸임교수</div>
+<p class="prof-intro">미래사회와 직업세계를 연구하며, 청년·성인·베이비부머 퇴직자까지 모든 세대의 커리어 경력설계와 전직지원을 돕고 있습니다. IT 분야 20년 경력을 바탕으로 교육정보화와 커리어 컨설팅을 융합한 실전형 전문가입니다.</p>
+<p class="prof-intro">워크넷 직업심리전문가로 활동하며, 미래예측기법을 활용한 진로지도·AI 리터러시 교육·창업 컨설팅까지 연구와 현장을 잇는 교육을 실천하고 있습니다.</p>
+<a class="prof-link" href="https://jdy.dreamitbiz.com" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> 전문 역량·프로그램 자세히 보기 — 직업미래연구소 jdy.dreamitbiz.com</a>
 </div>
 </div>
 
-정동엽 소장은 경기대학교 일반대학원 직업학과 박사과정 수료, 가천대학교 경영대학원 고용·직업상담학 석사, 국제문화대학원대학교 교육학 석사(학습코칭) 등 학문적 깊이를 갖추고, 워크넷 직업심리전문가로 활동하고 있습니다.
+<h3>주요 경력</h3>
 
-IT 분야 20년 경력 보유자로 교학사·삼보컴퓨터 등에서 학사정보시스템·이러닝시스템 구축 설계 등 교육정보화를 담당했으며, 현재는 커리어 경력설계·전직지원·AI 리터러시 교육 분야의 전문 컨설턴트로 활동 중입니다.
+<ul class="prof-career">
+<li><span class="pc-badge now">現</span>동아방송예술대학교 겸임교수 : 창의융합교양학부 — 문화예술콘텐츠 창업실무, NCS직업기초 (2026)</li>
+<li><span class="pc-badge now">現</span>직업미래연구소 소장 : 미래사회·직업세계 연구, 커리어 경력설계·전직지원 전문기관 운영</li>
+<li><span class="pc-badge now">現</span>아시아미래인재연구소 실장 · 아시아퓨처스그룹협동조합 사무국장 : 미래인재 육성, 미래학 기반 협동조합 운영</li>
+<li><span class="pc-badge now">現</span>워크넷 직업심리전문가 : 청소년 분야 온라인 상담원</li>
+<li><span class="pc-badge">前</span>한국뉴욕주립대학교 Futures Master & Futures Coach : 미래학 기반 전략컨설팅·코칭</li>
+<li><span class="pc-badge">前</span>서울시 산업진흥원 : 신직업 자문위원(4차산업) · IT 플랫폼 컨설턴트 · 창업닥터·창업전문위원</li>
+<li><span class="pc-badge">前</span>IT 분야 20년 (교학사·삼보컴퓨터 등) : 학사정보시스템·이러닝시스템 구축 설계, 교육정보화 기술영업</li>
+</ul>
 
-### 6가지 전문 역량
+<div class="prof-two-col">
+<div class="prof-col">
+<h4><i class="fa-solid fa-graduation-cap"></i> 학력</h4>
+<ul>
+<li>경기대학교 일반대학원 직업학과 박사과정 수료 (2024)</li>
+<li>가천대학교 경영대학원 고용·직업상담학 석사 (2014)</li>
+<li>국제문화대학원대학교 교육학 석사 — 학습코칭 (2012)</li>
+<li>부산외국어대학교 컴퓨터공학 공학사 (1994)</li>
+</ul>
+</div>
+<div class="prof-col">
+<h4><i class="fa-solid fa-certificate"></i> 자격 & 전문 활동</h4>
+<ul>
+<li>한국어교원 2급 · 사회복지사 2급 · 평생교육사 2급</li>
+<li>직업훈련교사 3급 · 워크넷 직업심리전문가</li>
+<li>프레디저 전문강사 · 하프타임 강사(인생전환 설계)</li>
+<li>한국뉴욕주립대학교 Futures Master</li>
+</ul>
+</div>
+</div>
 
-<div class="ins-grid"><div class="ins-card"><i class="fa-solid fa-graduation-cap"></i><span class="ins-card-title">직업학 박사의 학술 전문성</span><span class="ins-card-desc">경기대 직업학 박사과정 수료 — 학문적 깊이와 현장 실무를 결합한 체계적 교육</span></div><div class="ins-card"><i class="fa-solid fa-magnifying-glass-chart"></i><span class="ins-card-title">미래학 기반 전략 컨설팅</span><span class="ins-card-desc">한국뉴욕주립대 Futures Master & Coach — 미래예측기법 활용 진로지도</span></div><div class="ins-card"><i class="fa-solid fa-users"></i><span class="ins-card-title">전 연령층 커리어 설계</span><span class="ins-card-desc">청소년부터 베이비부머 퇴직자까지 맞춤 경력설계·전직지원</span></div><div class="ins-card"><i class="fa-solid fa-laptop-code"></i><span class="ins-card-title">IT 20년 + 교육정보화</span><span class="ins-card-desc">학사정보시스템·이러닝시스템 구축 — 디지털 기반 커리어 교육</span></div><div class="ins-card"><i class="fa-solid fa-rocket"></i><span class="ins-card-title">창업·창직 전문 컨설팅</span><span class="ins-card-desc">서울시 산업진흥원 창업닥터·신직업 자문위원 — 시뮬레이션형 창업 교육</span></div><div class="ins-card"><i class="fa-solid fa-robot"></i><span class="ins-card-title">Gen AI 리터러시 교육</span><span class="ins-card-desc">생성형 AI 실무·프롬프트 엔지니어링·AI 기반 커리어 전략 교육</span></div></div>
+<h3>저서</h3>
 
-### 주요 경력
+<p class="prof-books">『생각의 미래』 (지식노마드, 2016) — 미래 사회의 변화와 직업의 진화를 예측하고 새로운 시대의 사고력을 제시 · 『강서구 사회적 경제』(고등) 집필 참여</p>
 
-<div class="ins-career"><div class="ins-career-row"><span class="ins-period">現</span><div><span class="ins-role">동아방송예술대학교 겸임교수</span><span class="ins-role-desc">창의융합교양학부 — 문화예술콘텐츠 창업실무, NCS직업기초 (2026)</span></div></div><div class="ins-career-row"><span class="ins-period">現</span><div><span class="ins-role">직업미래연구소 소장</span><span class="ins-role-desc">미래사회·직업세계 연구, 커리어 경력설계·전직지원 전문기관 운영</span></div></div><div class="ins-career-row"><span class="ins-period">現</span><div><span class="ins-role">아시아미래인재연구소 실장 · 아시아퓨처스그룹협동조합 사무국장</span><span class="ins-role-desc">미래인재 육성·미래학 기반 협동조합 운영</span></div></div><div class="ins-career-row"><span class="ins-period">現</span><div><span class="ins-role">워크넷 직업심리전문가</span><span class="ins-role-desc">청소년 분야 온라인 상담원</span></div></div><div class="ins-career-row"><span class="ins-period">前</span><div><span class="ins-role">한국뉴욕주립대학교 Futures Master & Futures Coach</span><span class="ins-role-desc">미래학 기반 전략컨설팅·코칭</span></div></div><div class="ins-career-row"><span class="ins-period">前</span><div><span class="ins-role">서울시 산업진흥원</span><span class="ins-role-desc">신직업 자문위원(4차산업) · IT 플랫폼 컨설턴트 · 창업닥터·창업전문위원</span></div></div><div class="ins-career-row"><span class="ins-period">前</span><div><span class="ins-role">IT 분야 20년 (교학사·삼보컴퓨터 등)</span><span class="ins-role-desc">학사정보시스템·이러닝시스템 구축 설계, 교육정보화 기술영업</span></div></div></div>
-
-### 학력
-
-- 경기대학교 일반대학원 **직업학과 박사과정 수료** (2024)
-- 가천대학교 경영대학원 **고용·직업상담학 석사** (2014)
-- 국제문화대학원대학교 **교육학 석사** — 학습코칭 전공 (2012)
-- 부산외국어대학교 **컴퓨터공학 공학사** (1994)
-
-### 자격 & 전문 활동
-
-- 한국어교원 2급 · 사회복지사 2급 · 평생교육사 2급 · 직업훈련교사 3급
-- 워크넷 직업심리전문가 · 프레디저 전문강사 · 하프타임 강사(인생전환 설계)
-
-### 주요 강의·프로그램 분야
-
-- **Gen AI시대 AI 리터러시**: 생성형 AI 활용 실무 · 프롬프트 엔지니어링 · AI 기반 커리어 전략
-- **커리어·전직지원**: 미래학 기반 진로지도 · 이력서·면접 코칭 · 베이비부머 퇴직설계
-- **창업·교육**: 창업·창직 컨설팅 · 직업심리 진단·학습코칭 · 기업·기관·대학 맞춤 출강
-
-### 주요 출강 이력
-
-동아방송예술대학교(겸임) · 제주관광대학교 · 한국기술교육대학교 능력개발원 · 서울시 산업진흥원 · 한국고용정보원 · 한국프레디저 · 하프타임코리아 · 희망제작소 · 금산·논산·음성·서산·공주 등 13개 교육지원청 특강
-
-<div class="ins-philosophy"><div class="ins-philosophy-eyebrow">PUBLICATION · 저서</div><div class="ins-philosophy-quote">『생각의 미래』 (지식노마드, 2016)</div><div class="ins-philosophy-body">미래 사회의 변화와 직업의 진화를 예측하며, 새로운 시대에 필요한 사고력과 역량을 제시합니다. 이 외 『강서구 사회적 경제』(고등) 집필 참여.</div></div>
-
-<p class="ins-contact"><strong>직업미래연구소</strong> — <a href="https://jdy.dreamitbiz.com" target="_blank" rel="noopener noreferrer">jdy.dreamitbiz.com</a></p>
 </div>`,
       contentEn: `<div class="instructor-hero">
 <div class="instructor-hero-label">Dr. Dongyeop Jeong Profile</div>
