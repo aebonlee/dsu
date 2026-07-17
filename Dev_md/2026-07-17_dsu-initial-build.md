@@ -70,3 +70,12 @@
 - 원인: Pages 소스를 main(legacy)→gh-pages로 전환했지만, **전환 전 main 빌드가 계속 서빙**됨. HTML이 `/src/main.tsx`(소스)를 참조해 JS 로드 실패.
 - 조치: `gh api -X POST repos/aebonlee/dsu/pages/builds`로 재빌드 트리거 → `/assets/index-*.js` 정상 서빙 확인.
 - 교훈: **Pages 소스 브랜치를 전환한 뒤에는 반드시 builds POST(또는 gh-pages 재푸시)로 재빌드를 트리거하고, 서빙 HTML이 dist본인지(`/assets/` 참조) 확인할 것.**
+
+## 7. 2차 보완 (대표 피드백 반영)
+
+- 메뉴 라벨 형식: "공통VOD : 추가학습자료 / Day1 : 목표 구조화 / Day2 : 평가 설계 / Day3 : 교수 프로토콜"
+- Day1~3 과정 헤더에 패들릿 버튼 추가 — [동신대] 생성형인공지능 A to Z 특강 (padlet.com/aebon/dsu26), Program에 padletUrl/padletLabel 필드 신설
+- 홈에서 연수현황(Stats)·CTA(무료 회원가입) 섹션 삭제
+- 콘텐츠 보강: Day1~3 각 교시 실습 프롬프트 1개씩 추가(12개, 역할·맥락·형식·조건 포함 상세형), 학습자료 4종 신규(수준별·문체별 변환 템플릿집 / 평가 문항 예시 은행 / 바이브코딩 도구 아이디어 20선 / PBL 시나리오 예시집) → 총 17종
+- 사고: materials.ts 추가분이 python 치환 오류로 MATERIAL_CATEGORIES 안에 이스케이프 깨진 채 삽입 → 블록 재배치 + 이중 이스케이프 백틱 42개 수정으로 복구, tsc 통과
+- "메뉴 클릭 안 됨/빈 화면" 재확인: 재빌드 후 실제 브라우저에서 홈·Day1 라우팅과 렌더링 정상 확인(빈 화면은 구버전 캐시), 홈 히어로의 첫 로드 공백은 AOS 등장 애니메이션 타이밍

@@ -2,7 +2,6 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
 import { COURSE_CATEGORIES } from '../data/courses';
-import useCountUp from '../hooks/useCountUp';
 import useAOS from '../hooks/useAOS';
 import type { ReactElement } from 'react';
 
@@ -10,18 +9,6 @@ export default function Home(): ReactElement {
   const { language, t } = useLanguage();
   const navigate = useNavigate();
   useAOS();
-
-  const stat0 = useCountUp(4);
-  const stat1 = useCountUp(29);
-  const stat2 = useCountUp(58);
-  const stat3 = useCountUp(20);
-
-  const stats = [
-    { value: stat0.count, label: language === 'ko' ? '연수과정' : 'Courses', suffix: '' },
-    { value: stat1.count, label: language === 'ko' ? '전체 차시' : 'Sessions', suffix: '' },
-    { value: stat2.count, label: language === 'ko' ? '실습 프롬프트' : 'Practice Prompts', suffix: '+' },
-    { value: stat3.count, label: language === 'ko' ? '총 연수 시간' : 'Total Hours', suffix: 'H' },
-  ];
 
   const isKo = language === 'ko';
   const marqueeWords = (isKo
@@ -265,35 +252,6 @@ export default function Home(): ReactElement {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="section stats-section">
-        <div className="container">
-          <div className="section-header" data-aos="fade-up">
-            <h2>{t('site.home.statsTitle')}</h2>
-          </div>
-          <div className="stats-grid">
-            {stats.map((stat, i) => (
-              <div key={i} className="stat-card" data-aos="zoom-in" data-aos-delay={i * 100}>
-                <div className="stat-value">{stat.value}{stat.suffix}</div>
-                <div className="stat-label">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="section cta-section">
-        <div className="container">
-          <div className="cta-content" data-aos="fade-up">
-            <h2>{t('site.home.ctaTitle')}</h2>
-            <p>{t('site.home.ctaDesc')}</p>
-            <button className="btn btn-primary btn-lg" onClick={() => navigate('/register')}>
-              <i className="fa-solid fa-user-plus" /> {t('site.home.ctaButton')}
-            </button>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

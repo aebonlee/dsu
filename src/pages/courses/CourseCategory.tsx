@@ -63,6 +63,19 @@ export default function CourseCategory(): ReactElement {
                 <span><i className="fa-solid fa-layer-group" /> {totalSessions}{language === 'ko' ? '개 실습 교시' : ' sessions'}</span>
                 <span><i className="fa-solid fa-signal" /> {program.level}</span>
               </div>
+              {program.padletUrl && (
+                <a
+                  href={program.padletUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-accent"
+                  style={{ marginTop: 16, padding: '10px 20px', fontSize: 15 }}
+                >
+                  <i className="fa-solid fa-chalkboard-user" style={{ marginRight: 8 }} />
+                  {program.padletLabel || 'Padlet'}
+                  <i className="fa-solid fa-arrow-up-right-from-square" style={{ marginLeft: 8, fontSize: 12 }} />
+                </a>
+              )}
             </div>
           </div>
 
