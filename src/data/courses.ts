@@ -472,7 +472,7 @@ export const PROGRAMS: Program[] = [
     duration: '4교시 · 4시간 (대면 실습)',
     level: '기초 → 적용',
     icon: 'fa-comments',
-    color: '#0054A6',
+    color: '#1E88E5',
     highlights: ['교과 특성 진단', 'AI 적용 지점 찾기', '학습목표 구조화', '강의안 초안', '토론 가이드·발문', '수준별 텍스트 변환'],
     curriculum: [
       {

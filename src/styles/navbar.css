@@ -795,3 +795,34 @@
     left: auto;
     min-width: 250px;
 }
+
+
+/* ── 메뉴별 컬러 — 각 과정 페이지 고유 컬러와 일치 ──
+   순서: 1 About / 2 공통VOD(#0054A6) / 3 Day1(#1E88E5) / 4 Day2(#009B77)
+         5 Day3(#8E2F6F) / 6 프롬프트학습(#E8871E) / 7 추천사이트 */
+.nav-menu > li:nth-child(2) .nav-link { color: #0054A6; }
+.nav-menu > li:nth-child(2) .nav-link::after { background: #0054A6; }
+.nav-menu > li:nth-child(3) .nav-link { color: #1E88E5; }
+.nav-menu > li:nth-child(3) .nav-link::after { background: #1E88E5; }
+.nav-menu > li:nth-child(4) .nav-link { color: #009B77; }
+.nav-menu > li:nth-child(4) .nav-link::after { background: #009B77; }
+.nav-menu > li:nth-child(5) .nav-link { color: #8E2F6F; }
+.nav-menu > li:nth-child(5) .nav-link::after { background: #8E2F6F; }
+.nav-menu > li:nth-child(6) .nav-link { color: #E8871E; }
+.nav-menu > li:nth-child(6) .nav-link::after { background: #E8871E; }
+.nav-menu > li:nth-child(2) .nav-link:hover,
+.nav-menu > li:nth-child(2) .nav-link.active { color: #003B75; }
+.nav-menu > li:nth-child(3) .nav-link:hover,
+.nav-menu > li:nth-child(3) .nav-link.active { color: #1565C0; }
+.nav-menu > li:nth-child(4) .nav-link:hover,
+.nav-menu > li:nth-child(4) .nav-link.active { color: #00775B; }
+.nav-menu > li:nth-child(5) .nav-link:hover,
+.nav-menu > li:nth-child(5) .nav-link.active { color: #6E2456; }
+.nav-menu > li:nth-child(6) .nav-link:hover,
+.nav-menu > li:nth-child(6) .nav-link.active { color: #C46F12; }
+/* 다크모드: 각 컬러의 밝은 톤 */
+[data-theme="dark"] .nav-menu > li:nth-child(2) .nav-link { color: #7FB3E8; }
+[data-theme="dark"] .nav-menu > li:nth-child(3) .nav-link { color: #90CAF9; }
+[data-theme="dark"] .nav-menu > li:nth-child(4) .nav-link { color: #7FD9C0; }
+[data-theme="dark"] .nav-menu > li:nth-child(5) .nav-link { color: #DB9BC5; }
+[data-theme="dark"] .nav-menu > li:nth-child(6) .nav-link { color: #F5B971; }
