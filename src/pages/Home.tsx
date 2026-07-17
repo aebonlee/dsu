@@ -11,55 +11,55 @@ export default function Home(): ReactElement {
   const navigate = useNavigate();
   useAOS();
 
-  const stat0 = useCountUp(3);
-  const stat1 = useCountUp(15);
-  const stat2 = useCountUp(30);
-  const stat3 = useCountUp(80);
+  const stat0 = useCountUp(4);
+  const stat1 = useCountUp(29);
+  const stat2 = useCountUp(58);
+  const stat3 = useCountUp(20);
 
   const stats = [
     { value: stat0.count, label: language === 'ko' ? '연수과정' : 'Courses', suffix: '' },
     { value: stat1.count, label: language === 'ko' ? '전체 차시' : 'Sessions', suffix: '' },
-    { value: stat2.count, label: language === 'ko' ? '실습 사례' : 'Practice Cases', suffix: '+' },
-    { value: stat3.count, label: language === 'ko' ? '이수 기준 진도율' : 'Completion', suffix: '%' },
+    { value: stat2.count, label: language === 'ko' ? '실습 프롬프트' : 'Practice Prompts', suffix: '+' },
+    { value: stat3.count, label: language === 'ko' ? '총 연수 시간' : 'Total Hours', suffix: 'H' },
   ];
 
   const isKo = language === 'ko';
   const marqueeWords = (isKo
-    ? '생성형 AI · 프롬프트 · 강의설계 · 평가 루브릭 · PBL · AI 튜터 · 학습분석 · 교수법 혁신'
-    : 'Generative AI · Prompts · Course Design · Rubrics · PBL · AI Tutor · Analytics · Teaching Innovation'
+    ? 'Claude · 프롬프트 · 학습목표 구조화 · 토론 가이드 · 평가 루브릭 · 바이브코딩 · AI 윤리 · 교수 프로토콜'
+    : 'Claude · Prompts · Objectives · Debate Guides · Rubrics · Vibe Coding · AI Ethics · Teaching Protocol'
   ).split(' · ');
 
   // 연수 특징 (Overview band)
   const features = [
-    { no: '01', icon: 'fa-cubes', title: isKo ? '마이크로러닝' : 'Microlearning', desc: isKo ? '과정별 5차시 이내, 차시당 15~25분. 바쁜 교수자도 LMS에서 자율적으로 수강합니다.' : 'Up to 5 sessions per course, 15–25 min each — self-paced on the LMS.' },
-    { no: '02', icon: 'fa-layer-group', title: isKo ? '단계별 위계' : 'Staged Levels', desc: isKo ? 'AI 도구 이해→수업 활용→전공 융합→연구·산학 적용(Lv1~Lv4)으로 위계화했습니다.' : 'Tool literacy → classroom use → discipline fusion → research application (Lv1–Lv4).' },
-    { no: '03', icon: 'fa-flask-vial', title: isKo ? '검증된 설계' : 'Proven Design', desc: isKo ? 'ADDIE 교수체계설계, TPACK, Bloom 신교육목표분류에 근거해 학습목표를 설계했습니다.' : 'Built on ADDIE, TPACK, and Bloom’s revised taxonomy.' },
-    { no: '04', icon: 'fa-box-open', title: isKo ? '산출물 중심' : 'Deliverable-first', desc: isKo ? '차시마다 강의계획서·루브릭·활동지 등 바로 쓰는 산출물을 만들어 수업에 즉시 적용합니다.' : 'Every session produces a ready-to-use deliverable — syllabi, rubrics, activity sheets.' },
+    { no: '01', icon: 'fa-circle-play', title: isKo ? 'VOD 사전학습' : 'VOD First', desc: isKo ? '공통 VOD 4모듈(8시간)로 LLM 원리·프롬프트·학습자료·평가와 윤리를 미리 다집니다.' : 'Four common VOD modules (8h) cover LLM basics, prompting, materials, and ethics first.' },
+    { no: '02', icon: 'fa-hands-holding-circle', title: isKo ? '대면 실습 중심' : 'Hands-on Days', desc: isKo ? 'Day1~3(각 4시간)은 이론이 아니라 내 과목의 실제 산출물을 만드는 실습으로 진행합니다.' : 'Days 1–3 (4h each) are pure hands-on sessions producing real deliverables for your course.' },
+    { no: '03', icon: 'fa-palette', title: isKo ? '인문사회·예체능 특화' : 'Humanities & Arts', desc: isKo ? '토론·글쓰기·사례분석·실기 등 계열 특성에 맞춘 AI 적용 전략과 템플릿을 제공합니다.' : 'AI strategies and templates tailored to debate, writing, case analysis, and performance.' },
+    { no: '04', icon: 'fa-box-open', title: isKo ? '산출물 중심' : 'Deliverable-first', desc: isKo ? '학습목표·강의안·토론 가이드·평가 문항·루브릭·수업 도구까지 바로 쓰는 산출물을 만듭니다.' : 'Objectives, lesson plans, debate guides, assessments, rubrics, and class tools — ready to use.' },
   ];
 
   // 수강 안내 (How it works)
   const prep = [
-    { no: '1', title: isKo ? '자가진단' : 'Self-diagnosis', desc: isKo ? 'AI 활용 수준을 자가진단하고 본인에게 맞는 과정(기초·심화·전문)부터 시작하세요.' : 'Self-assess your AI level and start from the right course.' },
-    { no: '2', title: isKo ? '자율 수강' : 'Self-paced', desc: isKo ? '교내 LMS에서 시간·장소 제약 없이 영상·워크북·확인퀴즈로 자율 수강합니다.' : 'Learn anytime on the campus LMS with videos, workbooks, and quizzes.' },
-    { no: '3', title: isKo ? '멀티 LLM 실습' : 'Multi-LLM practice', desc: isKo ? 'ChatGPT·Claude·Gemini 등 주요 생성형 AI에 예시 프롬프트를 직접 입력해 비교 실습합니다.' : 'Compare ChatGPT, Claude, and Gemini with ready-to-use prompts.' },
-    { no: '4', title: isKo ? '이수·인정' : 'Completion', desc: isKo ? '진도율 80% 이상 + 차시별 산출물 제출 시 이수 인정, 이수증·교수법 마일리지와 연계됩니다.' : 'Complete 80%+ and submit deliverables for a certificate and teaching mileage.' },
+    { no: '1', title: isKo ? '공통 VOD 수강' : 'Watch the VOD', desc: isKo ? '대면 연수 전에 공통 VOD 4모듈(8시간)을 먼저 시청하고 Claude 계정을 만들어 두세요.' : 'Watch the four common VOD modules (8h) and create a Claude account beforehand.' },
+    { no: '2', title: isKo ? 'Claude 준비' : 'Set up Claude', desc: isKo ? 'claude.ai에 가입하고 첫 프롬프트를 입력해 보세요. 노트북을 지참하면 실습이 편합니다.' : 'Sign up at claude.ai and try your first prompt. Bring a laptop for the sessions.' },
+    { no: '3', title: isKo ? 'Day1~3 대면 실습' : 'Days 1–3', desc: isKo ? '7/20~22 사흘간 매일 4시간, 내 과목 자료를 가지고 와서 실제 산출물을 만들어 갑니다.' : 'Jul 20–22, 4 hours daily — bring your course materials and leave with real deliverables.' },
+    { no: '4', title: isKo ? '프로토콜 완성' : 'Finish protocol', desc: isKo ? '마지막 날 개인 AI 활용 교수 프로토콜을 완성해 동료와 공유하며 마무리합니다.' : 'Complete and share your personal AI teaching protocol on the final day.' },
   ];
 
   // 연수 안내 (Info cards)
   const infoCards = [
     { kicker: 'Format', rows: [
-      { k: isKo ? '운영 형태' : 'Format', v: isKo ? '온라인 LMS · 자율 수강(상시)' : 'Online LMS · self-paced' },
-      { k: isKo ? '과정 구성' : 'Structure', v: isKo ? '기초·심화·전문 3과정 / 각 5차시' : '3 courses / 5 sessions each' },
-      { k: isKo ? '차시 분량' : 'Per session', v: isKo ? '15~25분 · 마이크로러닝' : '15–25 min · microlearning' },
+      { k: isKo ? '운영 형태' : 'Format', v: isKo ? '공통 VOD(8H) + 대면 실습(12H)' : 'VOD (8h) + in-person (12h)' },
+      { k: isKo ? '일정' : 'Schedule', v: isKo ? '2026.07.20(월)~22(수) · 매일 4H' : 'Jul 20–22, 2026 · 4h daily' },
+      { k: isKo ? '트랙' : 'Track', v: isKo ? '인문사회·예체능 (정동엽 교수)' : 'Humanities & Arts' },
     ] },
     { kicker: 'Who', rows: [
-      { k: isKo ? '대상' : 'Audience', v: isKo ? '강의 담당 교원·강사 전체' : 'All faculty & instructors' },
-      { k: isKo ? '역량 단계' : 'Levels', v: isKo ? 'Lv1 이해 ~ Lv4 연구·산학' : 'Lv1 → Lv4' },
-      { k: isKo ? '실습 환경' : 'Practice', v: isKo ? '멀티 LLM(ChatGPT·Claude·Gemini)' : 'Multi-LLM' },
+      { k: isKo ? '대상' : 'Audience', v: isKo ? '동신대 교원·강사 (인문사회·예체능)' : 'Dongshin faculty (H&A)' },
+      { k: isKo ? '난이도' : 'Level', v: isKo ? '입문부터 — 사전 지식 불필요' : 'Beginner-friendly' },
+      { k: isKo ? '실습 환경' : 'Practice', v: isKo ? 'Claude (claude.ai) + 노트북 지참' : 'Claude + laptop' },
     ] },
     { kicker: 'Completion', rows: [
-      { k: isKo ? '이수 기준' : 'Criteria', v: isKo ? '진도율 80% + 산출물 제출' : '80% + deliverables' },
-      { k: isKo ? '인정·연계' : 'Recognition', v: isKo ? '이수증 · 교수법 마일리지' : 'Certificate · mileage' },
+      { k: isKo ? '이수 기준' : 'Criteria', v: isKo ? 'VOD 수강 + Day1~3 실습 산출물' : 'VOD + deliverables' },
+      { k: isKo ? '최종 산출물' : 'Final output', v: isKo ? '개인 AI 활용 교수 프로토콜' : 'Personal AI protocol' },
       { k: isKo ? '문의' : 'Contact', v: 'aebon@dreamitbiz.com' },
     ] },
   ];
@@ -75,17 +75,17 @@ export default function Home(): ReactElement {
           <div className="hero-ed-grid">
             <div className="hero-ed-main">
               <div className="hero-ed-eyebrow" data-aos="fade-up">
-                <span>{isKo ? '명지대학교 · 2026 · 교수학습개발센터' : 'Myongji University · 2026 · CTL'}</span>
+                <span>{isKo ? '동신대학교 · 2026.07.20~22 · 정동엽 교수' : 'Dongshin University · Jul 20–22, 2026'}</span>
               </div>
               <h1 className="hero-ed-title" data-aos="fade-up" data-aos-delay="50">
                 {isKo ? '가르치는 교수자를 위한' : 'For Faculty Who Teach'}<br />
-                <span className="accent">{isKo ? '교수자 AI 역량 강화' : 'Faculty AI Competency'}</span><br />
-                <span className="accent">{isKo ? '기초·심화·전문 3과정' : '3-Stage Online Training'}</span>
+                <span className="accent">{isKo ? 'Claude 생성형 AI' : 'Claude Generative AI'}</span><br />
+                <span className="accent">{isKo ? '교수 활용 12시간' : '12-Hour Training'}</span>
               </h1>
               <p className="hero-ed-lead" data-aos="fade-up" data-aos-delay="100">
                 {isKo
-                  ? 'AI 도구 활용과 교수설계 역량을 함양하는 단계별 온라인 연수. ADDIE·TPACK·Bloom에 근거해 설계한 기초·심화·전문 3과정을 LMS에서 자율 수강하고, 차시마다 강의계획서·루브릭·활동지 등 바로 쓰는 산출물을 만듭니다.'
-                  : 'A staged online program building AI tool fluency and instructional design competency. Self-pace three courses on the LMS, designed on ADDIE, TPACK, and Bloom — every session yields a ready-to-use deliverable.'}
+                  ? '공통 VOD로 기초를 다지고, 인문사회·예체능 트랙 Day1~3 대면 실습에서 내 과목의 학습목표·강의안·평가 문항·루브릭·수업 도구를 직접 완성하는 실습 중심 연수입니다. 컴퓨터가 서툴러도 괜찮습니다 — 아주 기초부터 차근차근 진행합니다.'
+                  : 'Build foundations with the common VOD, then complete your own objectives, lesson plans, assessments, rubrics, and class tools in hands-on Days 1–3. Beginner-friendly — we start from the very basics.'}
               </p>
               <div className="hero-ed-actions" data-aos="fade-up" data-aos-delay="150">
                 <button className="btn btn-primary btn-lg" onClick={() => navigate('/courses')}>
@@ -100,25 +100,25 @@ export default function Home(): ReactElement {
             <aside className="hero-ed-side" data-aos="fade-left" data-aos-delay="100">
               <div className="hero-ed-metrics">
                 <div className="hero-metric">
-                  <div className="hero-metric-num accent">3</div>
+                  <div className="hero-metric-num accent">4</div>
                   <div className="hero-metric-label">{isKo ? '연수과정' : 'Courses'}</div>
                 </div>
                 <div className="hero-metric">
-                  <div className="hero-metric-num">15</div>
+                  <div className="hero-metric-num">29</div>
                   <div className="hero-metric-label">{isKo ? '전체 차시' : 'Sessions'}</div>
                 </div>
                 <div className="hero-metric">
-                  <div className="hero-metric-num">Lv<span className="small">4</span></div>
-                  <div className="hero-metric-label">{isKo ? '역량 단계' : 'Levels'}</div>
+                  <div className="hero-metric-num">20<span className="small">H</span></div>
+                  <div className="hero-metric-label">{isKo ? '총 연수 시간' : 'Total Hours'}</div>
                 </div>
                 <div className="hero-metric">
-                  <div className="hero-metric-num accent">80<span className="small">%</span></div>
-                  <div className="hero-metric-label">{isKo ? '이수 기준' : 'Completion'}</div>
+                  <div className="hero-metric-num accent">3<span className="small">일</span></div>
+                  <div className="hero-metric-label">{isKo ? '대면 실습' : 'In-person Days'}</div>
                 </div>
               </div>
               <div className="hero-ed-card">
-                <div className="hero-ed-card-eyebrow">2026 · Faculty AI Training</div>
-                <div className="hero-ed-card-title">{isKo ? '기초·심화·전문 3과정' : 'Three Staged Courses'}</div>
+                <div className="hero-ed-card-eyebrow">2026 · Dongshin Faculty AI</div>
+                <div className="hero-ed-card-title">{isKo ? '공통 VOD + Day 1~3' : 'Common VOD + Days 1–3'}</div>
                 <ul className="hero-ed-card-list">
                   {COURSE_CATEGORIES.map((p) => (
                     <li key={p.id}>
@@ -189,10 +189,10 @@ export default function Home(): ReactElement {
           <div className="overview-grid">
             <div className="overview-intro" data-aos="fade-up">
               <div className="overview-eyebrow">Overview</div>
-              <h2>{isKo ? '계열을 막론한\n교수자 AI 연수' : 'AI training\nfor faculty in any field'}</h2>
+              <h2>{isKo ? '인문사회·예체능\n교수자를 위한 AI 연수' : 'AI training for\nhumanities & arts faculty'}</h2>
               <p>{isKo
-                ? '전 계열 교원·강사가 자신의 수업에 곧바로 적용할 수 있도록, 검증된 교수설계 모형에 따라 단계별·산출물 중심으로 설계했습니다.'
-                : 'Designed on proven instructional-design models so faculty in any discipline can apply it to their own teaching right away.'}</p>
+                ? '토론·글쓰기·사례분석·실기 수업의 특성에 맞춰, 내 수업에 곧바로 적용할 수 있는 산출물 중심으로 설계했습니다.'
+                : 'Built around debate, writing, case analysis, and performance — producing deliverables you can apply to your own teaching right away.'}</p>
             </div>
             <div className="overview-cards">
               {features.map((f, i) => (
@@ -218,8 +218,8 @@ export default function Home(): ReactElement {
               <div className="overview-eyebrow accent-eyebrow">How It Works</div>
               <h2>{isKo ? '수강 방법' : 'How It Works'}</h2>
               <p>{isKo
-                ? '자가진단으로 내 수준을 확인하고, LMS에서 자율 수강한 뒤 산출물을 제출하면 이수로 인정됩니다.'
-                : 'Self-assess, learn at your own pace on the LMS, and submit deliverables to earn completion.'}</p>
+                ? '공통 VOD로 기초를 다진 뒤, 사흘간의 대면 실습에서 내 과목의 산출물을 완성합니다.'
+                : 'Build foundations with the VOD, then complete your own deliverables across three hands-on days.'}</p>
             </div>
             <div className="prep-grid">
               {prep.map((p) => (

@@ -1,18 +1,20 @@
 /**
  * ============================================================
- *  명지대학교 교수자 AI 역량 강화 온라인 연수 — 사이트 설정
+ *  동신대학교 교수자 AI 역량 강화 연수 — 사이트 설정
+ *  2026.07.20(월)~22(수) · 정동엽 교수 · 대면 12시간 + 공통 VOD 8시간
+ *  구성: 공통 VOD 4모듈(사전 영상학습) + 인문사회·예체능 트랙 Day1~3
  * ============================================================
  */
 
 import type { SiteConfig } from '../types';
 
 const site: SiteConfig = {
-  id: 'mju',
-  name: 'Myongji Faculty AI',
-  nameKo: '명지대학교 교수자 AI 역량 강화 연수',
-  description: '명지대학교 교수자 AI 역량 강화 온라인 기본 연수과정 — 생성형 AI 도구 활용과 AI 융합 교수설계 역량을 함양하는 기초·심화·전문 3단계 마이크로러닝 과정(ADDIE·TPACK·Bloom 기반)',
-  url: 'https://mju.dreamitbiz.com',
-  dbPrefix: 'mju_',
+  id: 'dsu',
+  name: 'Dongshin Faculty AI',
+  nameKo: '동신대학교 교수자 AI 역량 강화 연수',
+  description: '동신대학교 교수자 AI 역량 강화 연수 — Claude 중심 생성형 AI 교수 활용. 공통 VOD 4모듈(LLM 원리·프롬프트·학습자료·평가와 윤리) + 인문사회·예체능 트랙 Day1~3(수업 목표 구조화·평가 문항 설계·AI 활용 교수 프로토콜)',
+  url: 'https://dsu.dreamitbiz.com',
+  dbPrefix: 'dsu_',
 
   parentSite: {
     name: 'DreamIT Biz',
@@ -21,13 +23,13 @@ const site: SiteConfig = {
 
   brand: {
     parts: [
-      { text: '명지대', className: 'brand-dream' },
+      { text: '동신대', className: 'brand-dream' },
       { text: ' 교수자', className: 'brand-it' },
       { text: ' AI', className: 'brand-biz' }
     ]
   },
 
-  themeColor: '#1A2A5E',
+  themeColor: '#0054A6',
 
   company: {
     name: '드림아이티비즈(DreamIT Biz)',
@@ -43,28 +45,29 @@ const site: SiteConfig = {
   },
 
   features: {
-    shop: true,
+    shop: false,
     community: true,
     search: true,
     auth: true,
     license: false,
   },
 
-  // 기본 컬러셋 = mju(명지대 다크 블루 + 블루). 나머지는 후보 컬러셋
+  // 기본 컬러셋 = 동신청색(#0054A6, 공식 시그니처 PNG 실측)
+  // 테마 키 이름은 CSS(html[data-color=…]) 하위호환을 위해 mju 세트를 유지
   colors: [
-    { name: 'mju', color: '#1A2A5E' },       // 명지대 다크 블루 (기본)
-    { name: 'academic', color: '#C8A04A' }, // 네이비+골드
-    { name: 'research', color: '#14B8A6' },  // 딥네이비+틸
-    { name: 'vibe', color: '#6D28D9' },      // 모던 바이올렛
+    { name: 'mju', color: '#0054A6' },       // 동신청색 (기본)
+    { name: 'academic', color: '#C8A04A' },  // 네이비+골드
+    { name: 'research', color: '#009B77' },  // 동신녹색 계열
+    { name: 'vibe', color: '#8E2F6F' },      // 동신자색 계열
   ],
 
-  // 3개 연수과정명을 각각 상단 메뉴(링크)로 — 과정 내부는 좌측 사이드바로 이동
+  // 공통 VOD + Day1~3 + 프롬프트 학습·평가
   menuItems: [
-    { path: '/courses/basic', activePath: '/courses/basic', labelKey: 'site.nav.progBasic' },
-    { path: '/courses/intermediate', activePath: '/courses/intermediate', labelKey: 'site.nav.progIntermediate' },
-    { path: '/courses/advanced', activePath: '/courses/advanced', labelKey: 'site.nav.progAdvanced' },
+    { path: '/courses/vod', activePath: '/courses/vod', labelKey: 'site.nav.progVod' },
+    { path: '/courses/day1', activePath: '/courses/day1', labelKey: 'site.nav.progDay1' },
+    { path: '/courses/day2', activePath: '/courses/day2', labelKey: 'site.nav.progDay2' },
+    { path: '/courses/day3', activePath: '/courses/day3', labelKey: 'site.nav.progDay3' },
     { path: '/prompt-eval', activePath: '/prompt-eval', labelKey: 'site.nav.promptPractice' },
-    { path: '/appendix', activePath: '/appendix', labelKey: 'site.nav.appendix' },
     { path: '/recommended', labelKey: 'site.nav.recommended' },
   ],
 

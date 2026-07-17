@@ -1,13 +1,13 @@
 import { supabase, TABLES } from './supabase';
 import site from '../config/site';
 
-const POSTS = TABLES.posts;       // mju_posts
-const COMMENTS = TABLES.comments; // mju_comments
+const POSTS = TABLES.posts;       // dsu_posts
+const COMMENTS = TABLES.comments; // dsu_comments
 
 export async function getPosts({ board, category, search, limit }: { board?: string; category?: string; search?: string; limit?: number } = {}) {
   let query = supabase
     .from(POSTS)
-    .select('*, comment_count:mju_comments(count)')
+    .select('*, comment_count:dsu_comments(count)')
     .order('created_at', { ascending: false });
 
   if (board) query = query.eq('board', board);

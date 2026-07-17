@@ -28,11 +28,11 @@ const OUTPUT = resolve(__dirname, '..', 'public', 'og-image.png');
 
 // ── 설정 (site.ts와 맞추세요) ──────────────────────────────
 const CONFIG = {
-  siteName: 'DreamIT',         // 큰 글씨 (사이트 영문명)
-  siteNameKo: '드림아이티',     // 작은 글씨 (사이트 한국어명)
-  tagline: 'DreamIT Biz',     // 하단 태그라인
-  primaryColor: '#0046C8',     // 메인 컬러 (dark blue)
-  darkColor: '#002E8A',        // 그라데이션 끝 컬러
+  siteName: 'Dongshin Faculty AI',       // 큰 글씨 (사이트 영문명)
+  siteNameKo: '동신대학교 교수자 AI 역량 강화 연수', // 작은 글씨 (사이트 한국어명)
+  tagline: 'Claude 생성형 AI 교수 활용 · 2026.07.20~22 · DreamIT Biz', // 하단 태그라인
+  primaryColor: '#0054A6',     // 동신청색
+  darkColor: '#003B75',        // 그라데이션 끝 컬러
   width: 1200,
   height: 630,
 };

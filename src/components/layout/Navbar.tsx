@@ -80,12 +80,12 @@ const Navbar = (): ReactElement => {
             <Link to="/" className="nav-logo-link" aria-label={site.nameKo}>
               <img
                 src="/images/logo/logo-horizontal-ko.png"
-                alt="명지대학교"
+                alt="동신대학교"
                 className="nav-logo-img nav-logo-light"
               />
               <img
                 src="/images/logo/logo-horizontal-ko-white.png"
-                alt="명지대학교"
+                alt="동신대학교"
                 className="nav-logo-img nav-logo-dark"
               />
               <span className="nav-logo-divider" aria-hidden="true" />

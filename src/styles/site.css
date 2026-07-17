@@ -7,8 +7,8 @@
   --card-bg: var(--bg-white);
   --border-color: var(--border-light);
   --primary: var(--primary-blue);
-  --primary-light: rgba(26, 42, 94, 0.07);
-  --accent-soft: rgba(0, 114, 206, 0.12);
+  --primary-light: rgba(0, 84, 166, 0.07);
+  --accent-soft: rgba(30, 136, 229, 0.12);
   --text: var(--text-primary);
   --bg-alt: var(--bg-light-gray);
 }
@@ -18,8 +18,8 @@ html[data-color="research"] {
   --accent-soft: rgba(20, 184, 166, 0.12);
 }
 html[data-color="mju"] {
-  --primary-light: rgba(26, 42, 94, 0.07);
-  --accent-soft: rgba(0, 114, 206, 0.12);
+  --primary-light: rgba(0, 84, 166, 0.07);
+  --accent-soft: rgba(30, 136, 229, 0.12);
 }
 html[data-color="vibe"] {
   --primary-light: rgba(109, 40, 217, 0.07);

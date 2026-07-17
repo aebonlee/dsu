@@ -14,10 +14,10 @@ export default function About(): ReactElement {
 
       <section className="page-header">
         <div className="container">
-          <h1>{language === 'ko' ? '명지대학교 교수자 AI 역량 강화' : 'Myongji Faculty AI Competency'}</h1>
+          <h1>{language === 'ko' ? '동신대학교 교수자 AI 역량 강화 연수' : 'Dongshin Faculty AI Competency'}</h1>
           <p>{language === 'ko'
-            ? 'AI 도구 활용과 교수설계 역량을 함양하는 단계별 온라인 연수 (교수학습개발센터)'
-            : 'A staged online program building AI tool fluency and instructional design competency'}</p>
+            ? 'Claude 중심 생성형 AI 교수 활용 — 공통 VOD 8시간 + 인문사회·예체능 트랙 대면 12시간 (2026.07.20~22)'
+            : 'Claude-centered generative AI for teaching — 8h common VOD + 12h in-person track (Jul 20–22, 2026)'}</p>
         </div>
       </section>
 
@@ -27,30 +27,30 @@ export default function About(): ReactElement {
             <div className="about-card">
               <h2><i className="fa-solid fa-bullseye" /> {language === 'ko' ? '연수 목표' : 'Goals'}</h2>
               <ul>
-                <li>{language === 'ko' ? '전(全) 교원의 기본 AI 활용 역량 표준화' : 'Standardize baseline AI competency across all faculty'}</li>
-                <li>{language === 'ko' ? 'AI 융합 교수설계·평가 역량 강화 (TPACK)' : 'Strengthen AI-fused instructional design (TPACK)'}</li>
-                <li>{language === 'ko' ? '차시별 산출물의 실제 수업 즉시 적용' : 'Apply session deliverables directly in class'}</li>
-                <li>{language === 'ko' ? '전공 융합·연구·산학 적용으로 확장 (Lv4)' : 'Extend to discipline fusion and research application (Lv4)'}</li>
+                <li>{language === 'ko' ? '생성형 AI(Claude)의 원리와 한계를 이해하고 검증 습관 갖추기' : 'Understand how Claude works, its limits, and build verification habits'}</li>
+                <li>{language === 'ko' ? '프롬프트 4요소(역할·맥락·형식·단계)로 교수 업무에 바로 적용' : 'Apply the 4 prompt elements directly to teaching tasks'}</li>
+                <li>{language === 'ko' ? '내 과목의 학습목표·강의안·평가 문항·루브릭 산출물 완성' : 'Produce real objectives, lesson plans, assessment items and rubrics'}</li>
+                <li>{language === 'ko' ? '바이브코딩으로 수업 도구를 만들고 개인 AI 교수 프로토콜 수립' : 'Build class tools via vibe coding and a personal AI teaching protocol'}</li>
               </ul>
             </div>
 
             <div className="about-card">
-              <h2><i className="fa-solid fa-layer-group" /> {language === 'ko' ? '3단계 연수과정' : '3-Stage Courses'}</h2>
+              <h2><i className="fa-solid fa-layer-group" /> {language === 'ko' ? '과정 구성' : 'Program Structure'}</h2>
               <div className="about-targets">
                 <div className="target-item">
-                  <i className="fa-solid fa-seedling" />
-                  <h4>{language === 'ko' ? '기초과정' : 'Basic'}</h4>
-                  <p>{language === 'ko' ? 'AI 도구 이해 · 프롬프트 · 윤리 · 강의자료·강의계획서 (Lv1→Lv2)' : 'Tool literacy, prompts, ethics, lecture materials (Lv1→Lv2)'}</p>
+                  <i className="fa-solid fa-circle-play" />
+                  <h4>{language === 'ko' ? '공통 VOD (8H)' : 'Common VOD (8h)'}</h4>
+                  <p>{language === 'ko' ? 'LLM 원리 · 프롬프트 엔지니어링 · 학습자료 제작 · 평가와 AI 윤리 (사전 영상학습)' : 'LLM basics, prompting, materials, assessment & ethics (pre-recorded)'}</p>
                 </div>
                 <div className="target-item">
-                  <i className="fa-solid fa-diagram-project" />
-                  <h4>{language === 'ko' ? '심화과정' : 'Intermediate'}</h4>
-                  <p>{language === 'ko' ? 'AI-PBL · 글쓰기·발표 지도 · 평가 루브릭 · 맞춤형 피드백 (Lv2→Lv3)' : 'AI-PBL, coaching, rubrics, personalized feedback (Lv2→Lv3)'}</p>
+                  <i className="fa-solid fa-comments" />
+                  <h4>{language === 'ko' ? 'Day 1~2 (8H)' : 'Days 1–2 (8h)'}</h4>
+                  <p>{language === 'ko' ? '수업 목표 구조화 · 토론 가이드 · 서술형·비판형 평가 설계 · 루브릭·피드백' : 'Structuring goals, debate guides, essay assessment design, rubrics & feedback'}</p>
                 </div>
                 <div className="target-item">
-                  <i className="fa-solid fa-rocket" />
-                  <h4>{language === 'ko' ? '전문과정' : 'Advanced'}</h4>
-                  <p>{language === 'ko' ? '교과목 재설계 · AI 튜터·챗봇 · 캡스톤 · 학습성과 분석 (Lv3→Lv4)' : 'Course redesign, AI tutors, capstone, analytics (Lv3→Lv4)'}</p>
+                  <i className="fa-solid fa-wand-magic-sparkles" />
+                  <h4>{language === 'ko' ? 'Day 3 (4H)' : 'Day 3 (4h)'}</h4>
+                  <p>{language === 'ko' ? 'AI 활용 수업 전략 · 바이브코딩 수업 도구 제작 · 개인 교수 프로토콜 완성' : 'AI class strategy, vibe-coding tools, personal teaching protocol'}</p>
                 </div>
               </div>
             </div>
@@ -72,12 +72,11 @@ export default function About(): ReactElement {
             <div className="about-card">
               <h2><i className="fa-solid fa-user-tie" /> {language === 'ko' ? '강사 정보' : 'Instructor'}</h2>
               <div className="instructor-info">
-                <h4>{language === 'ko' ? '이애본 박사 (Ph.D Aebon Lee)' : 'Dr. Aebon Lee (Ph.D)'}</h4>
-                <p>{language === 'ko' ? 'DreamIT Biz 대표' : 'CEO of DreamIT Biz'}</p>
+                <h4>{language === 'ko' ? '정동엽 교수' : 'Prof. Dongyeop Jung'}</h4>
+                <p>{language === 'ko' ? '인문사회·예체능 트랙 (Day 1~3 대면 실습)' : 'Humanities & Arts Track (Days 1–3, in-person)'}</p>
                 <ul>
-                  <li>{language === 'ko' ? '경기대학교 경영정보학과 겸임교수' : 'Adjunct Professor at Kyonggi University'}</li>
-                  <li>{language === 'ko' ? 'AI·디지털 교육 전문가' : 'AI & Digital Education Expert'}</li>
-                  <li>{language === 'ko' ? '84개 교육 사이트 운영' : 'Operating 84 education sites'}</li>
+                  <li>{language === 'ko' ? '생성형 AI 교수법·바이브코딩 실습 중심 강의' : 'Hands-on generative AI pedagogy & vibe coding'}</li>
+                  <li>{language === 'ko' ? '공통 VOD(8H)는 별도 강사 녹화 영상으로 사전 학습' : 'Common VOD (8h) is pre-recorded by a separate instructor'}</li>
                 </ul>
                 <div className="instructor-contact">
                   <p><i className="fa-solid fa-envelope" /> aebon@dreamitbiz.com</p>

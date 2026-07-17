@@ -22,7 +22,7 @@ const Checkout = lazy(() => import('../pages/Checkout'));
 const OrderConfirmation = lazy(() => import('../pages/OrderConfirmation'));
 const OrderHistory = lazy(() => import('../pages/OrderHistory'));
 
-// 명지대 전용 페이지
+// 동신대 전용 페이지
 const CourseCatalog = lazy(() => import('../pages/courses/CourseCatalog'));
 const CourseCategory = lazy(() => import('../pages/courses/CourseCategory'));
 const LearningMaterials = lazy(() => import('../pages/materials/LearningMaterials'));

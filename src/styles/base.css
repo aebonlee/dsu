@@ -1,9 +1,8 @@
 /* ============================================
-   명지대학교 교수자 AI 역량 강화 온라인 연수
-   Design — Myongji (Dark Blue + Blue)
-   Myongji Dark Blue : Pantone 2768 C ≈ #1A2A5E
-   Myongji Blue      : Pantone 300 C  ≈ #0072CE
-   기본 컬러셋: mju. 후보군: academic / research / vibe
+   동신대학교 교수자 AI 역량 강화 연수
+   Design — Dongshin (동신청색)
+   동신청색 : C100 M75 (DIC184) ≈ #0054A6 (공식 시그니처 실측)
+   기본 컬러셋: mju(키 이름은 하위호환 유지, 값은 동신청색)
    ============================================ */
 
 * {
@@ -13,13 +12,13 @@
 }
 
 :root {
-    /* ── Myongji (기본): Dark Blue primary + Blue accent ── */
-    --primary-blue: #1A2A5E;
-    --primary-blue-dark: #101B40;
-    --primary-blue-light: #324488;
-    --accent: #0072CE;
-    --accent-dark: #005AA3;
-    --accent-light: #3D9BE0;
+    /* ── Dongshin (기본): 동신청색 primary + Blue accent ── */
+    --primary-blue: #0054A6;
+    --primary-blue-dark: #003B75;
+    --primary-blue-light: #2E77C4;
+    --accent: #1E88E5;
+    --accent-dark: #1565C0;
+    --accent-light: #64B5F6;
 
     /* Backgrounds — cool blue-tinted */
     --bg-white: #FFFFFF;
@@ -44,13 +43,13 @@
     --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
 
     /* Gradient */
-    --primary-gradient: linear-gradient(135deg, #1A2A5E 0%, #324488 100%);
-    --accent-gradient: linear-gradient(135deg, #005AA3 0%, #0072CE 50%, #3D9BE0 100%);
+    --primary-gradient: linear-gradient(135deg, #0054A6 0%, #2E77C4 100%);
+    --accent-gradient: linear-gradient(135deg, #1565C0 0%, #1E88E5 50%, #64B5F6 100%);
 
     /* Hero / CTA / Page-header shared background */
-    --hero-bg: linear-gradient(135deg, #1A2A5E 0%, #101B40 55%, #0E3A6B 100%);
-    --hero-bg-dark: linear-gradient(135deg, #131F45 0%, #0C1530 55%, #0A2A50 100%);
-    --highlight-gradient: linear-gradient(135deg, #3D9BE0 0%, #0072CE 50%, #BDE0F7 100%);
+    --hero-bg: linear-gradient(135deg, #0054A6 0%, #003B75 55%, #0A4E8F 100%);
+    --hero-bg-dark: linear-gradient(135deg, #0A3A6E 0%, #072948 55%, #0A4479 100%);
+    --highlight-gradient: linear-gradient(135deg, #64B5F6 0%, #1E88E5 50%, #BDE0F7 100%);
 
     /* Glassmorphism */
     --glass-bg: rgba(255, 255, 255, 0.85);
@@ -90,23 +89,23 @@ html[data-color="research"] {
     --highlight-gradient: linear-gradient(135deg, #5EEAD4 0%, #14B8A6 50%, #CFFAF2 100%);
 }
 
-/* 명지대 (Myongji Dark Blue + Blue) — 기본값과 동일 */
+/* 동신대 (동신청색 #0054A6 — 공식 시그니처 실측) — 기본 컬러셋 */
 html[data-color="mju"] {
-    --primary-blue: #1A2A5E;
-    --primary-blue-dark: #101B40;
-    --primary-blue-light: #324488;
-    --accent: #0072CE;
-    --accent-dark: #005AA3;
-    --accent-light: #3D9BE0;
+    --primary-blue: #0054A6;
+    --primary-blue-dark: #003B75;
+    --primary-blue-light: #2E77C4;
+    --accent: #1E88E5;
+    --accent-dark: #1565C0;
+    --accent-light: #64B5F6;
     --bg-light-gray: #F5F8FC;
     --bg-medium-gray: #E8EFF8;
     --border-light: #DEE7F2;
     --border-medium: #C5D4E8;
-    --primary-gradient: linear-gradient(135deg, #1A2A5E 0%, #324488 100%);
-    --accent-gradient: linear-gradient(135deg, #005AA3 0%, #0072CE 50%, #3D9BE0 100%);
-    --hero-bg: linear-gradient(135deg, #1A2A5E 0%, #101B40 55%, #0E3A6B 100%);
-    --hero-bg-dark: linear-gradient(135deg, #131F45 0%, #0C1530 55%, #0A2A50 100%);
-    --highlight-gradient: linear-gradient(135deg, #3D9BE0 0%, #0072CE 50%, #BDE0F7 100%);
+    --primary-gradient: linear-gradient(135deg, #0054A6 0%, #2E77C4 100%);
+    --accent-gradient: linear-gradient(135deg, #1565C0 0%, #1E88E5 50%, #64B5F6 100%);
+    --hero-bg: linear-gradient(135deg, #0054A6 0%, #003B75 55%, #0A4E8F 100%);
+    --hero-bg-dark: linear-gradient(135deg, #0A3A6E 0%, #072948 55%, #0A4479 100%);
+    --highlight-gradient: linear-gradient(135deg, #64B5F6 0%, #1E88E5 50%, #BDE0F7 100%);
 }
 
 /* 모던 바이올렛 (Violet + Blue) */
@@ -222,7 +221,7 @@ h4 { line-height: 1.45; letter-spacing: -0.01em; }
     box-shadow: 0 8px 24px rgba(0, 70, 200, 0.3);
 }
 
-/* Accent button (Myongji Blue) — 파랑 배경엔 흰 글자 */
+/* Accent button (Dongshin Blue) — 파랑 배경엔 흰 글자 */
 .btn-accent {
     background: var(--accent);
     color: #ffffff;

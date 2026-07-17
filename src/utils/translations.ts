@@ -18,7 +18,7 @@ export const translations: Record<string, Record<string, unknown>> = {
       blog: '블로그'
     },
     footer: {
-      tagline: '명지대학교 교수자의 AI 교수역량 강화를 위한 온라인 연수 플랫폼',
+      tagline: '동신대학교 교수자의 AI 교수역량 강화를 위한 연수 플랫폼',
       companyInfo: '회사 정보',
       contact: '연락처',
       quickLinks: '바로가기'
@@ -222,7 +222,7 @@ export const translations: Record<string, Record<string, unknown>> = {
       noCreations: '아직 생성물이 없습니다.',
     },
 
-    // ─── 명지대 전용 키 ───
+    // ─── 동신대 전용 키 ───
     site: {
       nav: {
         professor: '교수자 맞춤 과정',
@@ -231,6 +231,10 @@ export const translations: Record<string, Record<string, unknown>> = {
         progBasic: '기초과정',
         progIntermediate: '심화과정',
         progAdvanced: '전문과정',
+        progVod: '공통 VOD',
+        progDay1: 'Day 1 목표 구조화',
+        progDay2: 'Day 2 평가 설계',
+        progDay3: 'Day 3 교수 프로토콜',
         materials: '학습자료',
         matBasic: '기초과정',
         matIntermediate: '심화과정',
@@ -242,7 +246,7 @@ export const translations: Record<string, Record<string, unknown>> = {
         assignment: '과제 생성기',
         feedback: '피드백 생성기',
         evaluator: '학생 과제 평가',
-        promptPractice: '프롬프트 학습',
+        promptPractice: '프롬프트 학습·평가',
         promptLearn: '학습하기',
         promptStep: '실습하기',
         promptEval: '평가하기',
@@ -250,17 +254,17 @@ export const translations: Record<string, Record<string, unknown>> = {
         recommended: '추천사이트',
       },
       home: {
-        title: '명지대학교 교수자 AI 역량 강화',
-        subtitle: '교수자 AI 역량 강화 온라인 연수 플랫폼',
-        welcome: '명지대학교 교원·강사를 위한 AI 교수역량 연수',
-        description: 'AI 도구 활용과 교수설계 역량을 함양하는 단계별 온라인 연수 프로그램',
-        heroTitle: '명지대학교 교수자 AI 역량 강화',
-        heroHighlight: '기초·심화·전문 단계별 온라인 연수',
-        heroDesc: 'ADDIE·TPACK·Bloom 기반으로 설계된 3단계 마이크로러닝 과정. 차시마다 강의계획서·루브릭·활동지 등 바로 쓰는 산출물을 만듭니다.',
+        title: '동신대학교 교수자 AI 역량 강화',
+        subtitle: '교수자 AI 역량 강화 연수 플랫폼',
+        welcome: '동신대학교 교원을 위한 Claude 생성형 AI 교수역량 연수',
+        description: '공통 VOD 4모듈과 인문사회·예체능 트랙 Day1~3으로 구성된 12시간 실습 중심 연수',
+        heroTitle: '동신대학교 교수자 AI 역량 강화',
+        heroHighlight: '공통 VOD 8시간 + 대면 실습 12시간 (2026.07.20~22)',
+        heroDesc: 'Claude 중심 생성형 AI 교수 활용 연수. 공통 VOD로 기초를 다지고, Day1~3 대면 실습에서 내 과목의 학습목표·강의안·평가·수업 도구를 직접 완성합니다.',
         heroCTA: '연수과정 보기',
         heroSecondaryCTA: 'AI 도구 체험',
-        coursesTitle: '3단계 연수과정',
-        coursesDesc: '기초(AI 도구 이해)–심화(수업 활용·전공 융합)–전문(연구·산학 적용)까지, 과정별 5차시 이내 마이크로러닝으로 운영합니다.',
+        coursesTitle: '연수과정 구성',
+        coursesDesc: '공통 VOD(LLM 원리·프롬프트·학습자료·평가와 윤리 8H) 사전학습 후, 인문사회·예체능 트랙 Day1~3(각 4H)에서 실습 중심으로 진행합니다.',
         toolsTitle: 'AI 교수학습 도구',
         toolsDesc: 'AI를 활용한 5가지 교수설계 지원 도구를 체험하세요.',
         statsTitle: '연수 현황',
@@ -289,7 +293,7 @@ export const translations: Record<string, Record<string, unknown>> = {
       blog: 'Blog'
     },
     footer: {
-      tagline: 'Online training platform for strengthening AI teaching competency of Myongji faculty',
+      tagline: 'Training platform for strengthening AI teaching competency of Dongshin University faculty',
       companyInfo: 'Company Info',
       contact: 'Contact',
       quickLinks: 'Quick Links'
@@ -493,7 +497,7 @@ export const translations: Record<string, Record<string, unknown>> = {
       noCreations: 'No creations yet.',
     },
 
-    // ─── Myongji Site-specific keys ───
+    // ─── Dongshin Site-specific keys ───
     site: {
       nav: {
         professor: 'Faculty Courses',
@@ -502,6 +506,10 @@ export const translations: Record<string, Record<string, unknown>> = {
         progBasic: 'Basic Course',
         progIntermediate: 'Intermediate Course',
         progAdvanced: 'Advanced Course',
+        progVod: 'Common VOD',
+        progDay1: 'Day 1 Objectives',
+        progDay2: 'Day 2 Assessment',
+        progDay3: 'Day 3 Protocol',
         materials: 'Materials',
         matBasic: 'Basic',
         matIntermediate: 'Intermediate',
@@ -513,7 +521,7 @@ export const translations: Record<string, Record<string, unknown>> = {
         assignment: 'Assignment Generator',
         feedback: 'Feedback Generator',
         evaluator: 'Student Evaluator',
-        promptPractice: 'Prompt Learning',
+        promptPractice: 'Prompt Learning & Eval',
         promptLearn: 'Learn',
         promptStep: 'Practice',
         promptEval: 'Evaluate',
@@ -521,17 +529,17 @@ export const translations: Record<string, Record<string, unknown>> = {
         recommended: 'Recommended',
       },
       home: {
-        title: 'Myongji Faculty AI Competency',
-        subtitle: 'Online Training Platform for Faculty AI Competency',
-        welcome: 'AI Teaching Competency Training for Myongji Faculty & Instructors',
-        description: 'A staged online program building AI tool fluency and instructional design competency',
-        heroTitle: 'Myongji University Faculty AI Competency',
-        heroHighlight: 'Staged Online Training — Basic · Intermediate · Advanced',
-        heroDesc: 'A three-stage microlearning program designed on ADDIE, TPACK, and Bloom. Every session produces ready-to-use deliverables — syllabi, rubrics, activity sheets.',
+        title: 'Dongshin Faculty AI Competency',
+        subtitle: 'Faculty AI Competency Training Platform',
+        welcome: 'Claude Generative-AI Training for Dongshin University Faculty',
+        description: 'A 12-hour hands-on program: 4 common VOD modules plus Days 1–3 for humanities & arts faculty',
+        heroTitle: 'Dongshin University Faculty AI Competency',
+        heroHighlight: '8h Common VOD + 12h In-person Practice (Jul 20–22, 2026)',
+        heroDesc: 'A Claude-centered generative AI program. Build foundations with the common VOD, then complete your own objectives, lesson plans, assessments and class tools in Days 1–3.',
         heroCTA: 'View Courses',
         heroSecondaryCTA: 'Try AI Tools',
-        coursesTitle: '3-Stage Training',
-        coursesDesc: 'From Basic (understanding AI tools) to Intermediate (classroom use & discipline fusion) to Advanced (research & industry application) — up to 5 microlearning sessions each.',
+        coursesTitle: 'Program Structure',
+        coursesDesc: 'Common VOD (LLM basics · prompting · materials · assessment & ethics, 8h) followed by the humanities & arts track Days 1–3 (4h each), fully hands-on.',
         toolsTitle: 'AI Teaching Tools',
         toolsDesc: 'Experience 5 AI-powered instructional design tools.',
         statsTitle: 'Training Status',
