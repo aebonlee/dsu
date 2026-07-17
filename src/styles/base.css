@@ -184,6 +184,7 @@ h4 { line-height: 1.45; letter-spacing: -0.01em; }
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px; /* 아이콘과 글자 사이 간격 (inline-flex는 공백 텍스트를 무시함) */
     padding: 14px 32px;
     font-size: 16px;
     font-weight: 600;

@@ -658,6 +658,17 @@
 }
 .nav-link::after { left: 13px; right: 13px; }
 
+/* 중간 폭(태블릿·좁은 노트북): 메뉴 8개가 로고와 겹치지 않도록 압축 */
+@media (max-width: 1420px) {
+    .nav-logo-divider, .nav-logo-tag { display: none; }
+    .nav-link { padding: 11px 9px; font-size: 13.5px; }
+    .nav-link::after { left: 9px; right: 9px; }
+}
+@media (max-width: 1180px) {
+    .nav-logo-img { height: 32px; }
+    .nav-link { padding: 10px 7px; font-size: 12.5px; }
+}
+
 /* 풍선도움말(tooltip) — 네비 우측 아이콘 공통 */
 .nav-tip {
     position: relative;

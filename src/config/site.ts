@@ -63,6 +63,7 @@ const site: SiteConfig = {
 
   // 공통 VOD + Day1~3 + 프롬프트 학습·평가
   menuItems: [
+    { path: '/about', activePath: '/about', labelKey: 'site.nav.aboutMenu' },
     { path: '/courses/vod', activePath: '/courses/vod', labelKey: 'site.nav.progVod' },
     { path: '/courses/day1', activePath: '/courses/day1', labelKey: 'site.nav.progDay1' },
     { path: '/courses/day2', activePath: '/courses/day2', labelKey: 'site.nav.progDay2' },

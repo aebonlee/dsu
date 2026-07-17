@@ -49,41 +49,46 @@ export default function CourseCategory(): ReactElement {
       {/* Program header */}
       <section className="program-hero" style={{ borderBottom: `3px solid ${program.color}` }}>
         <div className="container">
-          <div className="program-hero-inner">
-            <div className="program-hero-icon" style={{ background: program.color }}>
-              <i className={`fa-solid ${program.icon}`} />
-            </div>
-            <div className="program-hero-text">
-              <div className="eyebrow">Program {String(program.order).padStart(2, '0')} · {program.duration}</div>
-              <h1>{language === 'ko' ? program.nameKo : program.nameEn}</h1>
-              <p className="program-hero-tagline">{program.tagline}</p>
-              <p className="program-hero-desc">{language === 'ko' ? program.descKo : program.descEn}</p>
-              <div className="program-hero-meta">
-                <span><i className="fa-solid fa-user-check" /> {program.audience}</span>
-                <span><i className="fa-solid fa-layer-group" /> {totalSessions}{language === 'ko' ? '개 실습 교시' : ' sessions'}</span>
-                <span><i className="fa-solid fa-signal" /> {program.level}</span>
+          <div className="program-hero-inner two-col">
+            {/* 좌: 아이콘 + 타이틀 */}
+            <div className="program-hero-main">
+              <div className="program-hero-icon" style={{ background: program.color }}>
+                <i className={`fa-solid ${program.icon}`} />
               </div>
+              <div className="program-hero-text">
+                <div className="eyebrow">Program {String(program.order).padStart(2, '0')} · {program.duration}</div>
+                <h1>{language === 'ko' ? program.nameKo : program.nameEn}</h1>
+                <p className="program-hero-tagline">{program.tagline}</p>
+                <div className="program-hero-meta">
+                  <span><i className="fa-solid fa-user-check" /> {program.audience}</span>
+                  <span><i className="fa-solid fa-layer-group" /> {totalSessions}{language === 'ko' ? '개 실습 교시' : ' sessions'}</span>
+                  <span><i className="fa-solid fa-signal" /> {program.level}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 우: 설명 + 버튼 + 안내 */}
+            <div className="program-hero-side">
+              <p className="program-hero-desc">{language === 'ko' ? program.descKo : program.descEn}</p>
               {program.padletUrl && (
                 <a
                   href={program.padletUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-accent"
-                  style={{ marginTop: 16, padding: '10px 20px', fontSize: 15 }}
+                  className="btn btn-accent program-hero-padlet"
                 >
-                  <i className="fa-solid fa-chalkboard-user" style={{ marginRight: 8 }} />
+                  <i className="fa-solid fa-chalkboard-user" />
                   {program.padletLabel || 'Padlet'}
-                  <i className="fa-solid fa-arrow-up-right-from-square" style={{ marginLeft: 8, fontSize: 12 }} />
+                  <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: 12 }} />
                 </a>
               )}
+              <div className="program-platform-note compact">
+                <i className="fa-solid fa-shield-halved" />
+                <span>{language === 'ko'
+                  ? '모든 실습은 예시 프롬프트를 복사해 직접 따라 할 수 있습니다.'
+                  : 'Every practice includes a ready-to-use prompt you can copy.'}</span>
+              </div>
             </div>
-          </div>
-
-          <div className="program-platform-note">
-            <i className="fa-solid fa-shield-halved" />
-            <span>{language === 'ko'
-              ? '본 과정은 교내 전용 플랫폼 생성형 AI에서 진행되며, 모든 실습은 예시 프롬프트로 직접 따라 할 수 있습니다.'
-              : 'This program runs on the campus platform multi-LLM(ChatGPT·Claude·Gemini); every practice includes a ready-to-use prompt.'}</span>
           </div>
         </div>
       </section>

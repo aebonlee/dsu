@@ -360,12 +360,46 @@
 .program-hero {
   background: var(--bg-light-gray);
   /* 고정 네비게이션 높이만큼 상단 여백 확보 */
-  padding: calc(var(--nav-height) + 36px) 0 40px;
+  padding: calc(var(--nav-height) + 28px) 0 28px;
 }
 .program-hero-inner {
   display: flex;
   gap: 28px;
   align-items: flex-start;
+}
+/* 2열 헤더: 좌(아이콘+타이틀) / 우(설명+버튼+안내) — 세로 높이 절감 */
+.program-hero-inner.two-col {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.program-hero-main {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+.program-hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-left: 32px;
+  border-left: 1px solid var(--border-medium);
+}
+.program-hero-side .program-hero-desc { margin-bottom: 0; }
+.program-hero-padlet {
+  align-self: flex-start;
+  padding: 10px 20px;
+  font-size: 15px;
+}
+.program-platform-note.compact {
+  margin-top: 0;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+@media (max-width: 960px) {
+  .program-hero-inner.two-col { grid-template-columns: 1fr; gap: 20px; }
+  .program-hero-side { padding-left: 0; border-left: none; }
 }
 .program-hero-icon {
   flex-shrink: 0;
