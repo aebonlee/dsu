@@ -403,24 +403,24 @@
 }
 .program-hero-icon {
   flex-shrink: 0;
-  width: 84px;
-  height: 84px;
+  width: 64px;
+  height: 64px;
   border-radius: var(--radius-lg);
   display: grid;
   place-items: center;
   color: #fff;
-  font-size: 36px;
+  font-size: 28px;
   box-shadow: var(--shadow-md);
 }
-.program-hero-text h1 { font-size: 34px; margin-bottom: 8px; }
+.program-hero-text h1 { font-size: 23px; margin-bottom: 6px; }
 .program-hero-tagline {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--primary-blue);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .program-hero-desc {
-  font-size: 16px;
+  font-size: 14.5px;
   color: var(--text-secondary);
   line-height: 1.75;
   max-width: 760px;
@@ -429,8 +429,8 @@
 .program-hero-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 22px;
-  font-size: 14px;
+  gap: 18px;
+  font-size: 13px;
   color: var(--text-secondary);
 }
 .program-hero-meta i { margin-right: 6px; color: var(--accent-dark); }
