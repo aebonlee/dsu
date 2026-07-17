@@ -7,11 +7,11 @@ export default {
     {
       title: '프롬프트란 무엇인가',
       titleEn: 'What is a Prompt',
-      content: `AI 모델에게 원하는 결과를 얻기 위해 전달하는 입력 텍스트를 **프롬프트(Prompt)**라고 합니다.
+      content: `AI 모델에게 원하는 결과를 얻기 위해 전달하는 입력 텍스트를 <strong>프롬프트(Prompt)</strong>라고 합니다.
 
 ### 프롬프트의 정의
 
-프롬프트는 단순한 질문이 아니라, AI와의 **소통 인터페이스**입니다. 좋은 프롬프트는 명확한 지시, 충분한 맥락, 원하는 출력 형식을 포함합니다.
+프롬프트는 단순한 질문이 아니라, AI와의 <strong>소통 인터페이스</strong>입니다. 좋은 프롬프트는 명확한 지시, 충분한 맥락, 원하는 출력 형식을 포함합니다.
 
 ### 프롬프트의 4대 구성요소
 
@@ -30,7 +30,7 @@ export default {
 | Claude | 긴 문서 처리·정교한 글쓰기 | 강의자료 요약·평가 루브릭 설계 |
 | Gemini | 구글 연동·실시간 검색 | 자료조사·최신 사례 수집 |
 
-> 좋은 프롬프트의 핵심은 **구체성**, **명확성**, **맥락 제공** 세 가지입니다.`,
+> 좋은 프롬프트의 핵심은 <strong>구체성</strong>, <strong>명확성</strong>, <strong>맥락 제공</strong> 세 가지입니다.`,
       contentEn: `The input text you provide to an AI model to get desired results is called a **Prompt**.
 
 ### Definition of a Prompt

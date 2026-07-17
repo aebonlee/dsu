@@ -73,10 +73,13 @@ const site: SiteConfig = {
   ],
 
   footerLinks: [
-    { path: '/courses', labelKey: 'nav.education' },
+    { path: '/about', labelKey: 'site.nav.aboutMenu' },
+    { path: '/courses/vod', labelKey: 'site.nav.progVod' },
+    { path: '/courses/day1', labelKey: 'site.nav.progDay1' },
+    { path: '/courses/day2', labelKey: 'site.nav.progDay2' },
+    { path: '/courses/day3', labelKey: 'site.nav.progDay3' },
     { path: '/prompt-eval', labelKey: 'site.nav.promptPractice' },
-    { path: '/community', labelKey: 'nav.community' },
-    { path: '/about', labelKey: 'nav.about' },
+    { path: '/recommended', labelKey: 'site.nav.recommended' },
   ],
 
   familySites: [

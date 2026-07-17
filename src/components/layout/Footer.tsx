@@ -20,13 +20,6 @@ const Footer = (): ReactElement => {
               ))}
             </h3>
             <p>{t('footer.tagline')}</p>
-            <div className="company-info">
-              <p><strong>{site.company.name}</strong></p>
-              <p>대표이사: {site.company.ceo}</p>
-              <p>사업자등록번호: {site.company.bizNumber}</p>
-              {site.company.salesNumber && <p>통신판매신고번호: {site.company.salesNumber}</p>}
-              {site.company.publisherNumber && <p>출판사 신고번호: {site.company.publisherNumber}</p>}
-            </div>
           </div>
           <div className="footer-links">
             <h4>{t('footer.quickLinks')}</h4>
@@ -40,11 +33,9 @@ const Footer = (): ReactElement => {
           </div>
           <div className="footer-contact">
             <h4>{t('footer.contact')}</h4>
-            <p>{site.company.address}</p>
+            <p><strong>{site.company.name}</strong> · 대표 {site.company.ceo}</p>
             <p>{site.company.email}</p>
             <p>{site.company.phone}</p>
-            {site.company.kakao && <p>카카오톡: {site.company.kakao}</p>}
-            {site.company.businessHours && <p className="business-hours">{site.company.businessHours}</p>}
 
             <div className="footer-family">
               <select

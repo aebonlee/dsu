@@ -1049,7 +1049,10 @@
 .prompt-block {
   position: relative;
 }
-.prompt-block .practice-prompt { margin: 0; }
+.prompt-block .practice-prompt {
+  margin: 0;
+  padding-top: 44px; /* 우상단 복사 버튼과 첫 줄이 겹치지 않게 여백 확보 */
+}
 .prompt-copy-btn {
   position: absolute;
   top: 10px;

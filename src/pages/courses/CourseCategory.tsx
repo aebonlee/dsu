@@ -78,14 +78,18 @@ export default function CourseCategory(): ReactElement {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-accent program-hero-padlet"
+                  style={{ background: program.color, borderColor: program.color }}
                 >
                   <i className="fa-solid fa-chalkboard-user" />
                   {program.padletLabel || 'Padlet'}
                   <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: 12 }} />
                 </a>
               )}
-              <div className="program-platform-note compact">
-                <i className="fa-solid fa-shield-halved" />
+              <div
+                className="program-platform-note compact"
+                style={{ borderLeftColor: program.color, background: `${program.color}14` }}
+              >
+                <i className="fa-solid fa-shield-halved" style={{ color: program.color }} />
                 <span>{language === 'ko'
                   ? '모든 실습은 예시 프롬프트를 복사해 직접 따라 할 수 있습니다.'
                   : 'Every practice includes a ready-to-use prompt you can copy.'}</span>

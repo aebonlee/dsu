@@ -95,9 +95,9 @@ const PublicLayout = (): ReactElement => {
             <Route path="/tools/evaluator" element={<AuthGuard><StudentEvaluator /></AuthGuard>} />
 
             {/* 프롬프트 실습 */}
-            <Route path="/prompt-eval" element={<PromptEvalHub />} />
-            <Route path="/prompt-eval/practice" element={<PromptPractice />} />
-            <Route path="/prompt-eval/workshop" element={<PromptWorkshop />} />
+            <Route path="/prompt-eval" element={<div className="prompt-accent"><PromptEvalHub /></div>} />
+            <Route path="/prompt-eval/practice" element={<div className="prompt-accent"><PromptPractice /></div>} />
+            <Route path="/prompt-eval/workshop" element={<div className="prompt-accent"><PromptWorkshop /></div>} />
 
             {/* 커뮤니티 */}
             {site.features.community && (

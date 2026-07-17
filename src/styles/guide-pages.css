@@ -434,11 +434,17 @@
     line-height: 1.7;
     color: var(--text-secondary);
 }
-.tip-box-content strong {
+/* 라벨(직계 strong)만 블록 — 본문 마크다운의 **굵게**는 인라인 유지 */
+.tip-box-content > strong {
     display: block;
     margin-bottom: 4px;
     color: var(--text-primary);
     background: none;
+}
+.tip-box-content p strong {
+    display: inline;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
 /* ── Prompt Practice CTA Banner (green) ── */
