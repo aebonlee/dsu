@@ -57,7 +57,6 @@ export default function Home(): ReactElement {
 
       {/* Hero — Editorial */}
       <section className="hero-ed">
-        <div className="hero-ed-bg" aria-hidden="true" />
         <div className="container">
           <div className="hero-ed-grid">
             <div className="hero-ed-main">
