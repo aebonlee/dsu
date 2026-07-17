@@ -70,6 +70,7 @@ const site: SiteConfig = {
     { path: '/courses/day3', activePath: '/courses/day3', labelKey: 'site.nav.progDay3' },
     { path: '/prompt-eval', activePath: '/prompt-eval', labelKey: 'site.nav.promptPractice' },
     { path: '/recommended', labelKey: 'site.nav.recommended' },
+    { path: '/appendix', activePath: '/appendix', labelKey: 'site.nav.appendix' },
   ],
 
   footerLinks: [
@@ -80,6 +81,7 @@ const site: SiteConfig = {
     { path: '/courses/day3', labelKey: 'site.nav.progDay3' },
     { path: '/prompt-eval', labelKey: 'site.nav.promptPractice' },
     { path: '/recommended', labelKey: 'site.nav.recommended' },
+    { path: '/appendix', labelKey: 'site.nav.appendix' },
   ],
 
   familySites: [

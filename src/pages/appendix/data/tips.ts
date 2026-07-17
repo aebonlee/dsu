@@ -81,14 +81,14 @@ export default {
 - AI가 만든 글·코드도 **사실·표절 여부를 검토**한 뒤 사용
 - 논문·과제에 AI를 썼다면 학회/기관의 **AI 사용 지침**을 확인하고 필요한 경우 밝히기
 - 생성 이미지·자료의 **저작권/라이선스** 확인
-- 생성형 AI는 교내 전용이라 일반 ChatGPT보다 데이터 측면에서 안전하지만, 그래도 **민감정보 최소화** 원칙은 동일
+- 어떤 생성형 AI를 쓰든 **민감정보 최소화** 원칙은 동일 — 시험문항·학생정보·기밀은 입력 금지
 
 > "편리함"과 "책임"은 함께 갑니다. AI는 도구, 판단은 사람.`,
       contentEn: `- Handle student PII and unpublished data per campus policy.
 - Review AI-made text/code for accuracy and plagiarism.
 - Follow your venue's AI-use guidelines; disclose when required.
 - Check copyright/license of generated images/materials.
-- multi-LLM is campus-only and safer, but still minimize sensitive data.`,
+- Whatever AI you use, minimize sensitive data — never input exam items or student info.`,
     },
   ],
 };

@@ -182,3 +182,8 @@
 - CodeBlock 복사 버튼 문구 Copy→복사, Copied!→복사됨! 통일
 
 - DB 점검: dsu-schema 10개 테이블 생성 확인(REST 200). subscription-schema.sql이 mju_ 접두사 그대로였던 변환 누락 발견 → dsu_로 수정 커밋(재실행 필요). dsu_courses는 코드 미사용으로 불필요
+
+## 16. 부록 메뉴 추가
+
+- jnu(구 cnu) 부록에서 "AI 실전 사용법"(chatgptGuide) 이식 + 기존 실전 팁 문구 dsu 맥락 보정
+- 상단 메뉴 마지막에 "부록" 추가(/appendix: 용어해설·실전팁·AI실전사용법·추천자료), 푸터에도 추가
