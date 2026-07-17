@@ -1102,3 +1102,46 @@ html[data-color="vibe"] {
 @media (max-width: 960px) {
   .hero-visual { min-height: 320px; }
 }
+
+
+/* ── 히어로 로고 외곽 AI 궤도 애니메이션 ── */
+.hero-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 430px;
+  height: 430px;
+  margin: -215px 0 0 -215px;
+  border: 1.5px dashed rgba(0, 84, 166, 0.28);
+  border-radius: 50%;
+  animation: orbitSpin 14s linear infinite;
+  pointer-events: none;
+}
+.hero-orbit-dot {
+  position: absolute;
+  top: -21px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--primary-blue);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 14px rgba(0, 84, 166, 0.35);
+}
+.hero-orbit-label {
+  display: block;
+  animation: orbitCounter 14s linear infinite; /* 글자는 항상 바로 서 있게 역회전 */
+}
+@keyframes orbitSpin { to { transform: rotate(360deg); } }
+@keyframes orbitCounter { to { transform: rotate(-360deg); } }
+[data-theme="dark"] .hero-orbit { border-color: rgba(127, 179, 232, 0.35); }
+@media (max-width: 960px) {
+  .hero-orbit { width: 300px; height: 300px; margin: -150px 0 0 -150px; }
+  .hero-orbit-dot { width: 34px; height: 34px; top: -17px; font-size: 12px; }
+}
