@@ -1137,6 +1137,11 @@ html[data-color="vibe"] {
 }
 .hero-orbit-label { display: block; }
 /* 사각형 둘레를 등속으로: 가로 540(27.8%) + 세로 430(22.2%) 비율 배분 */
+.hero-orbit-dot.ax {
+  background: var(--accent);
+  animation-delay: -8s; /* AI와 반대편에서 공전 */
+  box-shadow: 0 4px 14px rgba(30, 136, 229, 0.35);
+}
 @keyframes orbitRect {
   0%    { top: 0;    left: 0; }
   27.8% { top: 0;    left: 100%; }

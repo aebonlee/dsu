@@ -87,6 +87,7 @@ export default function Home(): ReactElement {
               <div className="hero-visual">
                 <div className="hero-orbit" aria-hidden="true">
                   <span className="hero-orbit-dot"><span className="hero-orbit-label">AI</span></span>
+                  <span className="hero-orbit-dot ax"><span className="hero-orbit-label">AX</span></span>
                 </div>
                 <img src="/images/logo/logo-stacked-ko.png" alt="동신대학교" className="hero-visual-logo" />
                 <div className="hero-visual-caption">DONGSHIN UNIVERSITY <span className="x">×</span> GENERATIVE AI</div>
