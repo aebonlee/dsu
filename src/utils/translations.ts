@@ -232,7 +232,7 @@ export const translations: Record<string, Record<string, unknown>> = {
         progIntermediate: '심화과정',
         progAdvanced: '전문과정',
         aboutMenu: 'About',
-        progVod: '공통VOD : 추가학습자료',
+        progVod: '공통VOD : 추가학습',
         progDay1: 'Day1 : 목표 구조화',
         progDay2: 'Day2 : 평가 설계',
         progDay3: 'Day3 : 교수 프로토콜',
