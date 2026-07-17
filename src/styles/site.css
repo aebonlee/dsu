@@ -1112,8 +1112,11 @@ html[data-color="vibe"] {
   width: 540px;
   height: 430px;
   margin: -215px 0 0 -270px;
+  border: 5px solid rgba(0, 84, 166, 0.16); /* 투명도 있는 5px 트랙 */
+  border-radius: 48px;                       /* 둥근 사각형 */
   pointer-events: none;
 }
+[data-theme="dark"] .hero-orbit { border-color: rgba(127, 179, 232, 0.22); }
 .hero-orbit-dot {
   position: absolute;
   top: 0;
