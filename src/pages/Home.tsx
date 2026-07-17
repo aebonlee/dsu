@@ -85,38 +85,6 @@ export default function Home(): ReactElement {
 
             <aside className="hero-ed-side" data-aos="fade-left" data-aos-delay="100">
               <div className="hero-visual">
-                <svg className="hero-visual-net" viewBox="0 0 420 460" aria-hidden="true">
-                  {/* 연결선 (신경망) */}
-                  <g stroke="rgba(0,84,166,0.20)" strokeWidth="1.2" fill="none">
-                    <line x1="60" y1="80" x2="180" y2="40" /><line x1="60" y1="80" x2="150" y2="150" />
-                    <line x1="180" y1="40" x2="330" y2="70" /><line x1="150" y1="150" x2="330" y2="70" />
-                    <line x1="150" y1="150" x2="90" y2="260" /><line x1="150" y1="150" x2="280" y2="200" />
-                    <line x1="330" y1="70" x2="280" y2="200" /><line x1="280" y1="200" x2="360" y2="300" />
-                    <line x1="90" y1="260" x2="200" y2="330" /><line x1="280" y1="200" x2="200" y2="330" />
-                    <line x1="200" y1="330" x2="360" y2="300" /><line x1="90" y1="260" x2="60" y2="390" />
-                    <line x1="200" y1="330" x2="150" y2="420" /><line x1="360" y1="300" x2="300" y2="420" />
-                  </g>
-                  {/* 노드 */}
-                  <g fill="#64B5F6">
-                    <circle className="net-node n1" cx="60" cy="80" r="6" />
-                    <circle className="net-node n2" cx="180" cy="40" r="4.5" />
-                    <circle className="net-node n3" cx="330" cy="70" r="6.5" />
-                    <circle className="net-node n4" cx="150" cy="150" r="5" fill="#90CAF9" />
-                    <circle className="net-node n5" cx="280" cy="200" r="7" fill="#BBDEFB" />
-                    <circle className="net-node n6" cx="90" cy="260" r="5" />
-                    <circle className="net-node n7" cx="360" cy="300" r="5.5" fill="#90CAF9" />
-                    <circle className="net-node n8" cx="200" cy="330" r="6" />
-                    <circle className="net-node n9" cx="60" cy="390" r="4" fill="#BBDEFB" />
-                    <circle className="net-node n10" cx="150" cy="420" r="5" />
-                    <circle className="net-node n11" cx="300" cy="420" r="4.5" fill="#90CAF9" />
-                  </g>
-                  {/* AI 스파클 */}
-                  <g fill="rgba(30,136,229,0.75)">
-                    <path className="net-spark s1" d="M370 140 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z" />
-                    <path className="net-spark s2" d="M48 180 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3 z" />
-                    <path className="net-spark s3" d="M330 380 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" />
-                  </g>
-                </svg>
                 <img src="/images/logo/logo-stacked-ko.png" alt="동신대학교" className="hero-visual-logo" />
                 <div className="hero-visual-caption">DONGSHIN UNIVERSITY <span className="x">×</span> GENERATIVE AI</div>
               </div>
