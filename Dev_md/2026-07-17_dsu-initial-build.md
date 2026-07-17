@@ -156,3 +156,5 @@
 | 빌드 | tsc·vite 통과. SubscribePrompt 청크 500kB+ 경고(mju 유래, 동작 무관) |
 | SPA 라우팅 | 직접 URL 접근 시 HTTP 404 + 404.html 리다이렉트로 정상 렌더(gh-pages SPA 표준 방식, SEO에는 불리 — 전 사이트 공통 특성) |
 | 미완(운영 전 확인) | ① dsu_ 테이블 미생성(게시판·실습점수 저장 불가, sql/dsu-schema.sql 실행 필요) ② HTTPS enforce 대기 ③ VOD 영상 링크 미수령 |
+
+- 메뉴 라벨 "프롬프트 학습·평가" → "프롬프트학습"으로 축약(메뉴 길이 조정)
