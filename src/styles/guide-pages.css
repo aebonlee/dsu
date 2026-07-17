@@ -1152,3 +1152,12 @@
     .prof-two-col { grid-template-columns: 1fr; }
     .prof-career li { flex-wrap: wrap; }
 }
+
+
+/* 실습 프롬프트(코드블록 디자인 공유) — 한글 장문이므로 줄바꿈 랩 */
+.code-block-wrapper.prompt-plain .code-block-content code {
+    white-space: pre-wrap;
+    word-break: keep-all;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+}
