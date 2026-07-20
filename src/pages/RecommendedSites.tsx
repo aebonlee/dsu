@@ -1,5 +1,6 @@
 import { useLanguage } from '../contexts/LanguageContext';
 import SEOHead from '../components/SEOHead';
+import EnNote from '../components/EnNote';
 import useAOS from '../hooks/useAOS';
 import type { ReactElement } from 'react';
 
@@ -108,7 +109,7 @@ const SITES: SiteItem[] = [
 ];
 
 export default function RecommendedSites(): ReactElement {
-  const { language } = useLanguage();
+  const { language, bilingual } = useLanguage();
   const isKo = language === 'ko';
   useAOS();
 
@@ -125,9 +126,12 @@ export default function RecommendedSites(): ReactElement {
       <section className="page-header">
         <div className="container">
           <h1>{isKo ? '추천사이트' : 'Recommended Sites'}</h1>
-          <p>{isKo
-            ? '교육과 업무에 유용한 AI 서비스와 관련 사이트를 소개합니다.'
-            : 'Useful AI services and related sites for education and work.'}</p>
+          <p>
+            {isKo
+              ? '교육과 업무에 유용한 AI 서비스와 관련 사이트를 소개합니다.'
+              : 'Useful AI services and related sites for education and work.'}
+            <EnNote text={bilingual ? 'Useful AI services and related sites for education and work.' : null} />
+          </p>
         </div>
       </section>
 
@@ -153,7 +157,7 @@ export default function RecommendedSites(): ReactElement {
                   </div>
                   <div className="recommended-card-content">
                     <h3>{isKo ? site.name : site.nameEn}</h3>
-                    <p>{isKo ? site.descKo : site.descEn}</p>
+                    <p>{isKo ? site.descKo : site.descEn}<EnNote text={bilingual ? site.descEn : null} /></p>
                     <span className="recommended-card-url">
                       {site.url.replace('https://', '')}
                       <i className="fa-solid fa-arrow-up-right-from-square" />
@@ -184,7 +188,7 @@ export default function RecommendedSites(): ReactElement {
                   </div>
                   <div className="recommended-card-content">
                     <h3>{isKo ? site.name : site.nameEn}</h3>
-                    <p>{isKo ? site.descKo : site.descEn}</p>
+                    <p>{isKo ? site.descKo : site.descEn}<EnNote text={bilingual ? site.descEn : null} /></p>
                     <span className="recommended-card-url">
                       {site.url.replace('https://', '')}
                       <i className="fa-solid fa-arrow-up-right-from-square" />

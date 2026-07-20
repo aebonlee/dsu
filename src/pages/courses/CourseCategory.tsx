@@ -13,6 +13,7 @@ import PromptBlock from '../../components/PromptBlock';
 import CodeBlock from '../../components/CodeBlock';
 import { renderInline } from '../../utils/inlineMd';
 import { getLabEn, getSessionEn } from '../../data/i18n';
+import EnNote from '../../components/EnNote';
 import { badgeEn, difficultyEn, periodEn, timeEn } from '../../data/i18n/labels';
 import type { ReactElement } from 'react';
 
@@ -27,7 +28,7 @@ const mdComponents = {
 
 export default function CourseCategory(): ReactElement {
   const { category } = useParams<{ category: string }>();
-  const { language } = useLanguage();
+  const { language, bilingual } = useLanguage();
   const { theme } = useTheme();
   const navigate = useNavigate();
   const [matOpen, setMatOpen] = useState(true);
@@ -108,13 +109,16 @@ export default function CourseCategory(): ReactElement {
                 <i className={`fa-solid ${program.icon}`} />
               </div>
               <div className="program-hero-text">
-                <div className="eyebrow">Program {String(program.order).padStart(2, '0')} · {program.duration}</div>
+                <div className="eyebrow">Program {String(program.order).padStart(2, '0')} · {isEn ? program.durationEn : program.duration}</div>
                 <h1>{language === 'ko' ? program.nameKo : program.nameEn}</h1>
-                <p className="program-hero-tagline">{program.tagline}</p>
+                <p className="program-hero-tagline">
+                  {isEn ? program.taglineEn : program.tagline}
+                  <EnNote text={bilingual ? program.taglineEn : null} />
+                </p>
                 <div className="program-hero-meta">
-                  <span><i className="fa-solid fa-user-check" /> {program.audience}</span>
+                  <span><i className="fa-solid fa-user-check" /> {isEn ? program.audienceEn : program.audience}</span>
                   <span><i className="fa-solid fa-layer-group" /> {totalSessions}{language === 'ko' ? '개 실습 교시' : ' sessions'}</span>
-                  <span><i className="fa-solid fa-signal" /> {program.level}</span>
+                  <span><i className="fa-solid fa-signal" /> {isEn ? program.levelEn : program.level}</span>
                 </div>
               </div>
             </div>
@@ -131,7 +135,7 @@ export default function CourseCategory(): ReactElement {
                   style={{ background: base, borderColor: base }}
                 >
                   <i className="fa-solid fa-chalkboard-user" />
-                  {program.padletLabel || 'Padlet'}
+                  {(isEn ? program.padletLabelEn : program.padletLabel) || 'Padlet'}
                   <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: 12 }} />
                 </a>
               )}
@@ -253,7 +257,10 @@ export default function CourseCategory(): ReactElement {
                 <span className="course-sidebar-label">{language === 'ko' ? '커리큘럼 바로가기' : 'Jump to'}</span>
                 {program.curriculum.map((day) => (
                   <a key={day.day} href={`#day-${day.day}`} className="course-sidebar-link sub">
-                    <i className="fa-regular fa-calendar" /> {day.badge} — {day.theme.split(' — ')[0]}
+                    <i className="fa-regular fa-calendar" />{' '}
+                    {isEn
+                      ? `${badgeEn(day.badge)} — ${day.themeEn.split(' — ')[0]}`
+                      : `${day.badge} — ${day.theme.split(' — ')[0]}`}
                   </a>
                 ))}
               </nav>
@@ -290,15 +297,16 @@ export default function CourseCategory(): ReactElement {
               {labs.map((lab) => {
                 // 영문 오버레이 — 번역이 없으면 자동으로 한국어 원문을 쓴다
                 const labEn = getLabEn(language, lab.id);
+                const labEnAlso = bilingual ? getLabEn('en', lab.id) : null;
                 return (
                 <article key={lab.id} className="lab-card">
                   <div className="lab-card-head" style={{ borderColor: base }}>
-                    <h3 className="lab-title">{labEn?.title ?? lab.title}</h3>
+                    <h3 className="lab-title">{labEn?.title ?? lab.title}<EnNote text={labEnAlso?.title} /></h3>
                     <div className="lab-meta">
                       <span><i className="fa-solid fa-signal" /> {labEn?.level ?? lab.level}</span>
                       <span><i className="fa-regular fa-clock" /> {labEn?.minutes ?? lab.minutes}</span>
                     </div>
-                    <p className="lab-scenario">{renderInline(labEn?.scenario ?? lab.scenario)}</p>
+                    <p className="lab-scenario">{renderInline(labEn?.scenario ?? lab.scenario)}<EnNote text={labEnAlso?.scenario} /></p>
                   </div>
                   <ol className="lab-steps">
                     {(labEn?.steps ?? lab.steps).map((s, si) => (
@@ -326,12 +334,23 @@ export default function CourseCategory(): ReactElement {
               <div className="material-inline-eyebrow" style={{ color: base }}>
                 <i className="fa-solid fa-folder-open" /> {language === 'ko' ? program.nameKo : program.nameEn} · {language === 'ko' ? '학습자료' : 'Materials'}
               </div>
-              <h2 className="material-inline-title">{language === 'ko' ? selectedMat.nameKo : selectedMat.nameEn}</h2>
+              <h2 className="material-inline-title">
+                {language === 'ko' ? selectedMat.nameKo : selectedMat.nameEn}
+                <EnNote text={bilingual ? selectedMat.nameEn : null} />
+              </h2>
               <div className="markdown-body">
                 <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={mdComponents as any}>
                   {language === 'ko' ? selectedMat.contentKo : selectedMat.contentEn}
                 </ReactMarkdown>
               </div>
+              {/* 병기 모드: 한국어 본문 아래에 영문 본문을 통째로 한 번 더 */}
+              {bilingual && selectedMat.contentEn && (
+                <div className="markdown-body en-note-block" lang="en">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={mdComponents as any}>
+                    {selectedMat.contentEn}
+                  </ReactMarkdown>
+                </div>
+              )}
             </article>
           ) : (
           <>
@@ -340,7 +359,7 @@ export default function CourseCategory(): ReactElement {
               <div className="curriculum-day-head">
                 <span className="curriculum-day-badge" style={{ background: base }}>{isEn ? badgeEn(day.badge) : day.badge}</span>
                 <div>
-                  <h2 className="curriculum-day-title">{isEn ? day.themeEn : day.theme}</h2>
+                  <h2 className="curriculum-day-title">{isEn ? day.themeEn : day.theme}<EnNote text={bilingual ? day.themeEn : null} /></h2>
                   <span className="curriculum-day-sub">{day.sessions.length}{language === 'ko' ? '차시 · 마이크로러닝' : ' sessions · microlearning'}</span>
                 </div>
               </div>
@@ -349,6 +368,8 @@ export default function CourseCategory(): ReactElement {
                 {day.sessions.map((session, si) => {
                   // 영문 오버레이 — 번역이 없으면 자동으로 한국어 원문을 쓴다
                   const en = getSessionEn(language, program.id, day.day, si);
+                  // 병기 모드: 주 본문은 한국어, 영문은 EnNote 로 아래에 덧붙인다
+                  const enAlso = bilingual ? getSessionEn('en', program.id, day.day, si) : null;
                   const practices = en?.practices ?? session.practices;
                   return (
                   <div key={si} className="session-card">
@@ -358,7 +379,7 @@ export default function CourseCategory(): ReactElement {
                     </div>
                     <div className="session-body">
                       <div className="session-title-row">
-                        <h3 className="session-title">{en?.title ?? session.title}</h3>
+                        <h3 className="session-title">{en?.title ?? session.title}<EnNote text={enAlso?.title} /></h3>
                         <span className="session-badges">
                           {session.difficulty && (
                             <span className={`session-diff diff-${session.difficulty}`}>{isEn ? difficultyEn(session.difficulty) : session.difficulty}</span>
@@ -370,11 +391,14 @@ export default function CourseCategory(): ReactElement {
                           )}
                         </span>
                       </div>
-                      <p className="session-goal"><i className="fa-solid fa-bullseye" /> {renderInline(en?.goal ?? session.goal)}</p>
+                      <p className="session-goal"><i className="fa-solid fa-bullseye" /> {renderInline(en?.goal ?? session.goal)}<EnNote text={enAlso?.goal} /></p>
 
                       <div className="session-topics">
-                        {(en?.topics ?? session.topics).map((topic) => (
-                          <span key={topic} className={`session-topic${topic.startsWith('📦') ? ' output' : ''}`}>{renderInline(topic)}</span>
+                        {(en?.topics ?? session.topics).map((topic, ti) => (
+                          <span key={topic} className={`session-topic${topic.startsWith('📦') ? ' output' : ''}`}>
+                            {renderInline(topic)}
+                            <EnNote text={enAlso?.topics[ti]} />
+                          </span>
                         ))}
                       </div>
 
@@ -386,9 +410,15 @@ export default function CourseCategory(): ReactElement {
                           <div key={pi} className="practice-item">
                             <div className="practice-scenario">
                               <span className="practice-num" style={{ background: base }}>{pi + 1}</span>
-                              {pc.scenario}
+                              <span>
+                                {pc.scenario}
+                                <EnNote text={enAlso?.practices[pi]?.scenario} />
+                              </span>
                             </div>
                             <PromptBlock prompt={pc.prompt} />
+                            {enAlso?.practices[pi] && (
+                              <PromptBlock prompt={enAlso.practices[pi].prompt} label="Prompt (English)" />
+                            )}
                           </div>
                         ))}
                       </div>

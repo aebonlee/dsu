@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
+import EnNote from '../../components/EnNote';
 import { MATERIAL_CATEGORIES, MATERIALS } from '../../data/materials';
 import type { ReactElement } from 'react';
 
@@ -21,7 +22,7 @@ const mdComponents = {
 export default function LearningMaterials(): ReactElement {
   const { category: routeCategory } = useParams<{ category: string }>();
   const [searchParams] = useSearchParams();
-  const { language } = useLanguage();
+  const { language, bilingual } = useLanguage();
   const isKo = language === 'ko';
 
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => {
@@ -89,7 +90,9 @@ export default function LearningMaterials(): ReactElement {
           <h1>{isKo ? '학습자료' : 'Learning Materials'}</h1>
           <p>{isKo
             ? '교육에 필요한 자료를 카테고리별로 제공합니다.'
-            : 'Educational materials organized by category.'}</p>
+            : 'Everything you need for the training, organised by category.'}
+            <EnNote block text="Everything you need for the training, organised by category." />
+          </p>
         </div>
       </section>
 
@@ -155,6 +158,14 @@ export default function LearningMaterials(): ReactElement {
                     <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={mdComponents as any}>
                       {isKo ? selectedItem.contentKo : selectedItem.contentEn}
                     </ReactMarkdown>
+                    {/* 병기 모드 — 한국어 본문이 정본, 영문은 그 아래에 덧붙인다 */}
+                    {bilingual && selectedItem.contentEn && (
+                      <div className="en-note-block" lang="en">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={mdComponents as any}>
+                          {selectedItem.contentEn}
+                        </ReactMarkdown>
+                      </div>
+                    )}
                   </div>
                 </>
               ) : (
@@ -165,7 +176,9 @@ export default function LearningMaterials(): ReactElement {
                   <h2>{isKo ? '학습자료에 오신 것을 환영합니다' : 'Welcome to Learning Materials'}</h2>
                   <p>{isKo
                     ? '왼쪽 메뉴에서 카테고리를 펼치고 원하는 자료를 선택하세요.'
-                    : 'Expand a category on the left and select a material to read.'}</p>
+                    : 'Open a category on the left and choose a material to read.'}
+                    <EnNote block text="Open a category on the left and choose a material to read." />
+                  </p>
 
                   <div className="materials-overview">
                     {MATERIAL_CATEGORIES.map(cat => {
@@ -179,7 +192,7 @@ export default function LearningMaterials(): ReactElement {
                             <i className={`fa-solid ${cat.icon}`} />
                           </div>
                           <h4>{isKo ? cat.nameKo : cat.nameEn}</h4>
-                          <p>{isKo ? cat.descKo : cat.descEn}</p>
+                          <p>{isKo ? cat.descKo : cat.descEn}<EnNote block text={cat.descEn} /></p>
                           <span className="overview-card-count">{items.length} {isKo ? '개 자료' : 'materials'}</span>
                         </div>
                       );

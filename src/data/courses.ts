@@ -45,18 +45,25 @@ export interface Program {
   nameKo: string;
   nameEn: string;
   tagline: string;
+  /** 영문 표기 — 화면 EN·병기 모드에서 쓴다. 한국어 필드와 짝을 맞춰 유지할 것. */
+  taglineEn: string;
   descKo: string;
   descEn: string;
   audience: string;
+  audienceEn: string;
   duration: string;
+  durationEn: string;
   level: string;
+  levelEn: string;
   icon: string;
   color: string;
   highlights: string[];
+  highlightsEn: string[];
   curriculum: CurriculumDay[];
   /** 패들릿 등 외부 실습 보드 링크 (있으면 과정 헤더에 버튼 표시) */
   padletUrl?: string;
   padletLabel?: string;
+  padletLabelEn?: string;
 }
 
 export const PROGRAMS: Program[] = [
@@ -69,14 +76,19 @@ export const PROGRAMS: Program[] = [
     nameKo: '공통 VOD — 생성형 AI 기초 다지기',
     nameEn: 'Common VOD — Generative AI Foundations',
     tagline: 'Claude의 원리부터 프롬프트·학습자료·평가와 윤리까지, 영상으로 미리 배우는 기초 8시간',
+    taglineEn: 'Eight foundation hours on video — how Claude works, prompting, teaching materials, assessment and ethics.',
     descKo: '대면 실습(Day1~3) 전에 녹화 영상으로 학습하는 공통 기초 과정입니다. "AI가 어떻게 말을 만들어내는지"부터 "무엇을 입력하면 안 되는지"까지, 컴퓨터가 익숙하지 않은 교수님도 처음부터 차근차근 따라올 수 있도록 구성했습니다. 각 모듈의 실습 프롬프트는 Claude에 그대로 복사해 넣으면 됩니다.',
     descEn: 'A pre-recorded 8-hour foundation course to complete before the in-person Days 1–3: how LLMs work, prompt engineering, teaching-material generation, and assessment & AI ethics.',
     audience: '동신대 전임교원·강사 전체 (사전 필수)',
+    audienceEn: 'All Dongshin University faculty and instructors (required beforehand)',
     duration: '4모듈 · 8시간 (영상)',
+    durationEn: '4 modules · 8 hours (video)',
     level: '입문 (사전학습)',
+    levelEn: 'Beginner (pre-learning)',
     icon: 'fa-circle-play',
     color: '#0054A6',
     highlights: ['LLM 작동 원리', '환각과 검증', '프롬프트 4요소', '학습자료 제작', '평가 설계', 'AI 윤리·개인정보'],
+    highlightsEn: ['How LLMs work', 'Hallucination & verification', 'The four parts of a prompt', 'Making teaching materials', 'Designing assessment', 'AI ethics & privacy'],
     curriculum: [
       {
         day: 1,
@@ -462,18 +474,24 @@ export const PROGRAMS: Program[] = [
     id: 'day1',
     padletUrl: 'https://padlet.com/aebon/dsu26',
     padletLabel: '[동신대] 생성형인공지능 A to Z 특강 패들릿',
+    padletLabelEn: '[Dongshin] Generative AI A to Z — course Padlet',
     order: 2,
     nameKo: 'Day 1 — 서사·토론·글쓰기 수업 목표 구조화',
     nameEn: 'Day 1 — Structuring Goals for Narrative, Debate & Writing Courses',
     tagline: '내 과목의 특성을 파악하고, 학습목표·강의안·토론 가이드를 Claude와 함께 완성하는 첫날',
+    taglineEn: 'Day one — understand what makes your course distinctive, then build learning objectives, lesson plans, and debate guides with Claude.',
     descKo: '인문사회·예체능 교과의 핵심인 토론·사례분석·글쓰기 수업에 AI를 어디에, 어떻게 붙일지 찾는 날입니다. 공통 VOD에서 배운 내용을 실제 내 과목에 적용해, 학습목표와 강의안 초안을 직접 만들어 갑니다. 컴퓨터가 서툴러도 괜찮습니다 — 모든 실습은 "복사해서 붙여넣기"부터 시작합니다.',
     descEn: 'Day 1 maps AI onto the core activities of humanities & arts courses — debate, case analysis, and writing — and produces real learning objectives and lesson-plan drafts for your own course.',
     audience: '인문사회·예체능 계열 교원 (2026.07.20 월)',
+    audienceEn: 'Humanities & arts faculty (Mon 20 July 2026)',
     duration: '4교시 · 4시간 (대면 실습)',
+    durationEn: '4 periods · 4 hours (in person)',
     level: '기초 → 적용',
+    levelEn: 'Foundational → Applied',
     icon: 'fa-comments',
     color: '#1E88E5',
     highlights: ['교과 특성 진단', 'AI 적용 지점 찾기', '학습목표 구조화', '강의안 초안', '토론 가이드·발문', '수준별 텍스트 변환'],
+    highlightsEn: ['Reading your subject', 'Finding where AI helps', 'Structuring objectives', 'Lesson plan draft', 'Debate guides & questions', 'Rewriting texts by level'],
     curriculum: [
       {
         day: 1,
@@ -585,18 +603,24 @@ export const PROGRAMS: Program[] = [
     id: 'day2',
     padletUrl: 'https://padlet.com/aebon/dsu26',
     padletLabel: '[동신대] 생성형인공지능 A to Z 특강 패들릿',
+    padletLabelEn: '[Dongshin] Generative AI A to Z — course Padlet',
     order: 3,
     nameKo: 'Day 2 — 서술형·비판형 평가 문항 설계',
     nameEn: 'Day 2 — Designing Essay & Critical-Thinking Assessments',
     tagline: '서술·논술 문항과 모범답안, 채점 루브릭, 개인화 피드백까지 — 평가의 전 과정을 하루에',
+    taglineEn: 'Essay and critical-thinking items, model answers, scoring rubrics, and personalised feedback — the whole assessment cycle in one day.',
     descKo: '인문사회·예체능 평가의 핵심인 서술형·비판형 평가를 설계하는 날입니다. 문항을 만들고, 단계별 모범답안을 뽑고, 분석·비판·창의 역량을 재는 루브릭을 작성한 뒤, 피드백을 템플릿으로 확장합니다. 마지막에는 웹 검색으로 근거와 출처를 검증하고 가짜 인용을 걸러내는 법을 익힙니다.',
     descEn: 'Day 2 covers the full assessment cycle for humanities & arts: essay/critical prompts, model answers, rubrics for analysis-critique-creativity, scalable personalized feedback, and source verification.',
     audience: '인문사회·예체능 계열 교원 (2026.07.21 화)',
+    audienceEn: 'Humanities & arts faculty (Tue 21 July 2026)',
     duration: '4교시 · 4시간 (대면 실습)',
+    durationEn: '4 periods · 4 hours (in person)',
     level: '적용 → 평가',
+    levelEn: 'Applied → Assessment',
     icon: 'fa-file-signature',
     color: '#009B77',
     highlights: ['평가 유형 이해', '서술·논술 문항', '단계별 모범답안', '역량 루브릭', '개인화 피드백 확장', '웹 검색 근거 수집', '출처 검증·가짜 인용 점검'],
+    highlightsEn: ['Types of assessment', 'Essay & critical-thinking items', 'Step-by-step model answers', 'Competency rubrics', 'Scaling personalised feedback', 'Gathering web evidence', 'Checking sources & fake citations'],
     curriculum: [
       {
         day: 1,
@@ -712,18 +736,24 @@ export const PROGRAMS: Program[] = [
     id: 'day3',
     padletUrl: 'https://padlet.com/aebon/dsu26',
     padletLabel: '[동신대] 생성형인공지능 A to Z 특강 패들릿',
+    padletLabelEn: '[Dongshin] Generative AI A to Z — course Padlet',
     order: 4,
     nameKo: 'Day 3 — AI 활용 교수 프로토콜 & 바이브코딩',
     nameEn: 'Day 3 — AI Teaching Protocols & Vibe Coding',
     tagline: '수업 전략을 세우고, 바이브코딩으로 나만의 수업 도구를 직접 만들어 완주하는 마지막 날',
+    taglineEn: 'The final day — set your teaching strategy and build your own classroom tool through vibe coding.',
     descKo: '마지막 날은 종합의 날입니다. 토론·글쓰기·발표 수업과 PBL·프로젝트 수업에 AI를 배치하는 전략을 세우고, 내 과목의 핵심 역량을 반복 연습시키는 시나리오를 만듭니다. 하이라이트는 바이브코딩 — 코딩을 몰라도 말로 요청해서 찬반토론 도우미, 역할극 챗봇 같은 상호작용 수업 도구를 직접 만들어 봅니다. 마지막으로 나만의 AI 활용 교수 프로토콜을 완성해 동료와 공유합니다.',
     descEn: 'Day 3 synthesizes everything: AI strategies for discussion/PBL courses, practice scenarios for core competencies, building interactive class tools via vibe coding (no coding skills needed), and a personal AI teaching protocol.',
     audience: '인문사회·예체능 계열 교원 (2026.07.22 수)',
+    audienceEn: 'Humanities & arts faculty (Wed 22 July 2026)',
     duration: '4교시 · 4시간 (대면 실습)',
+    durationEn: '4 periods · 4 hours (in person)',
     level: '종합 → 창안',
+    levelEn: 'Synthesis → Creation',
     icon: 'fa-wand-magic-sparkles',
     color: '#8E2F6F',
     highlights: ['수업 단계별 AI 전략', 'PBL·프로젝트 수업', '핵심 역량 시나리오', '바이브코딩 도구 제작', 'AI 윤리·출처 표기', '개인 교수 프로토콜'],
+    highlightsEn: ['AI strategy by class stage', 'PBL & project work', 'Core-competency scenarios', 'Building tools by vibe coding', 'AI ethics & attribution', 'Your own teaching protocol'],
     curriculum: [
       {
         day: 1,

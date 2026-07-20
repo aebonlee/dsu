@@ -1,16 +1,23 @@
 import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
+import EnNote from '../components/EnNote';
 import { COURSE_CATEGORIES } from '../data/courses';
 import useAOS from '../hooks/useAOS';
 import type { ReactElement } from 'react';
 
+/**
+ * 과정 카드에 쓰는 영문 보조 문구.
+ * courses.ts 의 tagline·highlights·duration 은 한국어만 있어서,
+ * 영어권 교원에게 카드가 통째로 한국어로 보이는 일을 막으려고 여기서 짝을 맞춘다.
+ */
 export default function Home(): ReactElement {
   const { language, t } = useLanguage();
   const navigate = useNavigate();
   useAOS();
 
   const isKo = language === 'ko';
+  const coursesDescEn = 'Common VOD (LLM basics · prompting · materials · assessment & ethics, 8h) followed by the humanities & arts track Days 1–3 (4h each), fully hands-on.';
   const marqueeWords = (isKo
     ? 'Claude · 프롬프트 · 학습목표 구조화 · 토론 가이드 · 평가 루브릭 · 바이브코딩 · AI 윤리 · 교수 프로토콜'
     : 'Claude · Prompts · Objectives · Debate Guides · Rubrics · Vibe Coding · AI Ethics · Teaching Protocol'
@@ -18,18 +25,18 @@ export default function Home(): ReactElement {
 
   // 연수 특징 (Overview band)
   const features = [
-    { no: '01', icon: 'fa-circle-play', title: isKo ? 'VOD 사전학습' : 'VOD First', desc: isKo ? '공통 VOD 4모듈(8시간)로 LLM 원리·프롬프트·학습자료·평가와 윤리를 미리 다집니다.' : 'Four common VOD modules (8h) cover LLM basics, prompting, materials, and ethics first.' },
-    { no: '02', icon: 'fa-hands-holding-circle', title: isKo ? '대면 실습 중심' : 'Hands-on Days', desc: isKo ? 'Day1~3(각 4시간)은 이론이 아니라 내 과목의 실제 산출물을 만드는 실습으로 진행합니다.' : 'Days 1–3 (4h each) are pure hands-on sessions producing real deliverables for your course.' },
-    { no: '03', icon: 'fa-palette', title: isKo ? '인문사회·예체능 특화' : 'Humanities & Arts', desc: isKo ? '토론·글쓰기·사례분석·실기 등 계열 특성에 맞춘 AI 적용 전략과 템플릿을 제공합니다.' : 'AI strategies and templates tailored to debate, writing, case analysis, and performance.' },
-    { no: '04', icon: 'fa-box-open', title: isKo ? '산출물 중심' : 'Deliverable-first', desc: isKo ? '학습목표·강의안·토론 가이드·평가 문항·루브릭·수업 도구까지 바로 쓰는 산출물을 만듭니다.' : 'Objectives, lesson plans, debate guides, assessments, rubrics, and class tools — ready to use.' },
+    { no: '01', icon: 'fa-circle-play', title: isKo ? 'VOD 사전학습' : 'VOD First', descKo: '공통 VOD 4모듈(8시간)로 LLM 원리·프롬프트·학습자료·평가와 윤리를 미리 다집니다.', descEn: 'Four common VOD modules (8h) cover LLM basics, prompting, materials, and ethics first.' },
+    { no: '02', icon: 'fa-hands-holding-circle', title: isKo ? '대면 실습 중심' : 'Hands-on Days', descKo: 'Day1~3(각 4시간)은 이론이 아니라 내 과목의 실제 산출물을 만드는 실습으로 진행합니다.', descEn: 'Days 1–3 (4h each) are pure hands-on sessions producing real deliverables for your course.' },
+    { no: '03', icon: 'fa-palette', title: isKo ? '인문사회·예체능 특화' : 'Humanities & Arts', descKo: '토론·글쓰기·사례분석·실기 등 계열 특성에 맞춘 AI 적용 전략과 템플릿을 제공합니다.', descEn: 'AI strategies and templates tailored to debate, writing, case analysis, and performance.' },
+    { no: '04', icon: 'fa-box-open', title: isKo ? '산출물 중심' : 'Deliverable-first', descKo: '학습목표·강의안·토론 가이드·평가 문항·루브릭·수업 도구까지 바로 쓰는 산출물을 만듭니다.', descEn: 'Objectives, lesson plans, debate guides, assessments, rubrics, and class tools — ready to use.' },
   ];
 
   // 수강 안내 (How it works)
   const prep = [
-    { no: '1', title: isKo ? '공통 VOD 수강' : 'Watch the VOD', desc: isKo ? '대면 연수 전에 공통 VOD 4모듈(8시간)을 먼저 시청하고 Claude 계정을 만들어 두세요.' : 'Watch the four common VOD modules (8h) and create a Claude account beforehand.' },
-    { no: '2', title: isKo ? 'Claude 준비' : 'Set up Claude', desc: isKo ? 'claude.ai에 가입하고 첫 프롬프트를 입력해 보세요. 노트북을 지참하면 실습이 편합니다.' : 'Sign up at claude.ai and try your first prompt. Bring a laptop for the sessions.' },
-    { no: '3', title: isKo ? 'Day1~3 대면 실습' : 'Days 1–3', desc: isKo ? '7/20~22 사흘간 매일 4시간, 내 과목 자료를 가지고 와서 실제 산출물을 만들어 갑니다.' : 'Jul 20–22, 4 hours daily — bring your course materials and leave with real deliverables.' },
-    { no: '4', title: isKo ? '프로토콜 완성' : 'Finish protocol', desc: isKo ? '마지막 날 개인 AI 활용 교수 프로토콜을 완성해 동료와 공유하며 마무리합니다.' : 'Complete and share your personal AI teaching protocol on the final day.' },
+    { no: '1', title: isKo ? '공통 VOD 수강' : 'Watch the VOD', descKo: '대면 연수 전에 공통 VOD 4모듈(8시간)을 먼저 시청하고 Claude 계정을 만들어 두세요.', descEn: 'Watch the four common VOD modules (8h) and create a Claude account beforehand.' },
+    { no: '2', title: isKo ? 'Claude 준비' : 'Set up Claude', descKo: 'claude.ai에 가입하고 첫 프롬프트를 입력해 보세요. 노트북을 지참하면 실습이 편합니다.', descEn: 'Sign up at claude.ai and try your first prompt. Bring a laptop for the sessions.' },
+    { no: '3', title: isKo ? 'Day1~3 대면 실습' : 'Days 1–3', descKo: '7/20~22 사흘간 매일 4시간, 내 과목 자료를 가지고 와서 실제 산출물을 만들어 갑니다.', descEn: 'Jul 20–22, 4 hours daily — bring your course materials and leave with real deliverables.' },
+    { no: '4', title: isKo ? '프로토콜 완성' : 'Finish protocol', descKo: '마지막 날 개인 AI 활용 교수 프로토콜을 완성해 동료와 공유하며 마무리합니다.', descEn: 'Complete and share your personal AI teaching protocol on the final day.' },
   ];
 
   // 연수 안내 (Info cards)
@@ -72,6 +79,7 @@ export default function Home(): ReactElement {
                 {isKo
                   ? '공통 VOD로 기초를 다지고, 인문사회·예체능 트랙 Day1~3 대면 실습에서 내 과목의 학습목표·강의안·평가 문항·루브릭·수업 도구를 직접 완성하는 실습 중심 연수입니다. 컴퓨터가 서툴러도 괜찮습니다 — 아주 기초부터 차근차근 진행합니다.'
                   : 'Build foundations with the common VOD, then complete your own objectives, lesson plans, assessments, rubrics, and class tools in hands-on Days 1–3. Beginner-friendly — we start from the very basics.'}
+                <EnNote block text="Build foundations with the common VOD, then complete your own objectives, lesson plans, assessments, rubrics, and class tools in hands-on Days 1–3. Beginner-friendly — we start from the very basics." />
               </p>
               <div className="hero-ed-actions" data-aos="fade-up" data-aos-delay="150">
                 <button className="btn btn-primary btn-lg" onClick={() => navigate('/courses')}>
@@ -115,10 +123,11 @@ export default function Home(): ReactElement {
         <div className="container">
           <div className="section-header" data-aos="fade-up">
             <h2>{t('site.home.coursesTitle')}</h2>
-            <p>{t('site.home.coursesDesc')}</p>
+            <p>{t('site.home.coursesDesc')}<EnNote block text={coursesDescEn} /></p>
           </div>
           <div className="course-category-grid">
-            {COURSE_CATEGORIES.map((cat, i) => (
+            {COURSE_CATEGORIES.map((cat, i) => {
+              return (
               <div
                 key={cat.id}
                 className="course-category-card"
@@ -130,12 +139,18 @@ export default function Home(): ReactElement {
                 <div className="category-icon" style={{ background: cat.color }}>
                   <i className={`fa-solid ${cat.icon}`} />
                 </div>
-                <span className="category-duration"><i className="fa-regular fa-clock" /> {cat.duration}</span>
+                <span className="category-duration"><i className="fa-regular fa-clock" /> {isKo ? cat.duration : cat.durationEn}</span>
                 <h3>{language === 'ko' ? cat.nameKo : cat.nameEn}</h3>
-                <p className="category-tagline">{cat.tagline}</p>
-                <p>{language === 'ko' ? cat.descKo : cat.descEn}</p>
+                <p className="category-tagline">
+                  {isKo ? cat.tagline : cat.taglineEn}
+                  <EnNote block text={cat.taglineEn} />
+                </p>
+                <p>
+                  {language === 'ko' ? cat.descKo : cat.descEn}
+                  <EnNote block text={cat.descEn} />
+                </p>
                 <div className="category-tags">
-                  {cat.highlights.slice(0, 3).map((h) => (
+                  {(isKo ? cat.highlights : cat.highlightsEn).slice(0, 3).map((h) => (
                     <span key={h} className="category-tag">{h}</span>
                   ))}
                 </div>
@@ -143,7 +158,8 @@ export default function Home(): ReactElement {
                   {language === 'ko' ? '커리큘럼 보기' : 'View Curriculum'} <i className="fa-solid fa-arrow-right" />
                 </span>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -157,7 +173,9 @@ export default function Home(): ReactElement {
               <h2>{isKo ? '인문사회·예체능\n교수자를 위한 AI 연수' : 'AI training for\nhumanities & arts faculty'}</h2>
               <p>{isKo
                 ? '토론·글쓰기·사례분석·실기 수업의 특성에 맞춰, 내 수업에 곧바로 적용할 수 있는 산출물 중심으로 설계했습니다.'
-                : 'Built around debate, writing, case analysis, and performance — producing deliverables you can apply to your own teaching right away.'}</p>
+                : 'Built around debate, writing, case analysis, and performance — producing deliverables you can apply to your own teaching right away.'}
+                <EnNote block text="Built around debate, writing, case analysis, and performance — producing deliverables you can apply to your own teaching right away." />
+              </p>
             </div>
             <div className="overview-cards">
               {features.map((f, i) => (
@@ -167,7 +185,7 @@ export default function Home(): ReactElement {
                     <i className={`fa-solid ${f.icon}`} />
                   </div>
                   <h3>{f.title}</h3>
-                  <p>{f.desc}</p>
+                  <p>{isKo ? f.descKo : f.descEn}<EnNote block text={f.descEn} /></p>
                 </div>
               ))}
             </div>
@@ -184,7 +202,9 @@ export default function Home(): ReactElement {
               <h2>{isKo ? '수강 방법' : 'How It Works'}</h2>
               <p>{isKo
                 ? '공통 VOD로 기초를 다진 뒤, 사흘간의 대면 실습에서 내 과목의 산출물을 완성합니다.'
-                : 'Build foundations with the VOD, then complete your own deliverables across three hands-on days.'}</p>
+                : 'Build foundations with the VOD, then complete your own deliverables across three hands-on days.'}
+                <EnNote block text="Build foundations with the VOD, then complete your own deliverables across three hands-on days." />
+              </p>
             </div>
             <div className="prep-grid">
               {prep.map((p) => (
@@ -192,7 +212,7 @@ export default function Home(): ReactElement {
                   <span className="prep-no">{p.no}</span>
                   <div>
                     <div className="prep-title">{p.title}</div>
-                    <div className="prep-desc">{p.desc}</div>
+                    <div className="prep-desc">{isKo ? p.descKo : p.descEn}<EnNote block text={p.descEn} /></div>
                   </div>
                 </div>
               ))}
@@ -207,7 +227,9 @@ export default function Home(): ReactElement {
           <div className="section-header" data-aos="fade-up">
             <div className="overview-eyebrow">Information</div>
             <h2>{isKo ? '연수 안내' : 'Program Information'}</h2>
-            <p>{isKo ? '운영 방식·수강 대상·이수 기준을 한눈에 확인하세요.' : 'Format, audience, and completion criteria at a glance.'}</p>
+            <p>{isKo ? '운영 방식·수강 대상·이수 기준을 한눈에 확인하세요.' : 'Format, audience, and completion criteria at a glance.'}
+              <EnNote block text="Format, audience, and completion criteria at a glance." />
+            </p>
           </div>
           <div className="info-grid">
             {infoCards.map((c, i) => (

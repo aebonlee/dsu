@@ -3,7 +3,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import type { ReactElement } from 'react';
 
 /** 실습 프롬프트 상자 — 학습자료 코드블록과 동일한 디자인(헤더 바 + 복사 버튼) */
-export default function PromptBlock({ prompt }: { prompt: string }): ReactElement {
+export default function PromptBlock({ prompt, label }: { prompt: string; label?: string }): ReactElement {
   const { language } = useLanguage();
   const isKo = language === 'ko';
   const [copied, setCopied] = useState(false);
@@ -26,7 +26,7 @@ export default function PromptBlock({ prompt }: { prompt: string }): ReactElemen
   return (
     <div className="code-block-wrapper prompt-plain">
       <div className="code-block-header">
-        <span className="code-block-lang">{isKo ? '프롬프트' : 'Prompt'}</span>
+        <span className="code-block-lang">{label ?? (isKo ? '프롬프트' : 'Prompt')}</span>
         <button
           type="button"
           className={`code-copy-btn ${copied ? 'copied' : ''}`}

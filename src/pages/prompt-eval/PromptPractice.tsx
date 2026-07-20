@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import SEOHead from '../../components/SEOHead';
 import PromptEvalNav from '../../components/PromptEvalNav';
+import EnNote from '../../components/EnNote';
 import { quizQuestions, evalQuestions, writeQuestions, scoreCriteria } from './data/quiz-questions';
 import { saveScore, getHistory, calcGrade } from '../../utils/practice';
 import '../../styles/practice.css';
@@ -232,11 +233,16 @@ function QuizPhase({ isKo, answers, setAnswers, submitted }: {
   isKo: boolean; answers: Record<string, number>;
   setAnswers: React.Dispatch<React.SetStateAction<Record<string, number>>>; submitted: boolean;
 }) {
+  const { bilingual } = useLanguage();
+  const introEn = '10 questions about prompt concepts and the SCORE criteria. (10 points each, 100 total)';
   return (
     <>
       <div className="practice-header">
         <h1>{isKo ? '1단계: 선택형 퀴즈' : 'Step 1: Multiple Choice'}</h1>
-        <p>{isKo ? '프롬프트 개념과 SCORE 평가 기준에 관한 10문항입니다. (문항당 10점, 총 100점)' : '10 questions about prompt concepts and SCORE criteria. (10pts each, 100 total)'}</p>
+        <p>
+          {isKo ? '프롬프트 개념과 SCORE 평가 기준에 관한 10문항입니다. (문항당 10점, 총 100점)' : introEn}
+          <EnNote text={bilingual ? introEn : null} />
+        </p>
       </div>
       {quizQuestions.map((q, i) => {
         const options = isKo ? q.options : q.optionsEn;
@@ -244,7 +250,10 @@ function QuizPhase({ isKo, answers, setAnswers, submitted }: {
         return (
           <div className="quiz-card" key={q.id}>
             <div className="quiz-card-number">Q{i + 1}</div>
-            <h3>{isKo ? q.question : q.questionEn}</h3>
+            <h3>
+              {isKo ? q.question : q.questionEn}
+              <EnNote text={bilingual ? q.questionEn : null} />
+            </h3>
             <div className="quiz-options">
               {options.map((opt, oi) => {
                 let cls = 'quiz-option';
@@ -255,6 +264,7 @@ function QuizPhase({ isKo, answers, setAnswers, submitted }: {
                   <div key={oi} className={cls} onClick={() => { if (!submitted) setAnswers(prev => ({ ...prev, [q.id]: oi })); }}>
                     <span className="quiz-option-radio" />
                     {opt}
+                    <EnNote text={bilingual ? q.optionsEn[oi] : null} />
                   </div>
                 );
               })}
@@ -263,6 +273,7 @@ function QuizPhase({ isKo, answers, setAnswers, submitted }: {
               <div className="quiz-explanation">
                 {selected === q.answer ? (isKo ? '✓ 정답!' : '✓ Correct!') : (isKo ? '✗ 오답' : '✗ Wrong')}{' — '}
                 {isKo ? q.explanation : q.explanationEn}
+                <EnNote text={bilingual ? q.explanationEn : null} />
               </div>
             )}
           </div>
@@ -277,18 +288,26 @@ function EvalPhase({ isKo, answers, setAnswers, submitted }: {
   isKo: boolean; answers: Record<string, string>;
   setAnswers: React.Dispatch<React.SetStateAction<Record<string, string>>>; submitted: boolean;
 }) {
+  const { bilingual } = useLanguage();
+  const introEn = 'Decide the SCORE grade (S/A/B/C/D) for each prompt below. (10 points each, 50 total)';
   return (
     <>
       <div className="practice-header">
         <h1>{isKo ? '2단계: 프롬프트 평가' : 'Step 2: Prompt Evaluation'}</h1>
-        <p>{isKo ? '아래 프롬프트의 SCORE 등급(S/A/B/C/D)을 판정하세요. (문항당 10점, 총 50점)' : 'Judge the SCORE grade (S/A/B/C/D) for each prompt. (10pts each, 50 total)'}</p>
+        <p>
+          {isKo ? '아래 프롬프트의 SCORE 등급(S/A/B/C/D)을 판정하세요. (문항당 10점, 총 50점)' : introEn}
+          <EnNote text={bilingual ? introEn : null} />
+        </p>
       </div>
       {evalQuestions.map((q, i) => {
         const selected = answers[q.id];
         return (
           <div className="eval-card" key={q.id}>
             <div className="quiz-card-number">{isKo ? '프롬프트' : 'Prompt'} {i + 1}</div>
-            <div className="eval-prompt-box">{isKo ? q.prompt : q.promptEn}</div>
+            <div className="eval-prompt-box">
+              {isKo ? q.prompt : q.promptEn}
+              <EnNote text={bilingual ? q.promptEn : null} block />
+            </div>
             <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 12 }}>
               {isKo ? '이 프롬프트의 등급은?' : 'What grade is this prompt?'}
             </p>
@@ -310,6 +329,7 @@ function EvalPhase({ isKo, answers, setAnswers, submitted }: {
                 <div className="quiz-explanation">
                   {selected === q.correctGrade ? (isKo ? '✓ 정답!' : '✓ Correct!') : (isKo ? `✗ 오답 (정답: ${q.correctGrade})` : `✗ Wrong (Answer: ${q.correctGrade})`)}{' — '}
                   {isKo ? q.explanation : q.explanationEn}
+                  <EnNote text={bilingual ? q.explanationEn : null} />
                 </div>
                 <div className="eval-score-breakdown">
                   {(Object.entries(q.scores) as [string, number][]).map(([k, v]) => (
@@ -334,20 +354,32 @@ function WritePhase({ isKo, texts, setTexts, scores, setScores }: {
   texts: Record<string, string>; setTexts: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   scores: Record<string, Record<string, number>>; setScores: React.Dispatch<React.SetStateAction<Record<string, Record<string, number>>>>;
 }) {
+  const { bilingual } = useLanguage();
+  const introEn = 'Write a prompt for each scenario, then score your own work against the SCORE criteria. (5 items, 100 total)';
   return (
     <>
       <div className="practice-header">
         <h1>{isKo ? '3단계: 프롬프트 작성' : 'Step 3: Prompt Writing'}</h1>
-        <p>{isKo ? '시나리오에 맞는 프롬프트를 작성하고, SCORE 기준으로 자기 채점하세요. (5문항 × SCORE 100점 / 5 = 총 100점)' : 'Write prompts for each scenario and self-evaluate with SCORE criteria. (5 items, 100 total)'}</p>
+        <p>
+          {isKo ? '시나리오에 맞는 프롬프트를 작성하고, SCORE 기준으로 자기 채점하세요. (5문항 × SCORE 100점 / 5 = 총 100점)' : introEn}
+          <EnNote text={bilingual ? introEn : null} />
+        </p>
       </div>
       {writeQuestions.map((q, i) => (
         <div className="write-card" key={q.id}>
           <div className="quiz-card-number">{isKo ? '시나리오' : 'Scenario'} {i + 1}</div>
-          <div className="write-scenario">{isKo ? q.scenario : q.scenarioEn}</div>
-          <div className="write-task">{isKo ? q.task : q.taskEn}</div>
+          <div className="write-scenario">
+            {isKo ? q.scenario : q.scenarioEn}
+            <EnNote text={bilingual ? q.scenarioEn : null} />
+          </div>
+          <div className="write-task">
+            {isKo ? q.task : q.taskEn}
+            <EnNote text={bilingual ? q.taskEn : null} />
+          </div>
           <div className="write-hint">
             <i className="fa-solid fa-lightbulb" style={{ marginRight: 6, color: '#d69e2e' }} />
             {isKo ? q.hint : q.hintEn}
+            <EnNote text={bilingual ? q.hintEn : null} />
           </div>
           <textarea
             className="write-textarea"
@@ -359,7 +391,7 @@ function WritePhase({ isKo, texts, setTexts, scores, setScores }: {
             <h4>{isKo ? 'SCORE 자기 평가' : 'SCORE Self-Evaluation'}</h4>
             {scoreCriteria.map(c => (
               <div className="score-slider-row" key={c.key}>
-                <span className="score-slider-label" title={isKo ? c.desc : c.descEn}>
+                <span className="score-slider-label" title={bilingual ? `${c.desc} / ${c.descEn}` : (isKo ? c.desc : c.descEn)}>
                   {c.key} - {isKo ? c.label : c.labelEn}
                 </span>
                 <input
@@ -402,6 +434,7 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
   writeScores: Record<string, Record<string, number>>;
   writeTexts: Record<string, string>;
 }) {
+  const { bilingual } = useLanguage();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const toggleSection = (key: string) => setExpandedSection(prev => prev === key ? null : key);
 
@@ -437,11 +470,104 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
   const weakR = writeAvg.R < 12;
   const weakE = writeAvg.E < 12;
 
+  /* ── 화면 문안: 한국어가 정본, 영어는 병기 모드에서 아래에 덧붙는 배려 표기 ── */
+  const gradeLabelKo =
+    scores.grade === 'S' ? '탁월 — 프롬프트 전문가 수준입니다!' :
+    scores.grade === 'A' ? '우수 — 실무 활용에 충분합니다.' :
+    scores.grade === 'B' ? '양호 — 핵심 개념을 이해하고 있습니다.' :
+    scores.grade === 'C' ? '보통 — 추가 학습이 필요합니다.' :
+    '노력 필요 — 기초부터 다시 학습하세요.';
+  const gradeLabelEn =
+    scores.grade === 'S' ? 'Outstanding — you are working at an expert level.' :
+    scores.grade === 'A' ? 'Excellent — ready to use in your own teaching and work.' :
+    scores.grade === 'B' ? 'Good — you have a solid grasp of the core ideas.' :
+    scores.grade === 'C' ? 'Fair — a little more practice will help.' :
+    'Needs work — it is worth going back over the basics.';
+
+  const introEn = 'A combined look at your results across three areas: the quiz, prompt evaluation, and prompt writing.';
+
+  const quizDescEn = 'Measures how well you understand prompt fundamentals, the SCORE model, and key techniques such as role assignment, few-shot examples, and chaining.';
+  const evalDescEn = 'Measures how well you can judge a real prompt and assign a SCORE grade. Telling a strong prompt from a weak one is the skill that matters most here.';
+  const writeDescEn = 'Your own SCORE ratings for the prompts you wrote across the five scenarios. The averages below show where you are strongest and where there is room to grow.';
+
+  const diagnosisKo =
+    scores.total >= 225
+      ? '모든 영역에서 뛰어난 성적을 보여주셨습니다. 프롬프트 기본 개념에 대한 깊은 이해와 함께, 실제 프롬프트를 분석하고 작성하는 실무 능력도 탁월합니다. 고급 프롬프트 기법이나 다양한 AI 도구 활용으로 영역을 확장해보세요.'
+      : scores.total >= 200
+        ? '전반적으로 우수한 프롬프트 역량을 갖추고 계십니다. 대부분의 개념을 정확히 이해하고 있으며, 실무에서 효과적인 프롬프트를 작성할 수 있는 수준입니다. 약간의 보완으로 전문가 수준에 도달할 수 있습니다.'
+        : scores.total >= 175
+          ? '프롬프트의 핵심 개념은 이해하고 있으나, 일부 영역에서 보강이 필요합니다. 특히 약점으로 드러난 영역에 집중하여 학습하면 빠르게 실력이 향상될 것입니다.'
+          : scores.total >= 150
+            ? '프롬프트 기초 개념에 대한 이해가 부분적입니다. SCORE 모델을 다시 복습하고, 좋은 프롬프트와 나쁜 프롬프트의 차이를 구체적으로 분석해보는 연습이 필요합니다.'
+            : '프롬프트 엔지니어링의 기초부터 체계적인 학습이 필요합니다. 먼저 프롬프트 기초 가이드를 정독하고, SCORE 모델의 각 요소를 하나씩 이해하는 것부터 시작하세요.';
+  const diagnosisEn =
+    scores.total >= 225
+      ? 'You did excellent work in every area. You understand the underlying ideas deeply, and you can also analyse and write real prompts with confidence. A good next step is to branch out into more advanced techniques and other AI tools.'
+      : scores.total >= 200
+        ? 'Your prompt skills are strong overall. You have most of the concepts right, and you can already write prompts that work well in practice. A little refinement will bring you to expert level.'
+        : scores.total >= 175
+          ? 'You have the core ideas, but a few areas still need shoring up. Focusing on the weak spots highlighted below should bring quick improvement.'
+          : scores.total >= 150
+            ? 'Your grasp of the fundamentals is still partial. It would help to revisit the SCORE model and to practise comparing a strong prompt with a weak one, point by point.'
+            : 'It is worth working through the fundamentals in order. Start by reading the prompt basics guide carefully, then take the SCORE model one element at a time.';
+
+  const conceptKo =
+    quizRate >= 80
+      ? '프롬프트 개념과 SCORE 모델에 대한 정확한 이해를 갖고 계십니다.'
+      : quizRate >= 50
+        ? '기본 개념은 알고 있으나 일부 기법(체이닝, Few-shot 등)에 대한 복습이 필요합니다.'
+        : '프롬프트의 정의, SCORE 각 항목의 의미, 주요 기법을 다시 학습하세요.';
+  const conceptEn =
+    quizRate >= 80
+      ? 'You have a clear, accurate understanding of prompt concepts and the SCORE model.'
+      : quizRate >= 50
+        ? 'The basics are in place, but it would help to review techniques such as chaining and few-shot examples.'
+        : 'Revisit what a prompt is, what each SCORE element means, and the main techniques.';
+
+  const judgmentKo =
+    evalRate >= 80
+      ? '프롬프트의 품질을 정확히 판별할 수 있는 눈을 갖추고 계십니다.'
+      : evalRate >= 50
+        ? '좋은 프롬프트는 구분하지만, 중간 등급(B~C)의 미묘한 차이를 놓치는 경향이 있습니다.'
+        : '다양한 프롬프트 예시를 보면서 어떤 요소가 등급 차이를 만드는지 분석하는 연습이 필요합니다.';
+  const judgmentEn =
+    evalRate >= 80
+      ? 'You have a good eye for judging the quality of a prompt.'
+      : evalRate >= 50
+        ? 'You spot the strong prompts, but the finer differences in the middle grades (B to C) tend to slip past.'
+        : 'Work through a range of prompt examples and ask yourself which elements account for the difference in grade.';
+
+  const writingKo =
+    writeAvgTotal >= 70
+      ? 'SCORE 기준을 고르게 반영한 프롬프트를 작성할 수 있습니다. 실무에서 바로 활용 가능한 수준입니다.'
+      : writeAvgTotal >= 40
+        ? '프롬프트 작성의 기본 틀은 갖추었으나, 특정 SCORE 요소(아래 참조)를 의식적으로 포함하는 연습이 필요합니다.'
+        : 'SCORE의 각 요소를 하나씩 의도적으로 프롬프트에 포함시키는 연습부터 시작하세요.';
+  const writingEn =
+    writeAvgTotal >= 70
+      ? 'You can write prompts that cover the SCORE criteria evenly — ready to use as they are.'
+      : writeAvgTotal >= 40
+        ? 'The basic shape is there. Now practise deliberately including the particular SCORE elements flagged below.'
+        : 'Start by adding the SCORE elements to your prompts one at a time, on purpose.';
+
+  const weakLabelsKo = [weakS && 'S-구체성', weakC && 'C-맥락', weakO && 'O-출력지정', weakR && 'R-역할부여'].filter(Boolean).join(', ');
+  const weakLabelsEn = [weakS && 'S (Specificity)', weakC && 'C (Context)', weakO && 'O (Output)', weakR && 'R (Role)'].filter(Boolean).join(', ');
+  const workshopDescKo = `약한 영역 (${weakLabelsKo})을 집중 연습하세요.`;
+  const workshopDescEn = `Focus your practice on the areas that came out weakest: ${weakLabelsEn}.`;
+
+  const recBasicsEn = 'Go back over what a prompt is, the SCORE model, and the basic techniques.';
+  const recEvalEn = 'Get comfortable with the SCORE grade table, then compare example prompts grade by grade.';
+  const recAdvancedEn = 'Stretch your prompt writing further with a wider range of scenarios.';
+  const recTechniquesEn = 'Study more advanced techniques — few-shot examples, chaining, role assignment — with worked examples.';
+
   return (
     <>
       <div className="practice-header">
         <h1>{isKo ? '종합 실습 결과' : 'Comprehensive Results'}</h1>
-        <p>{isKo ? '선택형 퀴즈, 프롬프트 평가, 프롬프트 작성 3개 영역의 종합 분석 결과입니다.' : 'Comprehensive analysis of Quiz, Prompt Evaluation, and Prompt Writing.'}</p>
+        <p>
+          {isKo ? '선택형 퀴즈, 프롬프트 평가, 프롬프트 작성 3개 영역의 종합 분석 결과입니다.' : introEn}
+          <EnNote text={bilingual ? introEn : null} />
+        </p>
       </div>
 
       {/* ── 총점 & 등급 ── */}
@@ -451,11 +577,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
           {scores.total} <span>/ 250</span>
         </div>
         <div className="result-grade-label" style={{ color: gradeColor(scores.grade) }}>
-          {scores.grade === 'S' ? (isKo ? '탁월 — 프롬프트 전문가 수준입니다!' : 'Outstanding — Expert level!') :
-           scores.grade === 'A' ? (isKo ? '우수 — 실무 활용에 충분합니다.' : 'Excellent — Ready for practical use.') :
-           scores.grade === 'B' ? (isKo ? '양호 — 핵심 개념을 이해하고 있습니다.' : 'Good — You understand core concepts.') :
-           scores.grade === 'C' ? (isKo ? '보통 — 추가 학습이 필요합니다.' : 'Average — More practice needed.') :
-           (isKo ? '노력 필요 — 기초부터 다시 학습하세요.' : 'Needs work — Review fundamentals.')}
+          {isKo ? gradeLabelKo : gradeLabelEn}
+          <EnNote text={bilingual ? gradeLabelEn : null} />
         </div>
       </div>
 
@@ -516,7 +639,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
             <p className="result-detail-desc">
               {isKo
                 ? '프롬프트의 기본 개념, SCORE 평가 모델, 주요 기법(역할 부여, Few-shot, 체이닝 등)에 대한 이해도를 측정합니다.'
-                : 'Measures understanding of prompt fundamentals, SCORE model, and key techniques (role assignment, few-shot, chaining, etc.).'}
+                : quizDescEn}
+              <EnNote text={bilingual ? quizDescEn : null} />
             </p>
             <div className="result-quiz-list">
               {quizQuestions.map((q, i) => {
@@ -529,23 +653,29 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
                       <span className={`result-quiz-badge ${correct ? 'correct' : 'wrong'}`}>
                         {correct ? (isKo ? '정답' : 'O') : (isKo ? '오답' : 'X')}
                       </span>
-                      <span className="result-quiz-q">Q{i + 1}. {isKo ? q.question : q.questionEn}</span>
+                      <span className="result-quiz-q">
+                        Q{i + 1}. {isKo ? q.question : q.questionEn}
+                        <EnNote text={bilingual ? q.questionEn : null} />
+                      </span>
                     </div>
                     <div className="result-quiz-answer">
                       {!correct && (
                         <div className="result-quiz-your">
                           <span className="label">{isKo ? '내 답:' : 'Yours:'}</span>
                           {selected !== undefined ? options[selected] : (isKo ? '미응답' : 'No answer')}
+                          <EnNote text={bilingual && selected !== undefined ? q.optionsEn[selected] : null} />
                         </div>
                       )}
                       <div className="result-quiz-correct">
                         <span className="label">{isKo ? '정답:' : 'Answer:'}</span>
                         {options[q.answer]}
+                        <EnNote text={bilingual ? q.optionsEn[q.answer] : null} />
                       </div>
                     </div>
                     <div className="result-quiz-explain">
                       <i className="fa-solid fa-lightbulb" style={{ color: '#d69e2e', marginRight: 6 }} />
                       {isKo ? q.explanation : q.explanationEn}
+                      <EnNote text={bilingual ? q.explanationEn : null} />
                     </div>
                   </div>
                 );
@@ -572,7 +702,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
             <p className="result-detail-desc">
               {isKo
                 ? '실제 프롬프트를 보고 SCORE 등급을 판별하는 능력을 측정합니다. 좋은 프롬프트와 부족한 프롬프트를 구별하는 안목이 중요합니다.'
-                : 'Measures your ability to judge prompt quality using SCORE grades. Distinguishing good from poor prompts is key.'}
+                : evalDescEn}
+              <EnNote text={bilingual ? evalDescEn : null} />
             </p>
             <div className="result-eval-list">
               {evalQuestions.map((q, i) => {
@@ -586,7 +717,10 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
                       </span>
                       <span className="result-eval-label">{isKo ? '프롬프트' : 'Prompt'} {i + 1}</span>
                     </div>
-                    <div className="result-eval-prompt">{isKo ? q.prompt : q.promptEn}</div>
+                    <div className="result-eval-prompt">
+                      {isKo ? q.prompt : q.promptEn}
+                      <EnNote text={bilingual ? q.promptEn : null} block />
+                    </div>
                     <div className="result-eval-grades">
                       {!correct && (
                         <span className="result-eval-grade-tag wrong">{isKo ? '내 답' : 'Yours'}: {selected || '-'}</span>
@@ -605,6 +739,7 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
                     <div className="result-quiz-explain">
                       <i className="fa-solid fa-lightbulb" style={{ color: '#d69e2e', marginRight: 6 }} />
                       {isKo ? q.explanation : q.explanationEn}
+                      <EnNote text={bilingual ? q.explanationEn : null} />
                     </div>
                   </div>
                 );
@@ -631,7 +766,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
             <p className="result-detail-desc">
               {isKo
                 ? '5개 시나리오에서 작성한 프롬프트에 대한 SCORE 자기 평가 결과입니다. 각 항목의 평균 점수로 강점과 약점을 확인하세요.'
-                : 'Self-evaluation results for prompts written across 5 scenarios. Review average scores to identify strengths and weaknesses.'}
+                : writeDescEn}
+              <EnNote text={bilingual ? writeDescEn : null} />
             </p>
 
             {/* SCORE 레이더 (바 차트로 표현) */}
@@ -665,7 +801,10 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
                     <span>{isKo ? '시나리오' : 'Scenario'} {i + 1}</span>
                     <span className="result-write-item-score">{total}/100</span>
                   </div>
-                  <div className="result-write-item-scenario">{isKo ? q.scenario : q.scenarioEn}</div>
+                  <div className="result-write-item-scenario">
+                    {isKo ? q.scenario : q.scenarioEn}
+                    <EnNote text={bilingual ? q.scenarioEn : null} />
+                  </div>
                   {text && (
                     <div className="result-write-item-text">
                       <span className="label">{isKo ? '작성한 프롬프트:' : 'Your prompt:'}</span>
@@ -701,27 +840,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
             {isKo ? '종합 진단' : 'Diagnosis'}
           </div>
           <p>
-            {isKo ? (
-              scores.total >= 225
-                ? '모든 영역에서 뛰어난 성적을 보여주셨습니다. 프롬프트 기본 개념에 대한 깊은 이해와 함께, 실제 프롬프트를 분석하고 작성하는 실무 능력도 탁월합니다. 고급 프롬프트 기법이나 다양한 AI 도구 활용으로 영역을 확장해보세요.'
-                : scores.total >= 200
-                  ? '전반적으로 우수한 프롬프트 역량을 갖추고 계십니다. 대부분의 개념을 정확히 이해하고 있으며, 실무에서 효과적인 프롬프트를 작성할 수 있는 수준입니다. 약간의 보완으로 전문가 수준에 도달할 수 있습니다.'
-                  : scores.total >= 175
-                    ? '프롬프트의 핵심 개념은 이해하고 있으나, 일부 영역에서 보강이 필요합니다. 특히 약점으로 드러난 영역에 집중하여 학습하면 빠르게 실력이 향상될 것입니다.'
-                    : scores.total >= 150
-                      ? '프롬프트 기초 개념에 대한 이해가 부분적입니다. SCORE 모델을 다시 복습하고, 좋은 프롬프트와 나쁜 프롬프트의 차이를 구체적으로 분석해보는 연습이 필요합니다.'
-                      : '프롬프트 엔지니어링의 기초부터 체계적인 학습이 필요합니다. 먼저 프롬프트 기초 가이드를 정독하고, SCORE 모델의 각 요소를 하나씩 이해하는 것부터 시작하세요.'
-            ) : (
-              scores.total >= 225
-                ? 'Excellent across all areas. You demonstrate deep understanding and practical ability. Explore advanced techniques and diverse AI tools.'
-                : scores.total >= 200
-                  ? 'Strong overall prompt skills. You understand most concepts and can write effective prompts. Small improvements will reach expert level.'
-                  : scores.total >= 175
-                    ? 'Core concepts understood but some areas need reinforcement. Focus on identified weak areas for rapid improvement.'
-                    : scores.total >= 150
-                      ? 'Partial understanding of fundamentals. Review the SCORE model and practice analyzing prompt quality differences.'
-                      : 'Systematic study from basics needed. Start with the prompt fundamentals guide and understand each SCORE element.'
-            )}
+            {isKo ? diagnosisKo : diagnosisEn}
+            <EnNote text={bilingual ? diagnosisEn : null} />
           </p>
         </div>
 
@@ -733,19 +853,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
               {isKo ? '개념 이해력' : 'Concept Understanding'}
             </div>
             <p>
-              {isKo ? (
-                quizRate >= 80
-                  ? '프롬프트 개념과 SCORE 모델에 대한 정확한 이해를 갖고 계십니다.'
-                  : quizRate >= 50
-                    ? '기본 개념은 알고 있으나 일부 기법(체이닝, Few-shot 등)에 대한 복습이 필요합니다.'
-                    : '프롬프트의 정의, SCORE 각 항목의 의미, 주요 기법을 다시 학습하세요.'
-              ) : (
-                quizRate >= 80
-                  ? 'Solid understanding of prompt concepts and SCORE model.'
-                  : quizRate >= 50
-                    ? 'Basic concepts known but review techniques like chaining and few-shot.'
-                    : 'Review prompt definitions, SCORE criteria meanings, and key techniques.'
-              )}
+              {isKo ? conceptKo : conceptEn}
+              <EnNote text={bilingual ? conceptEn : null} />
             </p>
           </div>
           <div className={`result-feedback-card ${evalRate >= 80 ? 'good' : evalRate >= 50 ? 'mid' : 'weak'}`}>
@@ -754,19 +863,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
               {isKo ? '분석 판별력' : 'Analytical Judgment'}
             </div>
             <p>
-              {isKo ? (
-                evalRate >= 80
-                  ? '프롬프트의 품질을 정확히 판별할 수 있는 눈을 갖추고 계십니다.'
-                  : evalRate >= 50
-                    ? '좋은 프롬프트는 구분하지만, 중간 등급(B~C)의 미묘한 차이를 놓치는 경향이 있습니다.'
-                    : '다양한 프롬프트 예시를 보면서 어떤 요소가 등급 차이를 만드는지 분석하는 연습이 필요합니다.'
-              ) : (
-                evalRate >= 80
-                  ? 'Strong ability to accurately judge prompt quality.'
-                  : evalRate >= 50
-                    ? 'Can identify good prompts but miss subtle differences in mid-range grades (B~C).'
-                    : 'Practice analyzing what elements create grade differences across prompt examples.'
-              )}
+              {isKo ? judgmentKo : judgmentEn}
+              <EnNote text={bilingual ? judgmentEn : null} />
             </p>
           </div>
           <div className={`result-feedback-card ${writeAvgTotal >= 70 ? 'good' : writeAvgTotal >= 40 ? 'mid' : 'weak'}`}>
@@ -775,19 +873,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
               {isKo ? '작성 실무력' : 'Writing Ability'}
             </div>
             <p>
-              {isKo ? (
-                writeAvgTotal >= 70
-                  ? 'SCORE 기준을 고르게 반영한 프롬프트를 작성할 수 있습니다. 실무에서 바로 활용 가능한 수준입니다.'
-                  : writeAvgTotal >= 40
-                    ? '프롬프트 작성의 기본 틀은 갖추었으나, 특정 SCORE 요소(아래 참조)를 의식적으로 포함하는 연습이 필요합니다.'
-                    : 'SCORE의 각 요소를 하나씩 의도적으로 프롬프트에 포함시키는 연습부터 시작하세요.'
-              ) : (
-                writeAvgTotal >= 70
-                  ? 'Can write prompts with balanced SCORE criteria. Ready for practical use.'
-                  : writeAvgTotal >= 40
-                    ? 'Basic framework present but practice deliberately including specific SCORE elements.'
-                    : 'Start by deliberately including each SCORE element one at a time in your prompts.'
-              )}
+              {isKo ? writingKo : writingEn}
+              <EnNote text={bilingual ? writingEn : null} />
             </p>
           </div>
         </div>
@@ -806,7 +893,10 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
                 </div>
                 <div>
                   <strong>{isKo ? '프롬프트 기초 가이드 복습' : 'Review Prompt Basics Guide'}</strong>
-                  <span>{isKo ? '프롬프트 정의, SCORE 모델, 기본 기법을 다시 정리하세요.' : 'Review prompt definitions, SCORE model, and basic techniques.'}</span>
+                  <span>
+                    {isKo ? '프롬프트 정의, SCORE 모델, 기본 기법을 다시 정리하세요.' : recBasicsEn}
+                    <EnNote text={bilingual ? recBasicsEn : null} />
+                  </span>
                 </div>
               </Link>
             )}
@@ -817,7 +907,10 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
                 </div>
                 <div>
                   <strong>{isKo ? '프롬프트 평가 기준 학습' : 'Study Evaluation Criteria'}</strong>
-                  <span>{isKo ? 'SCORE 등급 기준표를 숙지하고, 등급별 프롬프트 예시를 비교 분석하세요.' : 'Master SCORE grade criteria and compare prompt examples by grade.'}</span>
+                  <span>
+                    {isKo ? 'SCORE 등급 기준표를 숙지하고, 등급별 프롬프트 예시를 비교 분석하세요.' : recEvalEn}
+                    <EnNote text={bilingual ? recEvalEn : null} />
+                  </span>
                 </div>
               </Link>
             )}
@@ -829,9 +922,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
                 <div>
                   <strong>{isKo ? '프롬프트 작성 평가 워크숍' : 'Prompt Writing Workshop'}</strong>
                   <span>
-                    {isKo
-                      ? `약한 영역 (${[weakS && 'S-구체성', weakC && 'C-맥락', weakO && 'O-출력지정', weakR && 'R-역할부여'].filter(Boolean).join(', ')})을 집중 연습하세요.`
-                      : `Practice weak areas: ${[weakS && 'S-Specificity', weakC && 'C-Context', weakO && 'O-Output', weakR && 'R-Role'].filter(Boolean).join(', ')}.`}
+                    {isKo ? workshopDescKo : workshopDescEn}
+                    <EnNote text={bilingual ? workshopDescEn : null} />
                   </span>
                 </div>
               </Link>
@@ -843,7 +935,10 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
                 </div>
                 <div>
                   <strong>{isKo ? '고급 프롬프트 워크숍 도전' : 'Try Advanced Workshop'}</strong>
-                  <span>{isKo ? '다양한 시나리오로 프롬프트 작성 실력을 더 높여보세요.' : 'Elevate your skills with diverse scenario challenges.'}</span>
+                  <span>
+                    {isKo ? '다양한 시나리오로 프롬프트 작성 실력을 더 높여보세요.' : recAdvancedEn}
+                    <EnNote text={bilingual ? recAdvancedEn : null} />
+                  </span>
                 </div>
               </Link>
             )}
@@ -853,7 +948,10 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
               </div>
               <div>
                 <strong>{isKo ? '프롬프트 기법 & 실전 예시' : 'Techniques & Real Examples'}</strong>
-                <span>{isKo ? 'Few-shot, 체이닝, 역할 부여 등 고급 기법과 실전 예시를 학습하세요.' : 'Study advanced techniques: few-shot, chaining, role assignment with examples.'}</span>
+                <span>
+                  {isKo ? 'Few-shot, 체이닝, 역할 부여 등 고급 기법과 실전 예시를 학습하세요.' : recTechniquesEn}
+                  <EnNote text={bilingual ? recTechniquesEn : null} />
+                </span>
               </div>
             </Link>
           </div>
@@ -864,7 +962,8 @@ function ResultPhase({ isKo, scores, history, user, saving, quizAnswers, evalAns
       {!user && (
         <div className="quiz-explanation" style={{ marginBottom: 24 }}>
           <i className="fa-solid fa-circle-info" style={{ marginRight: 6 }} />
-          {isKo ? '로그인하면 점수를 저장하고 성장 추이를 확인할 수 있습니다.' : 'Log in to save your score and track your progress.'}
+          {isKo ? '로그인하면 점수를 저장하고 성장 추이를 확인할 수 있습니다.' : 'Log in to save your score and track your progress over time.'}
+          <EnNote text={bilingual ? 'Log in to save your score and track your progress over time.' : null} />
         </div>
       )}
 

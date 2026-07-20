@@ -24,7 +24,7 @@ const Navbar = (): ReactElement => {
   const userMenuRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const { mode, toggleTheme, colorTheme, setColorTheme } = useTheme();
-  const { language, toggleLanguage, setLanguage, t } = useLanguage();
+  const { language, toggleLanguage, mode: langMode, setMode: setLangMode, t } = useLanguage();
   const { cartCount } = useCart();
   const { isLoggedIn, isAdmin, profile, signOut } = useAuth();
 
@@ -143,22 +143,20 @@ const Navbar = (): ReactElement => {
             {/* 언어 전환 — 설정 드롭다운 안에만 있으면 외국인 수강생이 찾지 못한다(2026-07-20 피드백).
                 항상 보이는 KO/EN 스위치로 노출하고, 선택은 localStorage에 저장된다. */}
             <div className="nav-lang-switch" role="group" aria-label="Language">
-              <button
-                type="button"
-                className={`nav-lang-btn${language === 'ko' ? ' active' : ''}`}
-                onClick={() => setLanguage('ko')}
-                aria-pressed={language === 'ko'}
-              >
-                KO
-              </button>
-              <button
-                type="button"
-                className={`nav-lang-btn${language === 'en' ? ' active' : ''}`}
-                onClick={() => setLanguage('en')}
-                aria-pressed={language === 'en'}
-              >
-                EN
-              </button>
+              {(['ko', 'en', 'both'] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  className={`nav-lang-btn${langMode === m ? ' active' : ''}`}
+                  onClick={() => setLangMode(m)}
+                  aria-pressed={langMode === m}
+                  title={
+                    m === 'ko' ? '한국어' : m === 'en' ? 'English' : '한국어 + English (병기)'
+                  }
+                >
+                  {m === 'ko' ? 'KO' : m === 'en' ? 'EN' : '병기'}
+                </button>
+              ))}
             </div>
 
             {site.features.shop && (

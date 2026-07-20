@@ -510,3 +510,22 @@ h4 { line-height: 1.45; letter-spacing: -0.01em; }
   color: var(--text-secondary);
 }
 .not-found-btn.secondary:hover { background: var(--bg-medium-gray); }
+
+/* ── 병기 모드 영문 보조 표기 ──
+   한국어가 주 본문, 영어는 배려로 덧붙는 보조 표기다.
+   작고 옅게 두어 한국인 수강생의 읽기 흐름을 막지 않도록 한다. */
+.en-note {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.86em;
+    line-height: 1.55;
+    color: var(--text-light);
+    font-style: normal;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.en-note-block {
+    margin-top: 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--border-light);
+}

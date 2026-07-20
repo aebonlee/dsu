@@ -4,6 +4,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import SEOHead from '../../components/SEOHead';
+import EnNote from '../../components/EnNote';
 import PromptEvalNav from '../../components/PromptEvalNav';
 import { scoreCriteria } from './data/quiz-questions';
 import '../../styles/practice.css';
@@ -211,10 +212,24 @@ function scoreBarColor(score: number) {
 
 /* ── 메인 컴포넌트 ── */
 export default function PromptWorkshop() {
-  const { language } = useLanguage();
+  const { language, bilingual } = useLanguage();
   const { user } = useAuth();
   const toast = useToast();
   const isKo = language === 'ko';
+
+  /**
+   * 본문형 문장용 헬퍼 — 한국어를 본문으로 그리고, 병기 모드에서만 영문을 아래 덧붙인다.
+   * 짧은 UI 라벨(버튼·탭)에는 쓰지 않는다. 한 줄로 유지돼야 하기 때문.
+   */
+  const bi = useCallback(
+    (ko: string, en: string) => (
+      <>
+        {isKo ? ko : en}
+        <EnNote text={bilingual ? en : null} />
+      </>
+    ),
+    [isKo, bilingual],
+  );
 
   const [selectedScenario, setSelectedScenario] = useState('free');
   const [promptText, setPromptText] = useState('');
@@ -328,14 +343,14 @@ export default function PromptWorkshop() {
               <i className={`fa-solid ${scenario.icon}`} style={{ marginRight: 12, color: 'var(--primary-blue)' }} />
               {isKo ? scenario.title : scenario.titleEn}
             </h1>
-            <p>{isKo ? scenario.desc : scenario.descEn}</p>
+            <p>{bi(scenario.desc, scenario.descEn)}</p>
           </div>
 
           {/* Hint */}
           {scenario.id !== 'free' && (scenario as any).hint && (
             <div className="workshop-hint">
               <i className="fa-solid fa-lightbulb" />
-              <span>{isKo ? (scenario as any).hint : (scenario as any).hintEn}</span>
+              <span>{bi((scenario as any).hint, (scenario as any).hintEn)}</span>
             </div>
           )}
 
@@ -347,7 +362,7 @@ export default function PromptWorkshop() {
                 <div className="workshop-score-ref-item" key={c.key}>
                   <span className="key">{c.key}</span>
                   <span className="label">{isKo ? c.label : c.labelEn}</span>
-                  <span className="desc">{isKo ? c.desc : c.descEn}</span>
+                  <span className="desc">{bi(c.desc, c.descEn)}</span>
                 </div>
               ))}
             </div>
@@ -424,7 +439,8 @@ export default function PromptWorkshop() {
                 {scoreCriteria.map(c => {
                   const score = latestScore[c.key as keyof typeof latestScore] as number;
                   const prev = prevScore ? prevScore[c.key as keyof typeof prevScore] as number : null;
-                  const fb = isKo ? latestScore.feedback[c.key as keyof typeof latestScore.feedback] : latestScore.feedbackEn[c.key as keyof typeof latestScore.feedbackEn];
+                  const fbKo = latestScore.feedback[c.key as keyof typeof latestScore.feedback];
+                  const fbEn = latestScore.feedbackEn[c.key as keyof typeof latestScore.feedbackEn];
                   const diff = prev !== null ? score - prev : null;
                   return (
                     <div className="workshop-score-card" key={c.key}>
@@ -443,7 +459,7 @@ export default function PromptWorkshop() {
                       <div className="workshop-score-bar-bg">
                         <div className="workshop-score-bar-fill" style={{ width: `${(score / 20) * 100}%`, background: scoreBarColor(score) }} />
                       </div>
-                      <p className="workshop-score-feedback">{fb}</p>
+                      <p className="workshop-score-feedback">{bi(fbKo, fbEn)}</p>
                     </div>
                   );
                 })}
@@ -453,12 +469,12 @@ export default function PromptWorkshop() {
               <div className="workshop-tips">
                 <h4><i className="fa-solid fa-wand-magic-sparkles" /> {isKo ? '개선 제안' : 'Improvement Tips'}</h4>
                 <ul>
-                  {latestScore.S < 14 && <li>{isKo ? '구체적인 수치, 날짜, 범위를 추가하면 구체성(S)이 향상됩니다.' : 'Add specific numbers, dates, ranges to improve Specificity (S).'}</li>}
-                  {latestScore.C < 14 && <li>{isKo ? '배경 설명, 대상 독자, 사용 목적을 추가하면 맥락(C)이 향상됩니다.' : 'Add background, target audience, purpose to improve Context (C).'}</li>}
-                  {latestScore.O < 14 && <li>{isKo ? '"표 형태로", "5가지로 요약", "마크다운으로" 등 출력 형식을 지정하면 출력지정(O)이 향상됩니다.' : 'Specify output format like "in table format", "summarize in 5 points" to improve Output (O).'}</li>}
-                  {latestScore.R < 14 && <li>{isKo ? '"당신은 ~전문가입니다"와 같이 역할을 부여하면 역할부여(R)가 향상됩니다.' : 'Assign a role like "You are a ~ expert" to improve Role (R).'}</li>}
-                  {latestScore.E < 14 && <li>{isKo ? '다른 SCORE 요소를 보완하면 전체 효과성(E)이 자동으로 향상됩니다.' : 'Improving other SCORE elements will automatically boost Effectiveness (E).'}</li>}
-                  {latestScore.total >= 80 && <li>{isKo ? '훌륭합니다! 예시(Example)를 추가하면 더 완벽해질 수 있습니다.' : 'Great job! Adding examples can make it even more perfect.'}</li>}
+                  {latestScore.S < 14 && <li>{bi('구체적인 수치, 날짜, 범위를 추가하면 구체성(S)이 향상됩니다.', 'Add specific numbers, dates, and ranges to improve Specificity (S).')}</li>}
+                  {latestScore.C < 14 && <li>{bi('배경 설명, 대상 독자, 사용 목적을 추가하면 맥락(C)이 향상됩니다.', 'Add background, target audience, and purpose to improve Context (C).')}</li>}
+                  {latestScore.O < 14 && <li>{bi('"표 형태로", "5가지로 요약", "마크다운으로" 등 출력 형식을 지정하면 출력지정(O)이 향상됩니다.', 'Specify the output format — for example "in a table", "summarised in 5 points", or "in Markdown" — to improve Output (O).')}</li>}
+                  {latestScore.R < 14 && <li>{bi('"당신은 ~전문가입니다"와 같이 역할을 부여하면 역할부여(R)가 향상됩니다.', 'Assign a role such as "You are an expert in ~" to improve Role (R).')}</li>}
+                  {latestScore.E < 14 && <li>{bi('다른 SCORE 요소를 보완하면 전체 효과성(E)이 자동으로 향상됩니다.', 'Strengthening the other SCORE elements will automatically raise overall Effectiveness (E).')}</li>}
+                  {latestScore.total >= 80 && <li>{bi('훌륭합니다! 예시(Example)를 추가하면 더 완벽해질 수 있습니다.', 'Excellent work. Adding a worked example would make this even stronger.')}</li>}
                 </ul>
               </div>
             </div>
