@@ -20,6 +20,25 @@
     --accent-dark: #1565C0;
     --accent-light: #64B5F6;
 
+    /* 정답·경고·오답 시맨틱 색 (프롬프트 학습·평가 화면)
+       색값을 직접 쓰지 말고 반드시 이 변수를 쓸 것.
+       하드코딩하면 다크모드에서 밝은 배경이 그대로 남아 글자가 안 보인다.
+       (2026-07-20 수강생 제보 — 흰 배경 위 흰 글씨로 대비 1.12:1까지 떨어져 있었음) */
+    --success-soft: #E8F5E9;
+    --success-softer: #F1F8E9;
+    --success-border: #C8E6C9;
+    --success-text: #276749;
+    --success-strong: #1B5E20;
+    --success-accent: #38A169;
+    --warn-soft: #FFF8E1;
+    --warn-border: #FBD38D;
+    --warn-text: #B7791F;
+    --warn-strong: #C05621;
+    --warn-accent: #ED8936;
+    --danger-soft: #FED7D7;
+    --danger-text: #C53030;
+    --danger-accent: #E53E3E;
+
     /* Backgrounds — cool blue-tinted */
     --bg-white: #FFFFFF;
     --bg-light-gray: #F5F8FC;

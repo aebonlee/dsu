@@ -551,6 +551,36 @@
   margin: 0;
 }
 
+/* 언어 전환 스위치 (KO / EN) — 항상 보이는 위치에 둔다 */
+.nav-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-medium);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+.nav-lang-btn {
+  padding: 5px 11px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.nav-lang-btn:hover { color: var(--primary-blue); }
+.nav-lang-btn.active {
+  background: var(--primary-blue);
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .nav-lang-btn { padding: 4px 9px; font-size: 11px; }
+}
+
 .nav-login-btn {
   display: flex;
   align-items: center;

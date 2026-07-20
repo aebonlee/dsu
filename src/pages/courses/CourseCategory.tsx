@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import SEOHead from '../../components/SEOHead';
 import { getProgramById, PROGRAMS } from '../../data/courses';
 import { MATERIALS } from '../../data/materials';
@@ -11,6 +12,8 @@ import { getHandsOn } from '../../data/handsOn';
 import PromptBlock from '../../components/PromptBlock';
 import CodeBlock from '../../components/CodeBlock';
 import { renderInline } from '../../utils/inlineMd';
+import { getLabEn, getSessionEn } from '../../data/i18n';
+import { badgeEn, difficultyEn, periodEn, timeEn } from '../../data/i18n/labels';
 import type { ReactElement } from 'react';
 
 const mdComponents = {
@@ -25,6 +28,7 @@ const mdComponents = {
 export default function CourseCategory(): ReactElement {
   const { category } = useParams<{ category: string }>();
   const { language } = useLanguage();
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const [matOpen, setMatOpen] = useState(true);
   const [selectedMatId, setSelectedMatId] = useState<string | null>(null);
@@ -45,22 +49,36 @@ export default function CourseCategory(): ReactElement {
 
   const totalSessions = program.curriculum.reduce((s, d) => s + d.sessions.length, 0);
 
-  // 페이지(과정) 컬러를 CSS 변수로 주입 — 버튼·아이콘·활성 표시·띠줄까지 페이지 컬러로 통일
+  // 페이지(과정) 컬러를 CSS 변수로 주입 — 버튼·아이콘·활성 표시·띠줄까지 페이지 컬러로 통일.
+  // 이 인라인 변수는 dark-mode.css 보다 우선하므로, 다크에서도 라이트 색을 그대로 쓰면
+  // 어두운 배경 위에 어두운 파랑 글씨가 얹혀 읽히지 않는다(2026-07-20 가독성 제보).
+  // → 테마별로 과정 색을 따로 준다.
   const SHADE: Record<string, string> = {
     '#0054A6': '#003B75',
     '#1E88E5': '#1565C0',
     '#009B77': '#00775B',
     '#8E2F6F': '#6E2456',
   };
-  const dark = SHADE[program.color] || program.color;
+  // 다크용 과정 색 — 어두운 배경에서 읽히도록 밝기를 올린 값
+  const DARK_TINT: Record<string, [string, string]> = {
+    '#0054A6': ['#7FA8E8', '#5B86C9'],
+    '#1E88E5': ['#7FBDF5', '#4F9BE0'],
+    '#009B77': ['#5ECDB4', '#34AE93'],
+    '#8E2F6F': ['#E09BC9', '#CE7BB0'],
+  };
+  const isDark = theme === 'dark';
+  const isEn = language === 'en';
+  const [base, dark] = isDark
+    ? (DARK_TINT[program.color] ?? [program.color, program.color])
+    : [program.color, SHADE[program.color] || program.color];
   const themeVars = {
-    '--primary-blue': program.color,
+    '--primary-blue': base,
     '--primary-blue-dark': dark,
-    '--accent': program.color,
+    '--accent': base,
     '--accent-dark': dark,
-    '--accent-light': `${program.color}CC`,
-    '--accent-soft': `${program.color}1F`,
-    '--primary-light': `${program.color}12`,
+    '--accent-light': `${base}CC`,
+    '--accent-soft': `${base}${isDark ? '2E' : '1F'}`,
+    '--primary-light': `${base}${isDark ? '24' : '12'}`,
   } as React.CSSProperties;
   // 강의안 배포본: 대면 Day1~3만 존재(공통 VOD는 별도 강의안 없음)
   const hasHandout = /^day\d$/.test(program.id);
@@ -81,12 +99,12 @@ export default function CourseCategory(): ReactElement {
       />
 
       {/* Program header */}
-      <section className="program-hero" style={{ borderBottom: `3px solid ${program.color}` }}>
+      <section className="program-hero" style={{ borderBottom: `3px solid ${base}` }}>
         <div className="container">
           <div className="program-hero-inner two-col">
             {/* 좌: 아이콘 + 타이틀 */}
             <div className="program-hero-main">
-              <div className="program-hero-icon" style={{ background: program.color }}>
+              <div className="program-hero-icon" style={{ background: base }}>
                 <i className={`fa-solid ${program.icon}`} />
               </div>
               <div className="program-hero-text">
@@ -110,7 +128,7 @@ export default function CourseCategory(): ReactElement {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-accent program-hero-padlet"
-                  style={{ background: program.color, borderColor: program.color }}
+                  style={{ background: base, borderColor: base }}
                 >
                   <i className="fa-solid fa-chalkboard-user" />
                   {program.padletLabel || 'Padlet'}
@@ -119,9 +137,9 @@ export default function CourseCategory(): ReactElement {
               )}
               <div
                 className="program-platform-note compact"
-                style={{ borderLeftColor: program.color, background: `${program.color}14` }}
+                style={{ borderLeftColor: base, background: `${base}14` }}
               >
-                <i className="fa-solid fa-shield-halved" style={{ color: program.color }} />
+                <i className="fa-solid fa-shield-halved" style={{ color: base }} />
                 <span>{language === 'ko'
                   ? '모든 실습은 예시 프롬프트를 복사해 직접 따라 할 수 있습니다.'
                   : 'Every practice includes a ready-to-use prompt you can copy.'}</span>
@@ -137,8 +155,8 @@ export default function CourseCategory(): ReactElement {
           {/* ── 왼쪽 과정 메뉴 ── */}
           <aside className="course-sidebar">
             <div className="course-sidebar-inner">
-              <div className="course-sidebar-title" style={{ borderColor: program.color }}>
-                <i className={`fa-solid ${program.icon}`} style={{ color: program.color }} />
+              <div className="course-sidebar-title" style={{ borderColor: base }}>
+                <i className={`fa-solid ${program.icon}`} style={{ color: base }} />
                 <span>{language === 'ko' ? program.nameKo : program.nameEn}</span>
               </div>
 
@@ -260,7 +278,7 @@ export default function CourseCategory(): ReactElement {
                 <i className="fa-solid fa-arrow-left" /> {language === 'ko' ? '커리큘럼으로' : 'Back to curriculum'}
               </button>
               <div className="handson-head">
-                <div className="material-inline-eyebrow" style={{ color: program.color }}>
+                <div className="material-inline-eyebrow" style={{ color: base }}>
                   <i className="fa-solid fa-laptop-code" /> {language === 'ko' ? program.nameKo : program.nameEn} · {language === 'ko' ? '실습 따라하기' : 'Hands-on'}
                 </div>
                 <h2 className="material-inline-title">{language === 'ko' ? '실습 · 따라하기' : 'Hands-on Labs'}</h2>
@@ -269,20 +287,23 @@ export default function CourseCategory(): ReactElement {
                   : 'Open multi-LLM and follow each lab. Paste the example prompts as-is.'}</p>
               </div>
 
-              {labs.map((lab) => (
+              {labs.map((lab) => {
+                // 영문 오버레이 — 번역이 없으면 자동으로 한국어 원문을 쓴다
+                const labEn = getLabEn(language, lab.id);
+                return (
                 <article key={lab.id} className="lab-card">
-                  <div className="lab-card-head" style={{ borderColor: program.color }}>
-                    <h3 className="lab-title">{lab.title}</h3>
+                  <div className="lab-card-head" style={{ borderColor: base }}>
+                    <h3 className="lab-title">{labEn?.title ?? lab.title}</h3>
                     <div className="lab-meta">
-                      <span><i className="fa-solid fa-signal" /> {lab.level}</span>
-                      <span><i className="fa-regular fa-clock" /> {lab.minutes}</span>
+                      <span><i className="fa-solid fa-signal" /> {labEn?.level ?? lab.level}</span>
+                      <span><i className="fa-regular fa-clock" /> {labEn?.minutes ?? lab.minutes}</span>
                     </div>
-                    <p className="lab-scenario">{renderInline(lab.scenario)}</p>
+                    <p className="lab-scenario">{renderInline(labEn?.scenario ?? lab.scenario)}</p>
                   </div>
                   <ol className="lab-steps">
-                    {lab.steps.map((s, si) => (
+                    {(labEn?.steps ?? lab.steps).map((s, si) => (
                       <li key={si} className="lab-step">
-                        <span className="lab-step-num" style={{ background: program.color }}>{si + 1}</span>
+                        <span className="lab-step-num" style={{ background: base }}>{si + 1}</span>
                         <div className="lab-step-body">
                           <div className="lab-step-title">{s.title}</div>
                           <p className="lab-step-detail">{renderInline(s.detail)}</p>
@@ -292,16 +313,17 @@ export default function CourseCategory(): ReactElement {
                       </li>
                     ))}
                   </ol>
-                  <div className="lab-result"><i className="fa-solid fa-flag-checkered" /> {lab.result}</div>
+                  <div className="lab-result"><i className="fa-solid fa-flag-checkered" /> {labEn?.result ?? lab.result}</div>
                 </article>
-              ))}
+                );
+              })}
             </div>
           ) : selectedMat ? (
             <article className="material-inline">
               <button type="button" className="material-inline-back" onClick={showCurriculum}>
                 <i className="fa-solid fa-arrow-left" /> {language === 'ko' ? '커리큘럼으로' : 'Back to curriculum'}
               </button>
-              <div className="material-inline-eyebrow" style={{ color: program.color }}>
+              <div className="material-inline-eyebrow" style={{ color: base }}>
                 <i className="fa-solid fa-folder-open" /> {language === 'ko' ? program.nameKo : program.nameEn} · {language === 'ko' ? '학습자료' : 'Materials'}
               </div>
               <h2 className="material-inline-title">{language === 'ko' ? selectedMat.nameKo : selectedMat.nameEn}</h2>
@@ -316,26 +338,30 @@ export default function CourseCategory(): ReactElement {
           {program.curriculum.map((day) => (
             <div key={day.day} id={`day-${day.day}`} className="curriculum-day">
               <div className="curriculum-day-head">
-                <span className="curriculum-day-badge" style={{ background: program.color }}>{day.badge}</span>
+                <span className="curriculum-day-badge" style={{ background: base }}>{isEn ? badgeEn(day.badge) : day.badge}</span>
                 <div>
-                  <h2 className="curriculum-day-title">{day.theme}</h2>
+                  <h2 className="curriculum-day-title">{isEn ? day.themeEn : day.theme}</h2>
                   <span className="curriculum-day-sub">{day.sessions.length}{language === 'ko' ? '차시 · 마이크로러닝' : ' sessions · microlearning'}</span>
                 </div>
               </div>
 
               <div className="curriculum-sessions">
-                {day.sessions.map((session, si) => (
+                {day.sessions.map((session, si) => {
+                  // 영문 오버레이 — 번역이 없으면 자동으로 한국어 원문을 쓴다
+                  const en = getSessionEn(language, program.id, day.day, si);
+                  const practices = en?.practices ?? session.practices;
+                  return (
                   <div key={si} className="session-card">
                     <div className="session-time">
-                      <span className="session-period" style={{ color: program.color }}>{session.period}</span>
-                      <span className="session-clock">{session.time}</span>
+                      <span className="session-period" style={{ color: base }}>{isEn ? periodEn(session.period) : session.period}</span>
+                      <span className="session-clock">{isEn ? timeEn(session.time) : session.time}</span>
                     </div>
                     <div className="session-body">
                       <div className="session-title-row">
-                        <h3 className="session-title">{session.title}</h3>
+                        <h3 className="session-title">{en?.title ?? session.title}</h3>
                         <span className="session-badges">
                           {session.difficulty && (
-                            <span className={`session-diff diff-${session.difficulty}`}>{session.difficulty}</span>
+                            <span className={`session-diff diff-${session.difficulty}`}>{isEn ? difficultyEn(session.difficulty) : session.difficulty}</span>
                           )}
                           {session.importance && (
                             <span className="session-imp" title={`중요도 ${session.importance}/3`}>
@@ -344,10 +370,10 @@ export default function CourseCategory(): ReactElement {
                           )}
                         </span>
                       </div>
-                      <p className="session-goal"><i className="fa-solid fa-bullseye" /> {renderInline(session.goal)}</p>
+                      <p className="session-goal"><i className="fa-solid fa-bullseye" /> {renderInline(en?.goal ?? session.goal)}</p>
 
                       <div className="session-topics">
-                        {session.topics.map((topic) => (
+                        {(en?.topics ?? session.topics).map((topic) => (
                           <span key={topic} className={`session-topic${topic.startsWith('📦') ? ' output' : ''}`}>{renderInline(topic)}</span>
                         ))}
                       </div>
@@ -356,10 +382,10 @@ export default function CourseCategory(): ReactElement {
                         <div className="session-practices-head">
                           <i className="fa-solid fa-laptop-code" /> {language === 'ko' ? '실습 사례' : 'Practice'}
                         </div>
-                        {session.practices.map((pc, pi) => (
+                        {practices.map((pc, pi) => (
                           <div key={pi} className="practice-item">
                             <div className="practice-scenario">
-                              <span className="practice-num" style={{ background: program.color }}>{pi + 1}</span>
+                              <span className="practice-num" style={{ background: base }}>{pi + 1}</span>
                               {pc.scenario}
                             </div>
                             <PromptBlock prompt={pc.prompt} />
@@ -368,7 +394,8 @@ export default function CourseCategory(): ReactElement {
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))}

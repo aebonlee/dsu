@@ -30,6 +30,40 @@
     --accent-light: #92CCF2;
     --primary-gradient: linear-gradient(135deg, #6480C0 0%, #8FACE6 100%);
     --highlight-gradient: linear-gradient(135deg, #92CCF2 0%, #5FB0EC 50%, #CDE6FA 100%);
+
+    /* 정답·경고·오답 — 다크에서는 배경을 옅은 반투명으로 낮추고 글자를 밝게 올린다.
+       라이트 값(#E8F5E9 등)을 그대로 두면 어두운 카드 위에 밝은 판이 떠서 글자가 지워진다. */
+    --success-soft: rgba(72, 187, 120, 0.14);
+    --success-softer: rgba(72, 187, 120, 0.09);
+    --success-border: rgba(104, 211, 145, 0.38);
+    --success-text: #9AE6B4;
+    --success-strong: #C6F6D5;
+    --success-accent: #68D391;
+    --warn-soft: rgba(214, 158, 46, 0.15);
+    --warn-border: rgba(246, 173, 85, 0.42);
+    --warn-text: #F6D06B;
+    --warn-strong: #FBD38D;
+    --warn-accent: #F6AD55;
+    --danger-soft: rgba(229, 62, 62, 0.16);
+    --danger-text: #FEB2B2;
+    --danger-accent: #FC8181;
+}
+
+/* 다크에서 --primary-blue 는 밝은 파랑(#8FACE6)이다.
+   그 위에 흰 글씨를 얹으면 대비가 2.3:1까지 떨어져 글자가 뜬다 →
+   채워진 버튼의 글자는 어두운 배경색으로 뒤집는다.
+   과정 색을 인라인 style 로 받는 요소(배지·패들릿 버튼·번호 원)도 대상이다 —
+   CourseCategory 가 다크에서는 밝은 과정 색을 주입하므로 배경이 항상 밝다. */
+[data-theme="dark"] .nav-login-btn,
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-accent,
+[data-theme="dark"] .practice-btn-primary,
+[data-theme="dark"] .nav-lang-btn.active,
+[data-theme="dark"] .curriculum-day-badge,
+[data-theme="dark"] .practice-num,
+[data-theme="dark"] .lab-step-num,
+[data-theme="dark"] .program-hero-icon {
+    color: #0E1422 !important;
 }
 
 [data-theme="dark"] .hero,

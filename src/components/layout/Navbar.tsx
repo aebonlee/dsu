@@ -24,7 +24,7 @@ const Navbar = (): ReactElement => {
   const userMenuRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const { mode, toggleTheme, colorTheme, setColorTheme } = useTheme();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { language, toggleLanguage, setLanguage, t } = useLanguage();
   const { cartCount } = useCart();
   const { isLoggedIn, isAdmin, profile, signOut } = useAuth();
 
@@ -140,6 +140,27 @@ const Navbar = (): ReactElement => {
           </ul>
 
           <div className="nav-actions">
+            {/* 언어 전환 — 설정 드롭다운 안에만 있으면 외국인 수강생이 찾지 못한다(2026-07-20 피드백).
+                항상 보이는 KO/EN 스위치로 노출하고, 선택은 localStorage에 저장된다. */}
+            <div className="nav-lang-switch" role="group" aria-label="Language">
+              <button
+                type="button"
+                className={`nav-lang-btn${language === 'ko' ? ' active' : ''}`}
+                onClick={() => setLanguage('ko')}
+                aria-pressed={language === 'ko'}
+              >
+                KO
+              </button>
+              <button
+                type="button"
+                className={`nav-lang-btn${language === 'en' ? ' active' : ''}`}
+                onClick={() => setLanguage('en')}
+                aria-pressed={language === 'en'}
+              >
+                EN
+              </button>
+            </div>
+
             {site.features.shop && (
               <Link to="/cart" className="cart-icon-link nav-tip" data-tip={language === 'ko' ? '장바구니' : 'Cart'} aria-label="Cart">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="cart-icon-svg">
