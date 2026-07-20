@@ -49,15 +49,75 @@ const INFO = {
 
 const DAY_DATES = { day1: '2026. 07. 20. (월)', day2: '2026. 07. 21. (화)', day3: '2026. 07. 22. (수)' };
 
-/* ── courses.ts 로드 (TS → JS 트랜스파일 후 동적 import) ──── */
-async function loadPrograms() {
-  const src = path.join(ROOT, 'src/data/courses.ts');
+/* ── 영문판 (영어권 수강 교원용) ─────────────────────────────
+   한국어판이 정본이고, 영문판은 같은 내용을 영어로 낸 짝이다.
+   본문은 src/data/i18n/ 오버레이를 그대로 읽으므로 화면과 항상 일치한다. */
+const INFO_EN = {
+  org: 'Dongshin University',
+  title: 'Faculty AI Competency Training',
+  subtitle: 'Generative AI from A to Z — Teaching with Claude',
+  period: '20–22 July 2026 (Mon–Wed)',
+  track: 'Humanities & Arts track',
+  instructor: 'Prof. Jeong Dong-yeop',
+  hours: '12 hours in person + 8 hours common VOD',
+  site: INFO.site,
+  padlet: INFO.padlet,
+  publisher: INFO.publisher,
+  publisherCeo: INFO.publisherCeo,
+  publisherContact: INFO.publisherContact,
+  brand: INFO.brand,
+};
+
+const DAY_DATES_EN = { day1: 'Mon 20 July 2026', day2: 'Tue 21 July 2026', day3: 'Wed 22 July 2026' };
+
+/** 문서 언어별 문구 */
+const L = {
+  ko: {
+    badge: '수강생 배포용 강의안', overview: '연수 개요', howto: '이 강의안 사용법',
+    schedule: '전체 일정 — 대면 3일 (12시간)', vodTitle: '사전 학습 — 공통 VOD (8시간)',
+    journey: '3일 학습 여정', flow: '오늘의 흐름',
+    thName: '연수명', thSub: '부제', thPeriod: '기간', thHours: '이수 시간', thTarget: '대상',
+    thInstructor: '강사', thSite: '학습 사이트', thPadlet: '실습 보드', thDate: '일자',
+    thComposition: '구성', thLevel: '수준', thTopic: '주제', thDetail: '세부 구성',
+    thModule: '모듈', thStage: '단계', thGain: '무엇을 얻어 가시나요',
+    thPeriodCol: '교시', thGoal: '학습 목표',
+    goal: '학습 목표', topics: '주요 내용', practice: '실습 — Claude에 그대로 붙여넣기',
+    difficulty: '난이도', importance: '중요도',
+    memo: '메모 — 오늘 만든 것 / 내 과목에 적용할 것',
+    bracketNote: '실습 프롬프트의 <strong>[대괄호]</strong>는 본인 과목·주제로 바꿔 주세요. 모든 프롬프트는 <strong>[역할]·[맥락]·[요청]·[형식]·[예시]·[조건]</strong> 구조를 따릅니다.',
+    principle: '<mark>AI는 준비를 돕고, 생각은 사람이 합니다.</mark> 이 연수 전체를 관통하는 대원칙입니다.',
+  },
+  en: {
+    badge: 'Participant Handout', overview: 'Programme Overview', howto: 'How to Use This Handout',
+    schedule: 'Full Schedule — 3 Days in Person (12 hours)', vodTitle: 'Pre-learning — Common VOD (8 hours)',
+    journey: 'The Three-Day Journey', flow: "Today's Flow",
+    thName: 'Programme', thSub: 'Subtitle', thPeriod: 'Dates', thHours: 'Total hours', thTarget: 'Participants',
+    thInstructor: 'Instructor', thSite: 'Learning site', thPadlet: 'Practice board', thDate: 'Date',
+    thComposition: 'Structure', thLevel: 'Level', thTopic: 'Theme', thDetail: 'Sessions',
+    thModule: 'Module', thStage: 'Stage', thGain: 'What you take away',
+    thPeriodCol: 'Period', thGoal: 'Learning goal',
+    goal: 'Learning goal', topics: 'Key content', practice: 'Practice — paste straight into Claude',
+    difficulty: 'Level', importance: 'Priority',
+    memo: 'Notes — what I made today / what I will use in my course',
+    bracketNote: 'Replace the <strong>[bracketed]</strong> parts with your own course and topic. Every prompt follows the <strong>[Role]·[Context]·[Request]·[Format]·[Example]·[Condition]</strong> structure.',
+    principle: '<mark>AI helps with the preparation; the thinking stays with people.</mark> This is the guiding principle of the whole programme.',
+  },
+};
+
+/* ── TS 모듈 로드 (esbuild 로 트랜스파일 후 동적 import) ────
+   화면과 같은 파일을 그대로 읽는다 — 강의안과 사이트가 어긋날 여지를 없애기 위해서다.
+   각 파일의 import 는 `import type` 뿐이라 트랜스파일 시 지워진다. */
+let tmpSeq = 0;
+async function loadTs(relPath) {
+  const src = path.join(ROOT, relPath);
   const { code } = await esbuild.transform(fs.readFileSync(src, 'utf8'), { loader: 'ts', format: 'esm' });
-  const tmp = path.join(OUT_DIR, '.courses.tmp.mjs');
+  const tmp = path.join(OUT_DIR, `.tmp-${tmpSeq++}.mjs`);
   fs.writeFileSync(tmp, code);
-  const mod = await import(pathToFileURL(tmp).href);
-  fs.unlinkSync(tmp);
-  return mod.PROGRAMS;
+  try {
+    return await import(pathToFileURL(tmp).href);
+  } finally {
+    fs.unlinkSync(tmp);
+  }
 }
 
 /* ── 인라인 마크업 변환 (**굵게**, ==형광펜==) ─────────────── */
@@ -155,8 +215,8 @@ const CSS = `
       transparent, transparent 8.4mm, #e2e8f0 8.4mm, #e2e8f0 8.6mm); }
 `;
 
-const shell = (title, accent, body) => `<!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><title>${esc(title)}</title>
+const shell = (title, accent, body, lang = 'ko') => `<!DOCTYPE html>
+<html lang="${lang}"><head><meta charset="utf-8"><title>${esc(title)}</title>
 <style>:root { --accent: ${accent}; }
 ${CSS}</style></head><body>${body}</body></html>`;
 
@@ -167,150 +227,218 @@ ${CSS}</style></head><body>${body}</body></html>`;
  */
 const wordDoc = (title, accent, html) =>
   html
-    .replace('<html lang="ko">', '<html lang="ko" xmlns:w="urn:schemas-microsoft-com:office:word">')
+    .replace(/<html lang="(ko|en)">/, '<html lang="$1" xmlns:w="urn:schemas-microsoft-com:office:word">')
     .replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="ProgId" content="Word.Document">')
     .replace(/var\(--accent\)/g, accent);
 
+/* ── 언어별 과정 데이터 접근자 ─────────────────────────────
+   한국어판·영문판이 같은 골격을 쓰도록, 언어 차이를 여기서만 흡수한다.
+   영문 본문은 화면과 같은 오버레이(src/data/i18n/)를 읽으므로 둘이 어긋나지 않는다. */
+function view(program, lang) {
+  const en = lang === 'en';
+  return {
+    name: en ? program.nameEn : program.nameKo,
+    tagline: en ? program.taglineEn : program.tagline,
+    desc: en ? program.descEn : program.descKo,
+    audience: en ? program.audienceEn : program.audience,
+    duration: en ? program.durationEn : program.duration,
+    level: en ? program.levelEn : program.level,
+    highlights: en ? program.highlightsEn : program.highlights,
+    padlet: program.padletUrl ?? (en ? INFO_EN.padlet : INFO.padlet),
+    date: (en ? DAY_DATES_EN : DAY_DATES)[program.id] ?? '',
+    badge: (c) => (en ? LABELS.badgeEn(c.badge) : c.badge),
+    theme: (c) => (en ? c.themeEn : c.theme),
+    /** 세션 본문 — 영문은 오버레이에서, 없으면 한국어로 폴백(빈 지면 방지) */
+    session: (c, s, i) => {
+      const o = en ? SESSIONS_EN[`${program.id}:${c.day}:${i}`] : null;
+      return {
+        title: o?.title ?? s.title,
+        goal: o?.goal ?? s.goal,
+        topics: o?.topics ?? s.topics,
+        practices: o?.practices ?? s.practices,
+        period: en ? LABELS.periodEn(s.period) : s.period,
+        time: en ? LABELS.timeEn(s.time) : s.time,
+        difficulty: s.difficulty ? (en ? LABELS.difficultyEn(s.difficulty) : s.difficulty) : '',
+        importance: s.importance,
+      };
+    },
+  };
+}
+
 /* ── 표지 문서 ─────────────────────────────────────────────── */
-function buildCover(programs, logoDataUri) {
+function buildCover(programs, logoDataUri, lang) {
+  const t = L[lang];
+  const I = lang === 'en' ? INFO_EN : INFO;
   const days = programs.filter((p) => p.id !== 'vod');
   const vod = programs.find((p) => p.id === 'vod');
 
   const scheduleRows = days
     .map((p) => {
-      const themes = p.curriculum.map((c) => `${c.badge} · ${c.theme.replace(/\s*\(\d+H\)$/, '')}`).join('<br>');
+      const v = view(p, lang);
+      const themes = p.curriculum
+        .map((c) => `${esc(v.badge(c))} · ${esc(v.theme(c).replace(/\s*\(\d+H\)$/, ''))}`)
+        .join('<br>');
       return `<tr>
-        <td style="white-space:nowrap"><b>${esc(p.nameKo.split(' — ')[0])}</b><br>
-          <span style="font-size:9pt;color:#718096">${esc(DAY_DATES[p.id] ?? '')}</span></td>
-        <td>${esc(p.nameKo.split(' — ')[1] ?? p.nameKo)}</td>
+        <td style="white-space:nowrap"><b>${esc(v.name.split(' — ')[0])}</b><br>
+          <span style="font-size:9pt;color:#718096">${esc(v.date)}</span></td>
+        <td>${esc(v.name.split(' — ')[1] ?? v.name)}</td>
         <td style="font-size:9.2pt;color:#4a5568">${themes}</td>
       </tr>`;
     })
     .join('');
 
+  const vodView = view(vod, lang);
   const vodRows = vod.curriculum
-    .map((m) => `<tr><td style="white-space:nowrap"><b>${esc(m.badge)}</b></td>
-      <td colspan="2">${esc(m.theme)}</td></tr>`)
+    .map((m) => `<tr><td style="white-space:nowrap"><b>${esc(vodView.badge(m))}</b></td>
+      <td colspan="2">${esc(vodView.theme(m))}</td></tr>`)
     .join('');
+
+  const meta =
+    lang === 'en'
+      ? [['Dates', I.period], ['Structure', I.hours], ['Track', I.track], ['Instructor', I.instructor]]
+      : [['연수 기간', I.period], ['과정 구성', I.hours], ['대상 트랙', I.track], ['담당 강사', I.instructor]];
 
   const cover = `
     <section class="cover">
       <div class="cover-top">
         ${
           logoDataUri
-            ? `<img class="cover-logo" src="${logoDataUri}" alt="${esc(INFO.org)}">`
-            : `<div class="cover-org">${esc(INFO.org)}</div>`
+            ? `<img class="cover-logo" src="${logoDataUri}" alt="${esc(I.org)}">`
+            : `<div class="cover-org">${esc(I.org)}</div>`
         }
-        <h1 class="cover-title">${esc(INFO.title)}</h1>
-        <div class="cover-sub">${esc(INFO.subtitle)}</div>
+        <h1 class="cover-title">${esc(I.title)}</h1>
+        <div class="cover-sub">${esc(I.subtitle)}</div>
         <hr class="cover-rule">
         <div class="cover-meta">
-          <div><b>연수 기간</b> ${esc(INFO.period)}</div>
-          <div><b>과정 구성</b> ${esc(INFO.hours)}</div>
-          <div><b>대상 트랙</b> ${esc(INFO.track)}</div>
-          <div><b>담당 강사</b> ${esc(INFO.instructor)}</div>
+          ${meta.map(([k, v]) => `<div><b>${esc(k)}</b> ${esc(v)}</div>`).join('')}
         </div>
-        <div class="cover-badge">수강생 배포용 강의안</div>
+        <div class="cover-badge">${esc(t.badge)}</div>
       </div>
       <div class="cover-foot">
-        학습 사이트 ${esc(INFO.site)} · 실습 보드 ${esc(INFO.padlet)}<br>
-        발행 ${esc(INFO.publisher)} · 대표 ${esc(INFO.publisherCeo)}<br>
-        ${esc(INFO.publisherContact)}
+        ${esc(t.thSite)} ${esc(I.site)} · ${esc(t.thPadlet)} ${esc(I.padlet)}<br>
+        ${lang === 'en' ? 'Published by' : '발행'} ${esc(I.publisher)} · ${esc(I.publisherCeo)}<br>
+        ${esc(I.publisherContact)}
       </div>
     </section>
     <div class="page-break"></div>`;
+
+  const targetNote =
+    lang === 'en'
+      ? `${esc(I.track)} faculty (the common VOD is required for all faculty and instructors)`
+      : `${esc(I.track)} 교원 (공통 VOD는 전임교원·강사 전체 사전 필수)`;
+
+  const howtoItems =
+    lang === 'en'
+      ? [
+          'The handout comes in <strong>three volumes, one per day</strong>. Bring only that day’s volume.',
+          'Each period follows the same order: <strong>learning goal → key content → practice prompt</strong>.',
+          'The practice prompts are <mark>complete and ready to paste into Claude</mark>. Change only the <strong>[bracketed]</strong> parts to match your own course and topic.',
+          'Every prompt uses the same six-part structure: <strong>[Role]·[Context]·[Request]·[Format]·[Example]·[Condition]</strong>. Once this structure is familiar, you can write any request yourself.',
+          'The <strong>📦 Output</strong> line at the end of each period is what you actually make and take away in that session.',
+          'Please watch the <strong>four common VOD modules (8 hours)</strong> before the in-person days.',
+        ]
+      : [
+          '강의안은 <strong>날짜별 3권</strong>으로 나뉩니다. 수업 당일 해당 권만 준비하시면 됩니다.',
+          '각 교시는 <strong>학습 목표 → 주요 내용 → 실습 프롬프트</strong> 순서로 구성됩니다.',
+          '실습 프롬프트는 <mark>Claude 대화창에 그대로 복사해 붙여넣는 완성형</mark>입니다. <strong>[대괄호]</strong> 부분만 본인 과목·주제로 바꿔 주세요.',
+          '프롬프트는 <strong>[역할]·[맥락]·[요청]·[형식]·[예시]·[조건]</strong> 6요소 구조로 통일되어 있습니다. 이 구조 자체를 익히시면 어떤 요청도 직접 쓰실 수 있습니다.',
+          '각 교시 끝의 <strong>📦 산출물</strong>은 그 시간에 실제로 만들어 가져가시는 결과물입니다.',
+          '대면 수업 전 <strong>공통 VOD 4모듈(8시간)</strong>을 먼저 시청해 주세요.',
+        ];
 
   const overview = `
     <section>
-      <h2 class="sec-title">연수 개요</h2>
+      <h2 class="sec-title">${esc(t.overview)}</h2>
       <table>
-        <tr><th style="width:26mm">연수명</th><td>${esc(INFO.org)} ${esc(INFO.title)}</td></tr>
-        <tr><th>부제</th><td>${esc(INFO.subtitle)}</td></tr>
-        <tr><th>기간</th><td>${esc(INFO.period)}</td></tr>
-        <tr><th>이수 시간</th><td>${esc(INFO.hours)}</td></tr>
-        <tr><th>대상</th><td>${esc(INFO.track)} 교원 (공통 VOD는 전임교원·강사 전체 사전 필수)</td></tr>
-        <tr><th>강사</th><td>${esc(INFO.instructor)}</td></tr>
-        <tr><th>학습 사이트</th><td>${esc(INFO.site)}</td></tr>
-        <tr><th>실습 보드</th><td>${esc(INFO.padlet)}</td></tr>
+        <tr><th style="width:26mm">${esc(t.thName)}</th><td>${esc(I.org)} ${esc(I.title)}</td></tr>
+        <tr><th>${esc(t.thSub)}</th><td>${esc(I.subtitle)}</td></tr>
+        <tr><th>${esc(t.thPeriod)}</th><td>${esc(I.period)}</td></tr>
+        <tr><th>${esc(t.thHours)}</th><td>${esc(I.hours)}</td></tr>
+        <tr><th>${esc(t.thTarget)}</th><td>${targetNote}</td></tr>
+        <tr><th>${esc(t.thInstructor)}</th><td>${esc(I.instructor)}</td></tr>
+        <tr><th>${esc(t.thSite)}</th><td>${esc(I.site)}</td></tr>
+        <tr><th>${esc(t.thPadlet)}</th><td>${esc(I.padlet)}</td></tr>
       </table>
 
-      <h2 class="sec-title" style="margin-top:9mm">이 강의안 사용법</h2>
-      <ul class="topics">
-        <li>강의안은 <strong>날짜별 3권</strong>으로 나뉩니다. 수업 당일 해당 권만 준비하시면 됩니다.</li>
-        <li>각 교시는 <strong>학습 목표 → 주요 내용 → 실습 프롬프트</strong> 순서로 구성됩니다.</li>
-        <li>실습 프롬프트는 <mark>Claude 대화창에 그대로 복사해 붙여넣는 완성형</mark>입니다.
-            <strong>[대괄호]</strong> 부분만 본인 과목·주제로 바꿔 주세요.</li>
-        <li>프롬프트는 <strong>[역할]·[맥락]·[요청]·[형식]·[예시]·[조건]</strong> 6요소 구조로 통일되어 있습니다.
-            이 구조 자체를 익히시면 어떤 요청도 직접 쓰실 수 있습니다.</li>
-        <li>각 교시 끝의 <strong>📦 산출물</strong>은 그 시간에 실제로 만들어 가져가시는 결과물입니다.</li>
-        <li>대면 수업 전 <strong>공통 VOD 4모듈(8시간)</strong>을 먼저 시청해 주세요.</li>
-      </ul>
+      <h2 class="sec-title" style="margin-top:9mm">${esc(t.howto)}</h2>
+      <ul class="topics">${howtoItems.map((x) => `<li>${x}</li>`).join('')}</ul>
     </section>
     <div class="page-break"></div>`;
 
+  const journeyRows =
+    lang === 'en'
+      ? [
+          ['Pre-VOD', 'How AI produces text and where it fails (hallucination), prompting basics, and safe-use ground rules'],
+          ['Day 1', 'An AI map for your course · 3 learning objectives · one week’s lesson plan · a debate guide · a case analysis sheet'],
+          ['Day 2', 'Essay & critical items · step-by-step model answers · competency rubrics · a personalised feedback template · a source-checking routine'],
+          ['Day 3', 'An AI strategy for before/during/after class · competency practice scenarios · a vibe-coded class tool · your own one-page teaching protocol'],
+        ]
+      : [
+          ['사전 VOD', 'AI가 글을 만드는 원리와 한계(환각), 프롬프트 기본기, 안전하게 쓰는 기준'],
+          ['Day 1', '내 과목의 AI 적용 지도 · 학습목표 3개 · 한 주차 강의안 · 토론 가이드 · 사례 분석지'],
+          ['Day 2', '서술·논술 문항 · 단계별 모범답안 · 역량 루브릭 · 개인화 피드백 템플릿 · 출처 검증 루틴'],
+          ['Day 3', '수업 전·중·후 AI 배치 전략 · 역량 연습 시나리오 · 바이브코딩 수업 도구 · 개인 교수 프로토콜 1장'],
+        ];
+
   const schedule = `
     <section>
-      <h2 class="sec-title">전체 일정 — 대면 3일 (12시간)</h2>
+      <h2 class="sec-title">${esc(t.schedule)}</h2>
       <table>
-        <thead><tr><th style="width:30mm">일자</th><th style="width:52mm">주제</th><th>세부 구성</th></tr></thead>
+        <thead><tr><th style="width:30mm">${esc(t.thDate)}</th><th style="width:52mm">${esc(t.thTopic)}</th><th>${esc(t.thDetail)}</th></tr></thead>
         <tbody>${scheduleRows}</tbody>
       </table>
 
-      <h2 class="sec-title" style="margin-top:9mm">사전 학습 — 공통 VOD (8시간)</h2>
+      <h2 class="sec-title" style="margin-top:9mm">${esc(t.vodTitle)}</h2>
       <table>
-        <thead><tr><th style="width:30mm">모듈</th><th colspan="2">주제</th></tr></thead>
+        <thead><tr><th style="width:30mm">${esc(t.thModule)}</th><th colspan="2">${esc(t.thTopic)}</th></tr></thead>
         <tbody>${vodRows}</tbody>
       </table>
 
-      <h2 class="sec-title" style="margin-top:9mm">3일 학습 여정</h2>
+      <h2 class="sec-title" style="margin-top:9mm">${esc(t.journey)}</h2>
       <table>
-        <thead><tr><th style="width:30mm">단계</th><th>무엇을 얻어 가시나요</th></tr></thead>
-        <tbody>
-          <tr><td><b>사전 VOD</b></td><td>AI가 글을 만드는 원리와 한계(환각), 프롬프트 기본기, 안전하게 쓰는 기준</td></tr>
-          <tr><td><b>Day 1</b></td><td>내 과목의 AI 적용 지도 · 학습목표 3개 · 한 주차 강의안 · 토론 가이드 · 사례 분석지</td></tr>
-          <tr><td><b>Day 2</b></td><td>서술·논술 문항 · 단계별 모범답안 · 역량 루브릭 · 개인화 피드백 템플릿 · 출처 검증 루틴</td></tr>
-          <tr><td><b>Day 3</b></td><td>수업 전·중·후 AI 배치 전략 · 역량 연습 시나리오 · 바이브코딩 수업 도구 · 개인 교수 프로토콜 1장</td></tr>
-        </tbody>
+        <thead><tr><th style="width:30mm">${esc(t.thStage)}</th><th>${esc(t.thGain)}</th></tr></thead>
+        <tbody>${journeyRows.map(([k, v]) => `<tr><td><b>${esc(k)}</b></td><td>${esc(v)}</td></tr>`).join('')}</tbody>
       </table>
-      <p style="margin-top:8mm;font-size:10pt;color:#4a5568">
-        <mark>AI는 준비를 돕고, 생각은 사람이 합니다.</mark>
-        이 연수 전체를 관통하는 대원칙입니다.
-      </p>
+      <p style="margin-top:8mm;font-size:10pt;color:#4a5568">${t.principle}</p>
     </section>`;
 
-  return shell(`${INFO.org} ${INFO.title} — 표지`, INFO.brand, cover + overview + schedule);
+  const title = lang === 'en' ? `${I.org} ${I.title} — Cover` : `${I.org} ${I.title} — 표지`;
+  return shell(title, I.brand, cover + overview + schedule, lang);
 }
 
 /* ── Day 강의안 문서 ───────────────────────────────────────── */
-function buildDay(program, order) {
-  const accent = program.color || INFO.brand;
-  const [dayLabel, dayTitle] = program.nameKo.split(' — ');
+function buildDay(program, lang) {
+  const t = L[lang];
+  const I = lang === 'en' ? INFO_EN : INFO;
+  const accent = program.color || I.brand;
+  const v = view(program, lang);
+  const [dayLabel, dayTitle] = v.name.split(' — ');
 
   const cover = `
     <section class="daycover">
-      <div class="kicker">${esc(INFO.org)} ${esc(INFO.title)} · ${esc(INFO.track)}</div>
+      <div class="kicker">${esc(I.org)} ${esc(I.title)} · ${esc(I.track)}</div>
       <h1>${esc(dayLabel)}<br>${esc(dayTitle ?? '')}</h1>
-      <div class="tagline">${esc(program.tagline)}</div>
-      <div class="chips">${program.highlights.map((h) => `<span class="chip">${esc(h)}</span>`).join('')}</div>
-      <div class="desc">${esc(program.descKo)}</div>
+      <div class="tagline">${esc(v.tagline)}</div>
+      <div class="chips">${v.highlights.map((h) => `<span class="chip">${esc(h)}</span>`).join('')}</div>
+      <div class="desc">${esc(v.desc)}</div>
       <table style="margin-top:8mm">
-        <tr><th style="width:26mm">일자</th><td>${esc(DAY_DATES[program.id] ?? '')}</td></tr>
-        <tr><th>구성</th><td>${esc(program.duration)}</td></tr>
-        <tr><th>수준</th><td>${esc(program.level)}</td></tr>
-        <tr><th>대상</th><td>${esc(program.audience)}</td></tr>
-        <tr><th>강사</th><td>${esc(INFO.instructor)}</td></tr>
-        <tr><th>실습 보드</th><td>${esc(program.padletUrl ?? INFO.padlet)}</td></tr>
+        <tr><th style="width:26mm">${esc(t.thDate)}</th><td>${esc(v.date)}</td></tr>
+        <tr><th>${esc(t.thComposition)}</th><td>${esc(v.duration)}</td></tr>
+        <tr><th>${esc(t.thLevel)}</th><td>${esc(v.level)}</td></tr>
+        <tr><th>${esc(t.thTarget)}</th><td>${esc(v.audience)}</td></tr>
+        <tr><th>${esc(t.thInstructor)}</th><td>${esc(I.instructor)}</td></tr>
+        <tr><th>${esc(t.thPadlet)}</th><td>${esc(v.padlet)}</td></tr>
       </table>
       <div style="margin-top:auto;border-top:1px solid #e2e8f0;padding-top:5mm;font-size:9pt;color:#718096">
-        ${esc(INFO.publisher)} · ${esc(INFO.site)}
+        ${esc(I.publisher)} · ${esc(I.site)}
       </div>
     </section>
     <div class="page-break"></div>`;
 
   /* 오늘의 흐름 요약표 */
   const flowRows = program.curriculum
-    .flatMap((c) => c.sessions.map((s) => ({ c, s })))
-    .map(({ c, s }) => `<tr>
+    .flatMap((c) => c.sessions.map((s, i) => v.session(c, s, i)))
+    .map((s) => `<tr>
       <td style="white-space:nowrap"><b>${esc(s.period)}</b><br>
         <span style="font-size:9pt;color:#718096">${esc(s.time)}</span></td>
       <td>${esc(s.title)}</td>
@@ -320,67 +448,65 @@ function buildDay(program, order) {
 
   const flow = `
     <section>
-      <h2 class="sec-title">오늘의 흐름</h2>
+      <h2 class="sec-title">${esc(t.flow)}</h2>
       <table>
-        <thead><tr><th style="width:20mm">교시</th><th style="width:56mm">주제</th><th>학습 목표</th></tr></thead>
+        <thead><tr><th style="width:20mm">${esc(t.thPeriodCol)}</th><th style="width:56mm">${esc(t.thTopic)}</th><th>${esc(t.thGoal)}</th></tr></thead>
         <tbody>${flowRows}</tbody>
       </table>
-      <p style="font-size:9.6pt;color:#4a5568;margin-top:4mm">
-        실습 프롬프트의 <strong>[대괄호]</strong>는 본인 과목·주제로 바꿔 주세요.
-        모든 프롬프트는 <strong>[역할]·[맥락]·[요청]·[형식]·[예시]·[조건]</strong> 구조를 따릅니다.
-      </p>
+      <p style="font-size:9.6pt;color:#4a5568;margin-top:4mm">${t.bracketNote}</p>
     </section>
     <div class="page-break"></div>`;
 
   /* 교시별 본문 */
   const blocks = program.curriculum
-    .map((c) => {
-      const sessions = c.sessions
-        .map((s) => {
+    .map((c) =>
+      c.sessions
+        .map((raw, si) => {
+          const s = v.session(c, raw, si);
           const tags = [
             `<span class="tag accent">${esc(s.period)}</span>`,
             `<span class="tag">${esc(s.time)}</span>`,
-            s.difficulty ? `<span class="tag">난이도 ${esc(s.difficulty)}</span>` : '',
-            s.importance ? `<span class="tag">중요도 ${'★'.repeat(s.importance)}</span>` : '',
+            s.difficulty ? `<span class="tag">${esc(t.difficulty)} ${esc(s.difficulty)}</span>` : '',
+            s.importance ? `<span class="tag">${esc(t.importance)} ${'★'.repeat(s.importance)}</span>` : '',
           ].join('');
 
-          const topics = s.topics.map((t) => `<li>${inline(t)}</li>`).join('');
+          const topics = s.topics.map((x) => `<li>${inline(x)}</li>`).join('');
+          const practiceLabel = lang === 'en' ? 'Practice' : '실습';
           const practices = s.practices
             .map(
-              (p, i) => `<div class="practice">
-                <div class="practice-head"><span class="n">실습 ${i + 1}</span>${esc(p.scenario)}</div>
-                <pre>${esc(p.prompt)}</pre>
+              (pr, i) => `<div class="practice">
+                <div class="practice-head"><span class="n">${practiceLabel} ${i + 1}</span>${esc(pr.scenario)}</div>
+                <pre>${esc(pr.prompt)}</pre>
               </div>`,
             )
             .join('');
 
           return `<div class="block">
             <div class="block-head">
-              <div class="theme">${esc(c.badge)} · ${esc(c.theme)}</div>
+              <div class="theme">${esc(v.badge(c))} · ${esc(v.theme(c))}</div>
               <h2>${esc(s.period)} · ${esc(s.title)}</h2>
             </div>
             <div class="block-body">
               <div class="meta-row">${tags}</div>
-              <div class="goal"><b>학습 목표</b> ${esc(s.goal)}</div>
-              <div class="label">주요 내용</div>
+              <div class="goal"><b>${esc(t.goal)}</b> ${esc(s.goal)}</div>
+              <div class="label">${esc(t.topics)}</div>
               <ul class="topics">${topics}</ul>
-              <div class="label">실습 — Claude에 그대로 붙여넣기</div>
+              <div class="label">${esc(t.practice)}</div>
               ${practices}
             </div>
           </div>`;
         })
-        .join('');
-      return sessions;
-    })
+        .join(''),
+    )
     .join('');
 
   const memo = `
     <div class="memo">
-      <h3>메모 — 오늘 만든 것 / 내 과목에 적용할 것</h3>
+      <h3>${esc(t.memo)}</h3>
       <div class="lines"></div>
     </div>`;
 
-  return shell(`${INFO.title} — ${program.nameKo}`, accent, cover + flow + blocks + memo);
+  return shell(`${I.title} — ${v.name}`, accent, cover + flow + blocks + memo, lang);
 }
 
 /* ── PDF 출력 ──────────────────────────────────────────────── */
@@ -390,7 +516,7 @@ async function renderPdfs(docs) {
 
   const browser = await puppeteer.launch();
   try {
-    for (const { file, html } of docs) {
+    for (const { file, html, lang } of docs) {
       const page = await browser.newPage();
       await page.setContent(html, { waitUntil: 'load' });
       await page.pdf({
@@ -402,7 +528,7 @@ async function renderPdfs(docs) {
         footerTemplate: `<div style="width:100%;font-size:8pt;color:#a0aec0;
           font-family:'Apple SD Gothic Neo',sans-serif;padding:0 16mm;display:flex;
           justify-content:space-between;">
-          <span>${INFO.org} ${INFO.title}</span>
+          <span>${lang === 'en' ? `${INFO_EN.org} ${INFO_EN.title}` : `${INFO.org} ${INFO.title}`}</span>
           <span class="pageNumber"></span>
         </div>`,
         margin: { top: '18mm', bottom: '20mm', left: '16mm', right: '16mm' },
@@ -416,10 +542,18 @@ async function renderPdfs(docs) {
 }
 
 /* ── main ──────────────────────────────────────────────────── */
-const programs = await (async () => {
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  return loadPrograms();
-})();
+fs.mkdirSync(OUT_DIR, { recursive: true });
+
+const programs = (await loadTs('src/data/courses.ts')).PROGRAMS;
+
+/** 영문 세션 오버레이 — 화면(src/data/i18n/)과 같은 원본 */
+const SESSIONS_EN = {
+  ...(await loadTs('src/data/i18n/vod-en.ts')).VOD_EN,
+  ...(await loadTs('src/data/i18n/day1-en.ts')).DAY1_EN,
+  ...(await loadTs('src/data/i18n/day2-en.ts')).DAY2_EN,
+  ...(await loadTs('src/data/i18n/day3-en.ts')).DAY3_EN,
+};
+const LABELS = await loadTs('src/data/i18n/labels.ts');
 
 // 가로형 국문 시그니처(1267×221) — 세로 시그니처 시트는 표지에 부적합
 const logoPath = path.join(ROOT, 'public/images/logo/logo-horizontal-ko.png');
@@ -430,17 +564,35 @@ const logoDataUri = fs.existsSync(logoPath)
 const days = programs.filter((p) => p.id.startsWith('day')).sort((a, b) => a.order - b.order);
 
 const docs = [
+  // ── 한국어판 (정본) ──
   {
     file: `00_${INFO.org}_AI연수_표지`,
     slug: 'cover', // 웹 배포용 ASCII 파일명 (한글 파일명은 URL 인코딩 문제를 부른다)
+    lang: 'ko',
     accent: INFO.brand,
-    html: buildCover(programs, logoDataUri),
+    html: buildCover(programs, logoDataUri, 'ko'),
   },
   ...days.map((p, i) => ({
     file: `0${i + 1}_Day${i + 1}_강의안`,
     slug: p.id, // day1 · day2 · day3 — 사이트 사이드바 다운로드 링크와 짝을 맞춘다
+    lang: 'ko',
     accent: p.color || INFO.brand,
-    html: buildDay(p, i + 1),
+    html: buildDay(p, 'ko'),
+  })),
+  // ── 영문판 (영어권 수강 교원용) ──
+  {
+    file: '00_Dongshin_AI_Training_Cover_EN',
+    slug: 'cover-en',
+    lang: 'en',
+    accent: INFO.brand,
+    html: buildCover(programs, logoDataUri, 'en'),
+  },
+  ...days.map((p, i) => ({
+    file: `0${i + 1}_Day${i + 1}_Handout_EN`,
+    slug: `${p.id}-en`,
+    lang: 'en',
+    accent: p.color || INFO.brand,
+    html: buildDay(p, 'en'),
   })),
 ];
 

@@ -84,6 +84,7 @@ export default function CourseCategory(): ReactElement {
   // 강의안 배포본: 대면 Day1~3만 존재(공통 VOD는 별도 강의안 없음)
   const hasHandout = /^day\d$/.test(program.id);
   const handoutName = `동신대_AI연수_${program.nameKo.replace(/\s*—\s*/, '_').replace(/\s+/g, '_')}`;
+  const handoutNameEn = `Dongshin_AI_Training_${program.nameEn.replace(/\s*—\s*/, '_').replace(/[^\w]+/g, '_')}`;
 
   const materials = MATERIALS.filter((m) => m.categoryId === program.id);
   const labs = getHandsOn(program.id);
@@ -164,38 +165,50 @@ export default function CourseCategory(): ReactElement {
                 <span>{language === 'ko' ? program.nameKo : program.nameEn}</span>
               </div>
 
-              {/* 강의안 다운로드 — scripts/generate-handouts.mjs 가 굽는 배포본(public/handouts/) */}
+              {/* 강의안 다운로드 — scripts/generate-handouts.mjs 가 굽는 배포본(public/handouts/).
+                  한국어판·영문판을 항상 함께 노출한다. 화면 언어와 무관하게 KO/EN을 고를 수 있어야
+                  한국어 수업을 듣는 영어권 교원이 두 판을 대조해 볼 수 있다. */}
               {hasHandout && (
               <nav className="course-sidebar-nav course-sidebar-dl">
                 <span className="course-sidebar-label">
-                  {language === 'ko' ? '강의안 다운로드' : 'Handout Download'}
+                  {isEn ? 'Handout Download' : '강의안 다운로드'}
                 </span>
-                <a
-                  href={`${import.meta.env.BASE_URL}handouts/dsu-${program.id}.pdf`}
-                  download={`${handoutName}.pdf`}
-                  className="course-sidebar-dl-btn pdf"
-                >
-                  <i className="fa-solid fa-file-pdf" />
-                  <span>PDF</span>
-                  <i className="fa-solid fa-download" />
-                </a>
-                <a
-                  href={`${import.meta.env.BASE_URL}handouts/dsu-${program.id}.doc`}
-                  download={`${handoutName}.doc`}
-                  className="course-sidebar-dl-btn word"
-                >
-                  <i className="fa-solid fa-file-word" />
-                  <span>{language === 'ko' ? '워드' : 'Word'}</span>
-                  <i className="fa-solid fa-download" />
-                </a>
-                <a
-                  href={`${import.meta.env.BASE_URL}handouts/dsu-cover.pdf`}
-                  download="동신대_AI연수_표지_전체일정.pdf"
-                  className="course-sidebar-link sub"
-                >
-                  <i className="fa-solid fa-book-open" />{' '}
-                  {language === 'ko' ? '표지 · 전체 일정' : 'Cover & Schedule'}
-                </a>
+                {[
+                  { icon: 'fa-file-pdf', cls: 'pdf', ext: 'pdf', label: 'PDF', slug: program.id },
+                  { icon: 'fa-file-word', cls: 'word', ext: 'doc', label: isEn ? 'Word' : '워드', slug: program.id },
+                  {
+                    icon: 'fa-book-open',
+                    cls: 'cover',
+                    ext: 'pdf',
+                    label: isEn ? 'Cover' : '표지',
+                    slug: 'cover',
+                  },
+                ].map((row) => (
+                  <div className="course-sidebar-dl-row" key={row.cls}>
+                    <span className="course-sidebar-dl-name">
+                      <i className={`fa-solid ${row.icon}`} /> {row.label}
+                    </span>
+                    {(['ko', 'en'] as const).map((hl) => (
+                      <a
+                        key={hl}
+                        href={`${import.meta.env.BASE_URL}handouts/dsu-${row.slug}${hl === 'en' ? '-en' : ''}.${row.ext}`}
+                        download={`${
+                          hl === 'en'
+                            ? row.slug === 'cover'
+                              ? 'Dongshin_AI_Training_Cover_Schedule'
+                              : handoutNameEn
+                            : row.slug === 'cover'
+                              ? '동신대_AI연수_표지_전체일정'
+                              : handoutName
+                        }.${row.ext}`}
+                        className={`course-sidebar-dl-lang ${row.cls}`}
+                        title={hl === 'en' ? 'English' : '한국어'}
+                      >
+                        {hl.toUpperCase()}
+                      </a>
+                    ))}
+                  </div>
+                ))}
               </nav>
               )}
 

@@ -833,39 +833,46 @@
 .course-sidebar-link.sub { font-size: 13px; color: var(--text-light); }
 .course-content { min-width: 0; }
 
-/* 과정 사이드바: 강의안 다운로드(PDF · 워드) */
+/* 과정 사이드바: 강의안 다운로드 — 형식(PDF·워드·표지) × 언어(KO·EN) */
 .course-sidebar-dl { gap: 6px; }
-.course-sidebar-dl-btn {
+.course-sidebar-dl-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 6px;
+  padding: 6px 8px;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
-  font-size: 13.5px;
+  background: var(--card-bg);
+}
+.course-sidebar-dl-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
+}
+.course-sidebar-dl-name i { width: 16px; text-align: center; font-size: 14px; }
+.course-sidebar-dl-row.pdf .course-sidebar-dl-name i { color: #d93025; }
+.course-sidebar-dl-row.word .course-sidebar-dl-name i { color: #2b5797; }
+.course-sidebar-dl-lang {
+  padding: 3px 8px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text-light);
   text-decoration: none;
-  background: var(--card-bg);
   transition: var(--transition-base);
 }
-.course-sidebar-dl-btn i:first-child { width: 16px; text-align: center; font-size: 15px; }
-/* 내려받기 아이콘은 오른쪽 끝에 옅게 — 클릭하면 파일이 받아진다는 신호 */
-.course-sidebar-dl-btn i:last-child {
-  margin-left: auto;
-  font-size: 11px;
-  color: var(--text-light);
-}
-.course-sidebar-dl-btn.pdf i:first-child { color: #d93025; }
-.course-sidebar-dl-btn.word i:first-child { color: #2b5797; }
-.course-sidebar-dl-btn:hover {
+.course-sidebar-dl-lang:hover {
+  background: var(--primary-blue);
   border-color: var(--primary-blue);
-  color: var(--primary-blue);
-  background: var(--primary-light);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
+  color: #fff;
 }
-.course-sidebar-dl-btn:hover i:last-child { color: var(--primary-blue); }
 
 @media (max-width: 900px) {
   .course-layout { grid-template-columns: 1fr; gap: 20px; }
