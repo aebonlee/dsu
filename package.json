@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "og-image": "node scripts/generate-og-image.mjs",
+    "handouts": "node scripts/generate-handouts.mjs",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

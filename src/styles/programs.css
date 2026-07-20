@@ -833,6 +833,40 @@
 .course-sidebar-link.sub { font-size: 13px; color: var(--text-light); }
 .course-content { min-width: 0; }
 
+/* 과정 사이드바: 강의안 다운로드(PDF · 워드) */
+.course-sidebar-dl { gap: 6px; }
+.course-sidebar-dl-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: var(--card-bg);
+  transition: var(--transition-base);
+}
+.course-sidebar-dl-btn i:first-child { width: 16px; text-align: center; font-size: 15px; }
+/* 내려받기 아이콘은 오른쪽 끝에 옅게 — 클릭하면 파일이 받아진다는 신호 */
+.course-sidebar-dl-btn i:last-child {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-light);
+}
+.course-sidebar-dl-btn.pdf i:first-child { color: #d93025; }
+.course-sidebar-dl-btn.word i:first-child { color: #2b5797; }
+.course-sidebar-dl-btn:hover {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+  background: var(--primary-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.course-sidebar-dl-btn:hover i:last-child { color: var(--primary-blue); }
+
 @media (max-width: 900px) {
   .course-layout { grid-template-columns: 1fr; gap: 20px; }
   .course-sidebar { position: static; }

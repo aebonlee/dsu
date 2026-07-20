@@ -62,6 +62,10 @@ export default function CourseCategory(): ReactElement {
     '--accent-soft': `${program.color}1F`,
     '--primary-light': `${program.color}12`,
   } as React.CSSProperties;
+  // 강의안 배포본: 대면 Day1~3만 존재(공통 VOD는 별도 강의안 없음)
+  const hasHandout = /^day\d$/.test(program.id);
+  const handoutName = `동신대_AI연수_${program.nameKo.replace(/\s*—\s*/, '_').replace(/\s+/g, '_')}`;
+
   const materials = MATERIALS.filter((m) => m.categoryId === program.id);
   const labs = getHandsOn(program.id);
   const selectedMat = selectedMatId ? materials.find((m) => m.id === selectedMatId) : null;
@@ -137,6 +141,41 @@ export default function CourseCategory(): ReactElement {
                 <i className={`fa-solid ${program.icon}`} style={{ color: program.color }} />
                 <span>{language === 'ko' ? program.nameKo : program.nameEn}</span>
               </div>
+
+              {/* 강의안 다운로드 — scripts/generate-handouts.mjs 가 굽는 배포본(public/handouts/) */}
+              {hasHandout && (
+              <nav className="course-sidebar-nav course-sidebar-dl">
+                <span className="course-sidebar-label">
+                  {language === 'ko' ? '강의안 다운로드' : 'Handout Download'}
+                </span>
+                <a
+                  href={`${import.meta.env.BASE_URL}handouts/dsu-${program.id}.pdf`}
+                  download={`${handoutName}.pdf`}
+                  className="course-sidebar-dl-btn pdf"
+                >
+                  <i className="fa-solid fa-file-pdf" />
+                  <span>PDF</span>
+                  <i className="fa-solid fa-download" />
+                </a>
+                <a
+                  href={`${import.meta.env.BASE_URL}handouts/dsu-${program.id}.doc`}
+                  download={`${handoutName}.doc`}
+                  className="course-sidebar-dl-btn word"
+                >
+                  <i className="fa-solid fa-file-word" />
+                  <span>{language === 'ko' ? '워드' : 'Word'}</span>
+                  <i className="fa-solid fa-download" />
+                </a>
+                <a
+                  href={`${import.meta.env.BASE_URL}handouts/dsu-cover.pdf`}
+                  download="동신대_AI연수_표지_전체일정.pdf"
+                  className="course-sidebar-link sub"
+                >
+                  <i className="fa-solid fa-book-open" />{' '}
+                  {language === 'ko' ? '표지 · 전체 일정' : 'Cover & Schedule'}
+                </a>
+              </nav>
+              )}
 
               <nav className="course-sidebar-nav">
                 <span className="course-sidebar-label">{language === 'ko' ? '과정 메뉴' : 'Course Menu'}</span>
