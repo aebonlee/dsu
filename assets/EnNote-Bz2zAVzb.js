@@ -1,1 +1,0 @@
-import{C as a,l}from"./index-BXTeeQ2_.js";function r({text:n,block:e=!1}){const{bilingual:s}=a();return!s||!n?null:l.jsx("span",{className:`en-note${e?" en-note-block":""}`,lang:"en",children:n})}export{r as E};

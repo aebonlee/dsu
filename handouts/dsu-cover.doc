@@ -94,16 +94,13 @@
         <div class="cover-sub">생성형 인공지능 A to Z — Claude 중심 교수 활용</div>
         <hr class="cover-rule">
         <div class="cover-meta">
-          <div><b>연수 기간</b> 2026. 07. 20.(월) ~ 07. 22.(수)</div>
-          <div><b>과정 구성</b> 대면 12시간 + 공통 VOD 8시간</div>
-          <div><b>대상 트랙</b> 인문사회 · 예체능 트랙</div>
-          <div><b>담당 강사</b> 정동엽 교수</div>
+          <div><b>연수 기간</b> 2026. 07. 20.(월) ~ 07. 22.(수)</div><div><b>과정 구성</b> 대면 12시간 + 공통 VOD 8시간</div><div><b>대상 트랙</b> 인문사회 · 예체능 트랙</div><div><b>담당 강사</b> 정동엽 교수</div>
         </div>
         <div class="cover-badge">수강생 배포용 강의안</div>
       </div>
       <div class="cover-foot">
         학습 사이트 dsu.dreamitbiz.com · 실습 보드 padlet.com/aebon/dsu26<br>
-        발행 드림아이티비즈(DreamIT Biz) · 대표 이애본<br>
+        발행 드림아이티비즈(DreamIT Biz) · 이애본<br>
         aebon@dreamitbiz.com · 010-3700-0629 · 카카오톡 aebon
       </div>
     </section>
@@ -122,16 +119,7 @@
       </table>
 
       <h2 class="sec-title" style="margin-top:9mm">이 강의안 사용법</h2>
-      <ul class="topics">
-        <li>강의안은 <strong>날짜별 3권</strong>으로 나뉩니다. 수업 당일 해당 권만 준비하시면 됩니다.</li>
-        <li>각 교시는 <strong>학습 목표 → 주요 내용 → 실습 프롬프트</strong> 순서로 구성됩니다.</li>
-        <li>실습 프롬프트는 <mark>Claude 대화창에 그대로 복사해 붙여넣는 완성형</mark>입니다.
-            <strong>[대괄호]</strong> 부분만 본인 과목·주제로 바꿔 주세요.</li>
-        <li>프롬프트는 <strong>[역할]·[맥락]·[요청]·[형식]·[예시]·[조건]</strong> 6요소 구조로 통일되어 있습니다.
-            이 구조 자체를 익히시면 어떤 요청도 직접 쓰실 수 있습니다.</li>
-        <li>각 교시 끝의 <strong>📦 산출물</strong>은 그 시간에 실제로 만들어 가져가시는 결과물입니다.</li>
-        <li>대면 수업 전 <strong>공통 VOD 4모듈(8시간)</strong>을 먼저 시청해 주세요.</li>
-      </ul>
+      <ul class="topics"><li>강의안은 <strong>날짜별 3권</strong>으로 나뉩니다. 수업 당일 해당 권만 준비하시면 됩니다.</li><li>각 교시는 <strong>학습 목표 → 주요 내용 → 실습 프롬프트</strong> 순서로 구성됩니다.</li><li>실습 프롬프트는 <mark>Claude 대화창에 그대로 복사해 붙여넣는 완성형</mark>입니다. <strong>[대괄호]</strong> 부분만 본인 과목·주제로 바꿔 주세요.</li><li>프롬프트는 <strong>[역할]·[맥락]·[요청]·[형식]·[예시]·[조건]</strong> 6요소 구조로 통일되어 있습니다. 이 구조 자체를 익히시면 어떤 요청도 직접 쓰실 수 있습니다.</li><li>각 교시 끝의 <strong>📦 산출물</strong>은 그 시간에 실제로 만들어 가져가시는 결과물입니다.</li><li>대면 수업 전 <strong>공통 VOD 4모듈(8시간)</strong>을 먼저 시청해 주세요.</li></ul>
     </section>
     <div class="page-break"></div>
     <section>
@@ -169,15 +157,7 @@
       <h2 class="sec-title" style="margin-top:9mm">3일 학습 여정</h2>
       <table>
         <thead><tr><th style="width:30mm">단계</th><th>무엇을 얻어 가시나요</th></tr></thead>
-        <tbody>
-          <tr><td><b>사전 VOD</b></td><td>AI가 글을 만드는 원리와 한계(환각), 프롬프트 기본기, 안전하게 쓰는 기준</td></tr>
-          <tr><td><b>Day 1</b></td><td>내 과목의 AI 적용 지도 · 학습목표 3개 · 한 주차 강의안 · 토론 가이드 · 사례 분석지</td></tr>
-          <tr><td><b>Day 2</b></td><td>서술·논술 문항 · 단계별 모범답안 · 역량 루브릭 · 개인화 피드백 템플릿 · 출처 검증 루틴</td></tr>
-          <tr><td><b>Day 3</b></td><td>수업 전·중·후 AI 배치 전략 · 역량 연습 시나리오 · 바이브코딩 수업 도구 · 개인 교수 프로토콜 1장</td></tr>
-        </tbody>
+        <tbody><tr><td><b>사전 VOD</b></td><td>AI가 글을 만드는 원리와 한계(환각), 프롬프트 기본기, 안전하게 쓰는 기준</td></tr><tr><td><b>Day 1</b></td><td>내 과목의 AI 적용 지도 · 학습목표 3개 · 한 주차 강의안 · 토론 가이드 · 사례 분석지</td></tr><tr><td><b>Day 2</b></td><td>서술·논술 문항 · 단계별 모범답안 · 역량 루브릭 · 개인화 피드백 템플릿 · 출처 검증 루틴</td></tr><tr><td><b>Day 3</b></td><td>수업 전·중·후 AI 배치 전략 · 역량 연습 시나리오 · 바이브코딩 수업 도구 · 개인 교수 프로토콜 1장</td></tr></tbody>
       </table>
-      <p style="margin-top:8mm;font-size:10pt;color:#4a5568">
-        <mark>AI는 준비를 돕고, 생각은 사람이 합니다.</mark>
-        이 연수 전체를 관통하는 대원칙입니다.
-      </p>
+      <p style="margin-top:8mm;font-size:10pt;color:#4a5568"><mark>AI는 준비를 돕고, 생각은 사람이 합니다.</mark> 이 연수 전체를 관통하는 대원칙입니다.</p>
     </section></body></html>
